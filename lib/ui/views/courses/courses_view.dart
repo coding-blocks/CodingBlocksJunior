@@ -9,7 +9,7 @@ class CoursesView extends StatelessWidget {
     return ViewModelBuilder<CoursesViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         body: Center(
-          child: Text('Hello World')
+          child: Text(model.title)
         ),
       ), 
       viewModelBuilder: () => CoursesViewModel(),

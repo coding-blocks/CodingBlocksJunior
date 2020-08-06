@@ -9,7 +9,16 @@ class OnBoardView extends StatelessWidget {
     return ViewModelBuilder<OnBoardViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         body: Center(
-          child: Text('Hello World')
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Text(model.title),
+              FlatButton(
+                onPressed: model.goToHome,
+                child: Text('Go to Home'),
+              ),
+            ],
+          ),
         ),
       ), 
       viewModelBuilder: () => OnBoardViewModel(),
