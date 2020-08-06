@@ -16,12 +16,12 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Coding Blocks Junior',
-      theme: ThemeData(fontFamily: 'Gilroy'),
       builder: ExtendedNavigator.builder(
         router: Router(),
         navigatorKey: locator<NavigationService>().navigatorKey,
         builder: (context, extendedNav) => Theme(
           data: ThemeData(
+            fontFamily: 'Gilroy',
             primaryColor: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),

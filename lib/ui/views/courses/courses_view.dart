@@ -21,11 +21,19 @@ class CoursesView extends StatelessWidget {
                   alignment: Alignment.centerLeft,
                   child: Padding(
                     padding: const EdgeInsets.only(bottom: 8.0),
-                    child: Text("Hello",
-                        style: TextStyle(
-                          color: getColorFromHex('#1D4479'),
-                          fontSize: 14,
-                        )),
+                    child: RichText(
+                        text: TextSpan(
+                            text: 'Hello ',
+                            style: TextStyle(
+                              color: getColorFromHex('#1D4479'),
+                              fontSize: 14,
+                            ),
+                            children: <TextSpan>[
+                          TextSpan(
+                              text: '\nPulkit',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 26)),
+                        ])),
                   )),
               Align(
                   alignment: Alignment.centerLeft,
@@ -38,6 +46,16 @@ class CoursesView extends StatelessWidget {
                         )),
                   )),
               CourseCard(),
+              Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 10, bottom: 20.0),
+                    child: Text("Other Courses",
+                        style: TextStyle(
+                          color: getColorFromHex('#1D4479'),
+                          fontSize: 14,
+                        )),
+                  )),
               CourseCard(),
               CourseCard(),
             ],
