@@ -43,7 +43,7 @@ class CoursesView extends StatelessWidget {
                       fontSize: 14,
                     )),
               ),
-              CourseCard(),
+              if (model.courses.length > 0) CourseCard(course: model.courses[0], isExpanded: true,),
               Container(
                 padding: const EdgeInsets.only(top: 10, bottom: 20.0),
                 alignment: Alignment.centerLeft,
@@ -53,9 +53,7 @@ class CoursesView extends StatelessWidget {
                       fontSize: 14,
                     )),
               ),
-              CourseCard(),
-              CourseCard(),
-              ...(model.data != null ? model.data.documents.map<Widget>((d) => Text(d['title'])).toList() : [])
+              ...(model.courses.map((course) => CourseCard(course: course)))
             ],
           ),
         ),
