@@ -10,6 +10,6 @@ class OnBoardViewModel extends BaseViewModel {
   String get title => _title;
 
   Future goToHome() async {
-    await _navigationService.navigateTo(Routes.coursesView);
+    await _navigationService.navigateTo(Routes.dashboardView);
   }
 }

@@ -9,15 +9,15 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 
-import '../ui/views/courses/courses_view.dart';
+import '../ui/views/dashboard/dashboard_view.dart';
 import '../ui/views/on_board/on_board_view.dart';
 
 class Routes {
   static const String onBoardView = '/';
-  static const String coursesView = '/courses-view';
+  static const String dashboardView = '/dashboard-view';
   static const all = <String>{
     onBoardView,
-    coursesView,
+    dashboardView,
   };
 }
 
@@ -26,7 +26,7 @@ class Router extends RouterBase {
   List<RouteDef> get routes => _routes;
   final _routes = <RouteDef>[
     RouteDef(Routes.onBoardView, page: OnBoardView),
-    RouteDef(Routes.coursesView, page: CoursesView),
+    RouteDef(Routes.dashboardView, page: DashboardView),
   ];
   @override
   Map<Type, AutoRouteFactory> get pagesMap => _pagesMap;
@@ -37,9 +37,9 @@ class Router extends RouterBase {
         settings: data,
       );
     },
-    CoursesView: (data) {
+    DashboardView: (data) {
       return MaterialPageRoute<dynamic>(
-        builder: (context) => CoursesView(),
+        builder: (context) => DashboardView(),
         settings: data,
       );
     },
