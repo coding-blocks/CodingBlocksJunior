@@ -9,17 +9,21 @@ class TagChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData(canvasColor: Colors.transparent),
-      child: Chip(
-        backgroundColor: Colors.transparent,
-        labelPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-        shape: StadiumBorder(
-          side: BorderSide(color: Colors.white),
-        ),
-        label: Text(
-          text,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 8,
+      child: Transform(
+        transform: new Matrix4.identity()..scale(0.8),
+        child: Chip(
+          backgroundColor: Colors.transparent,
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          labelPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+          shape: StadiumBorder(
+            side: BorderSide(color: Colors.white),
+          ),
+          label: Text(
+            text,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 8,
+            ),
           ),
         ),
       ),
