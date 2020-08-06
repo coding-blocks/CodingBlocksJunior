@@ -1,6 +1,15 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:stacked/stacked.dart';
 
-class CoursesViewModel extends BaseViewModel {
-  final _title = 'Courses';
-  String get title => _title;
+
+class CoursesViewModel extends StreamViewModel<QuerySnapshot> {
+  int limit  = 20;
+
+  @override
+  Stream<QuerySnapshot> get stream => Firestore
+      .instance
+      .collection('courses')
+      .limit(limit)
+      .snapshots();
+
 }

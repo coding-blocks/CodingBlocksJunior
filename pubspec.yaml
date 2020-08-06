@@ -35,6 +35,10 @@ dependencies:
   get_it:
   injectable:
 
+  firebase_core: "0.4.5"
+  cloud_firestore: "0.13.7"
+  enhanced_future_builder: "1.0.3"
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
