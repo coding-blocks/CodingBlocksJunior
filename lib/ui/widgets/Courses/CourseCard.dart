@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'package:coding_blocks_junior/ui/widgets/Courses/CourseCard/CourseCardExpandedView.dart';
+
 class CourseCard extends StatefulWidget {
   @override
   _CourseCardState createState() => _CourseCardState();
@@ -31,7 +33,7 @@ class _CourseCardState extends State<CourseCard> {
                     children: <Widget>[
                       Container(
                         margin: EdgeInsets.fromLTRB(0, 0, 10, 0),
-                        child: Image.network('https://minio.cb.lk/coding-blocks-junior/python-white.png',),
+                        child: Image.network('https://minio.cb.lk/coding-blocks-junior/python-white.png'),
                       ),
                       Text(
                         'Python',
@@ -70,24 +72,6 @@ class _CourseCardState extends State<CourseCard> {
           ),
         ),
       ),
-    );
-  }
-}
-
-class CourseCardExpandedView extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: <Widget>[
-        Expanded(
-          flex: 1,
-          child: null,
-        ),
-        Expanded(
-          flex: 1,
-          child: null,
-        ),
-      ],
     );
   }
 }
