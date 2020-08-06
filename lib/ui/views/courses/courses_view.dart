@@ -1,3 +1,4 @@
+import 'package:coding_blocks_junior/ui/widgets/Courses/CourseCard.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -8,8 +9,15 @@ class CoursesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<CoursesViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        body: Center(
-          child: Text(model.title)
+        appBar: AppBar(
+          title: Text(model.title),
+        ),
+        body: Column(
+          children: <Widget>[
+            CourseCard(),
+            CourseCard(),
+            CourseCard(),
+          ],
         ),
       ), 
       viewModelBuilder: () => CoursesViewModel(),
