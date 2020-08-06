@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Coding Blocks Junior',
+      theme: ThemeData(fontFamily: 'Gilroy'),
       builder: ExtendedNavigator.builder(
         router: Router(),
         navigatorKey: locator<NavigationService>().navigatorKey,
