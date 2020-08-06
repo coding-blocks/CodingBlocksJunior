@@ -10,7 +10,7 @@ class OnBoardView extends StatelessWidget {
       builder: (context, model, child) => Scaffold(
         body: Center(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               Text(model.title),
               FlatButton(
