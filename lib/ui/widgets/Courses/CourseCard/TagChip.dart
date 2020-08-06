@@ -11,6 +11,7 @@ class TagChip extends StatelessWidget {
       data: ThemeData(canvasColor: Colors.transparent),
       child: Chip(
         backgroundColor: Colors.transparent,
+        labelPadding: EdgeInsets.fromLTRB(10, 0, 10, 0),
         shape: StadiumBorder(
           side: BorderSide(color: Colors.white),
         ),
@@ -18,6 +19,7 @@ class TagChip extends StatelessWidget {
           text,
           style: TextStyle(
             color: Colors.white,
+            fontSize: 8,
           ),
         ),
       ),
