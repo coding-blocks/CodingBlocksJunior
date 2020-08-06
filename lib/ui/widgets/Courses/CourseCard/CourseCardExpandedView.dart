@@ -51,7 +51,8 @@ class CourseCardExpandedView extends StatelessWidget {
         Expanded(
           flex: 1,
           child: Wrap(
-            spacing: 4,
+            spacing: -5,
+            runSpacing: 2,
             children: <Widget>[
               TagChip(text: 'Tag 1'),
               TagChip(text: 'Tag 1'),
