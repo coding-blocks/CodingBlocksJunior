@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
         navigatorKey: locator<NavigationService>().navigatorKey,
         builder: (context, extendedNav) => Theme(
           data: ThemeData(
+            fontFamily: 'Gilroy',
             primaryColor: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
