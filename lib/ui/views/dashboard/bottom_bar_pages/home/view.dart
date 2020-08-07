@@ -1,4 +1,4 @@
-import 'package:coding_blocks_junior/ui/views/dashboard/bottom_bar_pages/home/dashboard_home_viewmodel.dart';
+import 'package:coding_blocks_junior/ui/views/dashboard/bottom_bar_pages/home/viewmodel.dart';
 import 'package:coding_blocks_junior/ui/widgets/Courses/CourseCard.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:flutter/material.dart';

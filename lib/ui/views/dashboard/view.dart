@@ -1,13 +1,13 @@
-import 'package:coding_blocks_junior/ui/views/dashboard/bottom_bar_pages/bookmarks/dashboard_bookmarks_view.dart';
-import 'package:coding_blocks_junior/ui/views/dashboard/bottom_bar_pages/home/dashboard_home_view.dart';
-import 'package:coding_blocks_junior/ui/views/dashboard/bottom_bar_pages/notes/dashboard_notes_view.dart';
-import 'package:coding_blocks_junior/ui/views/dashboard/bottom_bar_pages/profile/dashboard_profile_view.dart';
+import 'package:coding_blocks_junior/ui/views/dashboard/bottom_bar_pages/bookmarks/view.dart';
+import 'package:coding_blocks_junior/ui/views/dashboard/bottom_bar_pages/home/view.dart';
+import 'package:coding_blocks_junior/ui/views/dashboard/bottom_bar_pages/notes/view.dart';
+import 'package:coding_blocks_junior/ui/views/dashboard/bottom_bar_pages/profile/view.dart';
 import 'package:coding_blocks_junior/ui/widgets/BottomBar/label_text.dart';
+import 'package:coding_blocks_junior/ui/widgets/Dashboard/bottom_bar_nav_icon.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
 
-import 'dashboard_viewmodel.dart';
+import 'viewmodel.dart';
 
 class DashboardView extends StatelessWidget {
   final PageController _pageController = PageController(initialPage: 1);
@@ -21,8 +21,8 @@ class DashboardView extends StatelessWidget {
           onPageChanged: (index) {
             _pageController.animateToPage(
               index,
-              duration: Duration(milliseconds: 500), 
-              curve: Curves.easeOut
+              duration: Duration(milliseconds: 1000), 
+              curve: Curves.ease
             );
             model.onItemClick(index);
           },
@@ -65,19 +65,23 @@ class DashboardView extends StatelessWidget {
               },
               items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
-                  icon: SvgPicture.asset('assets/bookmark-blue.svg'),
+                  icon: BottomBarNavIcon('assets/bookmark-white.png'),
+                  activeIcon: BottomBarNavIcon('assets/bookmark-blue.png'),
                   title: NavLabelText('Bookmarks')
                 ),
                 BottomNavigationBarItem(
-                  icon: SvgPicture.asset('assets/home-blue.svg'),
+                  icon: BottomBarNavIcon('assets/home-white.png'),
+                  activeIcon: BottomBarNavIcon('assets/home-blue.png'),
                   title: NavLabelText('Home')
                 ),
                 BottomNavigationBarItem(
-                  icon: SvgPicture.asset('assets/notes-blue.svg'),
+                  icon: BottomBarNavIcon('assets/notes-white.png'),
+                  activeIcon: BottomBarNavIcon('assets/notes-blue.png'),
                   title: NavLabelText('Notes')
                 ),
                 BottomNavigationBarItem(
-                  icon: SvgPicture.asset('assets/profile-blue.svg'),
+                  icon: BottomBarNavIcon('assets/profile-white.png'),
+                  activeIcon: BottomBarNavIcon('assets/profile-blue.png'),
                   title: NavLabelText('Profile')
                 ),
               ],

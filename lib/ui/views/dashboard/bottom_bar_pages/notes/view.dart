@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-import 'dashboard_notes_viewmodel.dart';
+import 'viewmodel.dart';
 
 class DashboardNotesView extends StatelessWidget {
   @override

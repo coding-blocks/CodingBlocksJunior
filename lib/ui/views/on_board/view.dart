@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-import 'on_board_viewmodel.dart';
+import 'viewmodel.dart';
 
 class OnBoardView extends StatelessWidget {
   @override
