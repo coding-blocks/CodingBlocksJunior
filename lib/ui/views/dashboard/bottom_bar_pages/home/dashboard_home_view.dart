@@ -52,7 +52,7 @@ class DashboardHomeView extends StatelessWidget {
                       fontSize: 14,
                     )),
               ),
-              ...(model.courses.map((course) => CourseCard(course: course)))
+              ...(model.courses.map((course) => CourseCard(course: course, onPress: () => model.goToCourse(course),)))
             ],
           ),
         ),

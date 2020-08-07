@@ -10,7 +10,7 @@ import 'package:stacked/stacked.dart';
 import 'dashboard_viewmodel.dart';
 
 class DashboardView extends StatelessWidget {
-  final PageController _pageController = PageController();
+  final PageController _pageController = PageController(initialPage: 1);
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,8 @@ class DashboardView extends StatelessWidget {
         bottomNavigationBar: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.only(
-              topRight: Radius.circular(30), 
-              topLeft: Radius.circular(30)
+              topRight: Radius.circular(12),
+              topLeft: Radius.circular(12)
             ),
             boxShadow: [                                                               
               BoxShadow(
@@ -49,8 +49,8 @@ class DashboardView extends StatelessWidget {
           ),
           child: ClipRRect(
             borderRadius: BorderRadius.only(                                           
-              topLeft: Radius.circular(30.0),                                            
-              topRight: Radius.circular(30.0),                                           
+              topLeft: Radius.circular(12.0),
+              topRight: Radius.circular(12.0),
             ), 
             child: BottomNavigationBar(
               showUnselectedLabels: true,
