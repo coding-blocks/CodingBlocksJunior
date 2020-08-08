@@ -56,7 +56,7 @@ packages:
       name: auto_route_generator
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.7"
+    version: "0.6.8"
   bloc:
     dependency: transitive
     description:
@@ -105,14 +105,14 @@ packages:
       name: build_runner
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.10.0"
+    version: "1.10.1"
   build_runner_core:
     dependency: transitive
     description:
       name: build_runner_core
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "5.2.0"
+    version: "6.0.1"
   built_collection:
     dependency: transitive
     description:
@@ -279,13 +279,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.2.0"
-  flutter_svg:
-    dependency: "direct main"
-    description:
-      name: flutter_svg
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.17.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -302,7 +295,7 @@ packages:
       name: get
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.4.2"
+    version: "3.4.3"
   get_it:
     dependency: "direct main"
     description:
@@ -464,20 +457,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.6.4"
-  path_drawing:
-    dependency: transitive
-    description:
-      name: path_drawing
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.4.1"
-  path_parsing:
-    dependency: transitive
-    description:
-      name: path_parsing
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.4"
   pedantic:
     dependency: transitive
     description:
@@ -512,7 +491,7 @@ packages:
       name: provider
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "4.3.1"
+    version: "4.3.2"
   pub_semver:
     dependency: transitive
     description:
@@ -587,7 +566,7 @@ packages:
       name: stacked
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.7.5"
+    version: "1.7.6"
   stacked_services:
     dependency: "direct main"
     description:

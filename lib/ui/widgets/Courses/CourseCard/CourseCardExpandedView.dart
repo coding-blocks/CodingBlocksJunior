@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:coding_blocks_junior/ui/widgets/Courses/CourseCard/TagChip.dart';
 
@@ -22,7 +21,7 @@ class CourseCardExpandedView extends StatelessWidget {
                   border: Border.all(color: Colors.white),
                 ),
                 child: ClipOval(
-                  child: SvgPicture.network('https://minio.codingblocks.com/img/avatar-9.svg'),
+                  child: Image.network('https://www.arslan.mn/files/users/sample.png'),
                 ),
               ),
               Column(

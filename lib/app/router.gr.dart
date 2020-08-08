@@ -9,8 +9,8 @@
 import 'package:auto_route/auto_route.dart';
 
 import '../ui/views/course/view.dart';
-import '../ui/views/dashboard/dashboard_view.dart';
-import '../ui/views/on_board/on_board_view.dart';
+import '../ui/views/dashboard/view.dart';
+import '../ui/views/on_board/view.dart';
 
 class Routes {
   static const String onBoardView = '/on-board-view';

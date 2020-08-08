@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Coding Blocks Junior',
+      debugShowCheckedModeBanner: false,
       builder: ExtendedNavigator.builder(
         router: Router(),
         navigatorKey: locator<NavigationService>().navigatorKey,
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
             primaryColor: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          child: extendedNav,
+          child: SafeArea(child: extendedNav),
         ),
       ),
     );
