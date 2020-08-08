@@ -21,7 +21,7 @@ class DashboardView extends StatelessWidget {
           onPageChanged: (index) {
             _pageController.animateToPage(
               index,
-              duration: Duration(milliseconds: 1000), 
+              duration: Duration(milliseconds: 500),
               curve: Curves.ease
             );
             model.onItemClick(index);
@@ -54,6 +54,7 @@ class DashboardView extends StatelessWidget {
             ), 
             child: BottomNavigationBar(
               showUnselectedLabels: true,
+              type: BottomNavigationBarType.fixed,
               currentIndex: model.selectedIndex,
               onTap: (index) {
                 _pageController.animateToPage(

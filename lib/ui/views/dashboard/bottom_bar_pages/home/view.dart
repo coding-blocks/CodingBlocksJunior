@@ -9,9 +9,6 @@ class DashboardHomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<DashboardHomeViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        // appBar: AppBar(
-        //   title: Text('Courses'),
-        // ),
         body: Padding(
           padding: const EdgeInsets.all(28.0),
           child: Column(
