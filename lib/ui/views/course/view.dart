@@ -15,9 +15,8 @@ class CourseView extends StatelessWidget {
     return ViewModelBuilder<CourseViewModel>.reactive(
         builder: (context, model, child) => Scaffold(
           body: Container(
-            padding: EdgeInsets.all(20),
-              child: Center(
-              child: model.isBusy ? CircularProgressIndicator() : ContentListView(contentStream: model.data.contentStream,) )
+            padding: EdgeInsets.all(30),
+              child: model.isBusy ? CircularProgressIndicator() : ContentListView(contentStream: model.data.contentStream,)
           )    
     ),
         viewModelBuilder: () => CourseViewModel(slug)

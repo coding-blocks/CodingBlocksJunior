@@ -37,6 +37,7 @@ dependencies:
   firebase_core: "0.4.5"
   cloud_firestore: "0.13.7"
   enhanced_future_builder: "1.0.3"
+  add_thumbnail: ^0.0.1
   flutter_svg:
 
 dev_dependencies:

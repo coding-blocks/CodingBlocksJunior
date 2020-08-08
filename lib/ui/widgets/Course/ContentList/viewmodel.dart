@@ -6,12 +6,10 @@ class ContentListViewModel extends StreamViewModel<QuerySnapshot> {
   Stream<QuerySnapshot> contentStream;
   List<Content> contents = [];
 
-
-  ContentListViewModel({this.contentStream});
-
   @override
   Stream<QuerySnapshot> get stream => contentStream;
 
+  ContentListViewModel({this.contentStream});
 
   @override
   void onData(QuerySnapshot data) {
