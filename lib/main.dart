@@ -3,11 +3,26 @@ import 'package:flutter/material.dart';
 
 import 'package:coding_blocks_junior/app/locator.dart';
 import 'package:coding_blocks_junior/app/router.gr.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 void main() {
   setupLocator();
   runApp(MyApp());
+  setupOneSignal();
+}
+
+void setupOneSignal() {
+  OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+
+  OneSignal.shared.init(
+      "b8f1cb4e-28c2-4aad-9fa9-ebd9895bef9b",
+      iOSSettings: {
+        OSiOSSettings.autoPrompt: false,
+        OSiOSSettings.inAppLaunchUrl: false
+      }
+  );
+  OneSignal.shared.setInFocusDisplayType(OSNotificationDisplayType.notification);
 }
 
 class MyApp extends StatelessWidget {

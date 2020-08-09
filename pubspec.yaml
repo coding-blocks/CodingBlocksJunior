@@ -38,6 +38,8 @@ dependencies:
   cloud_firestore: "0.13.7"
   enhanced_future_builder: "1.0.3"
   add_thumbnail: ^0.0.1
+  onesignal_flutter: ^2.0.0
+
 
 dev_dependencies:
   flutter_test:
