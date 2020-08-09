@@ -34,6 +34,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       builder: ExtendedNavigator.builder(
         router: Router(),
+        initialRoute: Routes.dashboardView,
         navigatorKey: locator<NavigationService>().navigatorKey,
         builder: (context, extendedNav) => Theme(
           data: ThemeData(
