@@ -16,5 +16,4 @@ class ContentListViewModel extends StreamViewModel<QuerySnapshot> {
     contents = data.documents.map((DocumentSnapshot snapshot) => Content.fromSnapshot(snapshot)).toList();
     notifyListeners();
   }
-
 }
