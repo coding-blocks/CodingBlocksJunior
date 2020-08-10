@@ -1,33 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:add_thumbnail/add_thumbnail.dart';
+import 'package:coding_blocks_junior/utils/youtube.dart';
 
-class ThumbnailView extends StatefulWidget {
-  List<String> urls;
+class Thumbnail extends StatelessWidget {
+  String url;
 
-  ThumbnailView({this.urls});
-
-  @override
-  _ThumbnailViewState createState() => _ThumbnailViewState();
-}
-
-class _ThumbnailViewState extends State<ThumbnailView> {
-  List<MediaInfo> mediaList = [];
+  Thumbnail({this.url});
 
   @override
   Widget build(BuildContext context) {
-//    Thumbnail.addLink(
-//      context: context,
-//      onLinkAdded: (mediaInfo) {
-//        if (mediaInfo != null && mediaInfo.thumbnailUrl.isNotEmpty) {
-//          setState(() {
-//            mediaList.add(mediaInfo);
-//          });
-//        }
-//      },
-//    );
-
-    return mediaList.length > 0 ? MediaListView(
-      urls: widget.urls,
-    ) : Container();
+    var videoId = videoIdFromUrl(url);
+    final imgUrl = "https://img.youtube.com/vi/$videoId/hqdefault.jpg";
+    return Image.network(imgUrl, fit: BoxFit.cover,);
   }
 }
