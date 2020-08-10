@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:coding_blocks_junior/services/store.dart';
 import 'package:flutter/material.dart';
 
 import 'package:coding_blocks_junior/app/locator.dart';
@@ -7,8 +8,8 @@ import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 void main() {
-  setupLocator();
   runApp(MyApp());
+  setupLocator();
   setupOneSignal();
 }
 

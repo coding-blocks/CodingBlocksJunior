@@ -8,8 +8,14 @@ class DashboardNotesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<DashboardNotesViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        body: Center(
-          child: Text('Notes'),
+        body: model.isBusy ? CircularProgressIndicator() : Column(
+          children: [
+            FlatButton(
+              onPressed: model.addNote,
+              child: Text('Add Note'),
+            ),
+            ...model.data.map((note) => Text(note.content)).toList()
+          ],
         ),
       ), 
       viewModelBuilder: () => DashboardNotesViewModel()
