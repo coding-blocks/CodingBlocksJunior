@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coding_blocks_junior/models/content.dart';
 import 'package:coding_blocks_junior/ui/widgets/Base/Thumbnail.dart';
-import 'package:coding_blocks_junior/ui/widgets/Course/ContentList/viewmodel.dart';
+import 'package:coding_blocks_junior/ui/widgets/Courses/ContentList/viewmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';

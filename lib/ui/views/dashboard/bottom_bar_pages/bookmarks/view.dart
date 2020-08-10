@@ -38,14 +38,18 @@ class DashboardBookmarksView extends StatelessWidget {
               ),
               if (!model.isBusy && model.data.length == 0) Expanded(
                 flex: 1,
-                child: Center(
-                  child: Text(
-                    'Your Bookmarked videos appears here!',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: getColorFromHex('#1D4479')
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset('assets/bookmark-blue.png', height: 82, width: 82,),
+                    Text(
+                      'Your Bookmarked videos appears here!',
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: getColorFromHex('#1D4479')
+                      )
                     )
-                  ),
+                  ],
                 ),
               ),
             ],

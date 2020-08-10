@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:coding_blocks_junior/ui/views/course/viewmodel.dart';
-import 'package:coding_blocks_junior/ui/widgets/Course/ContentList/view.dart';
+import 'package:coding_blocks_junior/ui/widgets/Courses/ContentList/view.dart';
 
 class CourseView extends StatelessWidget {
   @override
