@@ -1,17 +1,19 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Course {
-  String title;
-  String subtitle;
-  String logo;
-  String slug;
-  String id;
+  final String title;
+  final String subtitle;
+  final String background;
+  final String logo;
+  final String slug;
+  final String id;
 
   Course({
     this.id,
     this.title,
     this.subtitle,
     this.logo,
+    this.background,
     this.slug,
   });
 
@@ -21,6 +23,7 @@ class Course {
       title: snapshot['title'],
       subtitle: snapshot['subtitle'],
       logo: snapshot['logo'],
+      background: snapshot['background'],
       slug: snapshot['slug'],
     );
   }

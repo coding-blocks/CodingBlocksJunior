@@ -8,8 +8,6 @@ class CourseCard extends StatefulWidget {
   final bool isExpanded;
   final Function onPress;
 
-  var nullReturn = () => null;
-
   CourseCard({Course course, bool isExpanded, Function onPress})
       : this.course = course,
         this.isExpanded = isExpanded ?? false,
@@ -23,14 +21,19 @@ class _CourseCardState extends State<CourseCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8)
+      ),
       child: InkWell(
         onTap: widget.onPress,
         child: Container(
           decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: NetworkImage(
-                      "https://minio.codingblocks.com/coding-blocks-junior/python-background.png"),
-                  fit: BoxFit.cover)),
+            borderRadius: BorderRadius.circular(8),
+            image: DecorationImage(
+              image: NetworkImage(widget.course.background),
+              fit: BoxFit.cover
+            )
+          ),
           padding: EdgeInsets.all(10),
           child: Column(
             children: <Widget>[
