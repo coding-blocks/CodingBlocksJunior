@@ -10,6 +10,7 @@ import 'label_text.dart';
 class DashboardNavigationBar extends ViewModelWidget<DashboardViewModel> {
   @override
   Widget build(BuildContext context, DashboardViewModel model) {
+    TabController tabController = DefaultTabController.of(context);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
@@ -34,8 +35,8 @@ class DashboardNavigationBar extends ViewModelWidget<DashboardViewModel> {
           type: BottomNavigationBarType.fixed,
           currentIndex: model.selectedIndex,
           onTap: (int index) {
-            print(ExtendedNavigator.of(context).routerName);
-            ExtendedNavigator.of(context).replace(Routes.dashboardView + model.dashboardView[index]);
+            tabController.animateTo(index);
+            model.setSelectedIndex(index);
           },
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
