@@ -10,12 +10,4 @@ class DashboardNotesViewModel extends FutureViewModel<List<Note>> {
   Future<List<Note>> futureToRun() {
     return _storeService.database.noteDao.findAllNotes();
   }
-
-  Future<void> addNote() async {
-    await _storeService.database.noteDao.insertNote(Note(
-      content: 'Sample Note',
-      videoId: 'something'
-    ));
-    await futureToRun();
-  }
 }
