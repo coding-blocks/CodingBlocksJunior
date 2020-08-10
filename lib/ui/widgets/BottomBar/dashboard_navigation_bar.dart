@@ -11,6 +11,13 @@ class DashboardNavigationBar extends ViewModelWidget<DashboardViewModel> {
   @override
   Widget build(BuildContext context, DashboardViewModel model) {
     TabController tabController = DefaultTabController.of(context);
+
+    tabController.addListener(() {
+      if (!tabController.indexIsChanging) {
+        model.setSelectedIndex(tabController.index);
+      }
+    });
+
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.only(
