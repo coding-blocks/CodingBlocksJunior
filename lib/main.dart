@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
             primaryColor: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          child: SafeArea(child: extendedNav),
+          child: extendedNav,
         ),
       ),
     );

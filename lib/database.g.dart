@@ -62,10 +62,12 @@ class _$AppDatabase extends AppDatabase {
 
   NoteDao _noteDaoInstance;
 
+  BookmarkDao _bookmarkDaoInstance;
+
   Future<sqflite.Database> open(String path, List<Migration> migrations,
       [Callback callback]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
-      version: 1,
+      version: 2,
       onConfigure: (database) async {
         await database.execute('PRAGMA foreign_keys = ON');
       },
@@ -81,6 +83,8 @@ class _$AppDatabase extends AppDatabase {
       onCreate: (database, version) async {
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `Note` (`id` INTEGER, `content` TEXT, `videoId` TEXT, PRIMARY KEY (`id`))');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `Bookmark` (`id` INTEGER, `videoId` TEXT, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -91,6 +95,11 @@ class _$AppDatabase extends AppDatabase {
   @override
   NoteDao get noteDao {
     return _noteDaoInstance ??= _$NoteDao(database, changeListener);
+  }
+
+  @override
+  BookmarkDao get bookmarkDao {
+    return _bookmarkDaoInstance ??= _$BookmarkDao(database, changeListener);
   }
 }
 
@@ -127,5 +136,25 @@ class _$NoteDao extends NoteDao {
   @override
   Future<void> insertNote(Note note) async {
     await _noteInsertionAdapter.insert(note, OnConflictStrategy.abort);
+  }
+}
+
+class _$BookmarkDao extends BookmarkDao {
+  _$BookmarkDao(this.database, this.changeListener)
+      : _queryAdapter = QueryAdapter(database);
+
+  final sqflite.DatabaseExecutor database;
+
+  final StreamController<String> changeListener;
+
+  final QueryAdapter _queryAdapter;
+
+  static final _bookmarkMapper = (Map<String, dynamic> row) =>
+      Bookmark(id: row['id'] as int, videoId: row['videoId'] as String);
+
+  @override
+  Future<List<Bookmark>> findAllBookmarks() async {
+    return _queryAdapter.queryList('SELECT * FROM Bookmark',
+        mapper: _bookmarkMapper);
   }
 }
