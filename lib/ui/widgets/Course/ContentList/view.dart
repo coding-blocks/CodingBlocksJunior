@@ -1,4 +1,3 @@
-import 'package:add_thumbnail/thumbnail_list_vew.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coding_blocks_junior/models/content.dart';
 import 'package:coding_blocks_junior/ui/widgets/Base/Thumbnail.dart';
@@ -37,12 +36,12 @@ class ContentListItemView extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.fromLTRB(0, 0, 0, 22),
       child: SizedBox(
-        height: 100,
+        height: 84.38, // assuming 16:9 ratio
         child: Row(children: [
           SizedBox(
-            width: 150,
+            width: 150, //  assuming 16:9 ratio
             child:
-                content.url != null ? MediaListView(urls: [content.url]) : null,
+                content.url != null ? Thumbnail(url: content.url) : null,
           ),
           Expanded(
             child: Padding(
