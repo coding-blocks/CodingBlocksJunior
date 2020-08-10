@@ -17,7 +17,7 @@ class CourseView extends StatelessWidget {
           body: Container(
             padding: EdgeInsets.all(30),
               child: model.isBusy ? CircularProgressIndicator() :
-              ContentListView(contentStream: model.data.contentStream, onTap: (c) => print("you clicked ${c.title}"),)
+              ContentListView(contentStream: model.data.contentStream, onTap: model.goToContent,)
           )    
     ),
         viewModelBuilder: () => CourseViewModel(slug)
