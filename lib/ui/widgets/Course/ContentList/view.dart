@@ -8,8 +8,9 @@ import 'package:stacked/stacked.dart';
 
 class ContentListView extends StatelessWidget {
   Stream<QuerySnapshot> contentStream;
+  Function onTap;
 
-  ContentListView({this.contentStream});
+  ContentListView({this.contentStream, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +21,10 @@ class ContentListView extends StatelessWidget {
             shrinkWrap: true,
             itemCount: model.contents.length,
             itemBuilder: (context, index) {
-              return ContentListItemView(content: model.contents[index], index: index,);
+              return InkWell(
+                child: ContentListItemView(content: model.contents[index], index: index,),
+                onTap: () => onTap(model.contents[index]),
+              );
             }));
   }
 }
@@ -34,7 +38,7 @@ class ContentListItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(0, 0, 0, 22),
+      padding: EdgeInsets.fromLTRB(0, 11, 0, 11),
       child: SizedBox(
         height: 84.38, // assuming 16:9 ratio
         child: Row(children: [
