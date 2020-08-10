@@ -10,11 +10,10 @@ class CourseCard extends StatefulWidget {
 
   var nullReturn = () => null;
 
-  CourseCard({ 
-    Course course, 
-    bool isExpanded,  
-    Function onPress
-  }) : this.course = course, this.isExpanded = isExpanded ?? false, this.onPress = onPress;
+  CourseCard({Course course, bool isExpanded, Function onPress})
+      : this.course = course,
+        this.isExpanded = isExpanded ?? false,
+        this.onPress = onPress;
 
   @override
   _CourseCardState createState() => _CourseCardState();
@@ -24,10 +23,14 @@ class _CourseCardState extends State<CourseCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Color.fromRGBO(5, 117, 230, 1),
       child: InkWell(
         onTap: widget.onPress,
-        child: Padding(
+        child: Container(
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(
+                      "https://minio.codingblocks.com/coding-blocks-junior/python-background.png"),
+                  fit: BoxFit.cover)),
           padding: EdgeInsets.all(10),
           child: Column(
             children: <Widget>[
@@ -45,10 +48,9 @@ class _CourseCardState extends State<CourseCard> {
                       Text(
                         widget.course.title,
                         style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18
-                        ),
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18),
                       ),
                     ],
                   ),
@@ -57,18 +59,14 @@ class _CourseCardState extends State<CourseCard> {
                     children: <Widget>[
                       Text(
                         'For Classes',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 8
-                        ),
+                        style: TextStyle(color: Colors.white, fontSize: 8),
                       ),
                       Text(
                         '7th - 10th',
                         style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 8
-                        ),
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 8),
                       ),
                     ],
                   ),
