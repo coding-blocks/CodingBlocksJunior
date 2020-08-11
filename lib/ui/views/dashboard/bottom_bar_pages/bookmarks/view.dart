@@ -9,7 +9,8 @@ class DashboardBookmarksView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DashboardBookmarksViewModel>.reactive(
-      builder: (context, model, child) => Scaffold(
+        disposeViewModel: false,
+        builder: (context, model, child) => Scaffold(
         appBar: DashboardPagesAppBar(),
         body: Container(
           padding: EdgeInsets.fromLTRB(30, 12, 30, 0),

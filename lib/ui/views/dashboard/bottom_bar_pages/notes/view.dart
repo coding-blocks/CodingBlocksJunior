@@ -10,6 +10,7 @@ class DashboardNotesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DashboardNotesViewModel>.reactive(
+      disposeViewModel: false,
       builder: (context, model, child) => Scaffold(
         appBar: DashboardPagesAppBar(),
         body: Container(

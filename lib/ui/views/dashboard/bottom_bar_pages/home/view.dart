@@ -8,6 +8,7 @@ class DashboardHomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<DashboardHomeViewModel>.reactive(
+      disposeViewModel: false,
       builder: (context, model, child) => Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(28.0),
