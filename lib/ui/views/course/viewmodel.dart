@@ -34,7 +34,12 @@ class CourseViewModel extends FutureViewModel<Course> {
   }
   
   void goToContent (Content c) {
-    _navigationService.navigateTo(Routes.playerView(courseId: this.data.id, contentId: c.id));
+    _navigationService.navigateTo(
+        Routes.playerView(courseId: this.data.id, contentId: c.id),
+        arguments: {
+          'content': c,
+        }
+      );
   }
 }
 

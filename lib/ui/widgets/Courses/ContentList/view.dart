@@ -45,7 +45,7 @@ class ContentListItemView extends StatelessWidget {
           SizedBox(
             width: 150, //  assuming 16:9 ratio
             child:
-                content.url != null ? Thumbnail(url: content.url) : null,
+                content.url != null ? Hero(tag: content.url ,child: Thumbnail(url: content.url)) : null,
           ),
           Expanded(
             child: Padding(
@@ -56,12 +56,15 @@ class ContentListItemView extends StatelessWidget {
                 SizedBox(
                   height: 5,
                 ),
-                Text(
-                  content.title,
-                  style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.blueAccent),
+                Hero(
+                  tag: "hero_tag_content_title_${content.id}",
+                  child: Text(
+                    content.title,
+                    style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blueAccent),
+                  ),
                 ),
                 Expanded(
                   child: Align(

@@ -9,28 +9,26 @@ class PlayerViewModel extends FutureViewModel<Content> {
 
   YoutubePlayerController ytController;
   Content content;
-  PlayerViewModel({this.contentId, this.courseId});
+  PlayerViewModel({this.contentId, this.courseId, this.content});
 
   @override
   Future<Content> futureToRun() async {
-    try {
-      var qs = await Firestore.instance
-          .collectionGroup('contents')
-          .where(FieldPath.documentId, isEqualTo: "courses/$courseId/contents/$contentId")
-          .limit(1)
-          .getDocuments();
+    content = await fetchContent();
+    setupYoutubePlayer(content.url);
+    return content;
+  }
 
-
-      print(qs.documents[0]);
-
-
-      final content = Content.fromSnapshot(qs.documents[0]);
-      print(content.id);
-      setupYoutubePlayer(content.url);
+  Future<Content> fetchContent () async {
+    if (content != null)
       return content;
-    } catch (e) {
-      print (e);
-    }
+
+    var qs = await Firestore.instance
+        .collectionGroup('contents')
+        .where(FieldPath.documentId, isEqualTo: "courses/$courseId/contents/$contentId")
+        .limit(1)
+        .getDocuments();
+
+    return Content.fromSnapshot(qs.documents[0]);
   }
 
   setupYoutubePlayer(url) {
