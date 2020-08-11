@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:coding_blocks_junior/ui/views/player/player_pages/index.dart';
 import 'package:coding_blocks_junior/ui/views/player/viewmodel.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:flutter/material.dart';
@@ -61,6 +62,7 @@ class PlayerView extends StatelessWidget {
                           ],
                         ),
                       ),
+                      Expanded(child: PlayerPagesView())
                     ]
                   ],
                 ),
