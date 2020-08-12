@@ -160,6 +160,15 @@ class _$NoteDao extends NoteDao {
   }
 
   @override
+  Future<List<Note>> findNotesByCourseAndContent(
+      String courseId, String contentId) async {
+    return _queryAdapter.queryList(
+        'SELECT * FROM Note WHERE courseId=? AND contentId=?',
+        arguments: <dynamic>[courseId, contentId],
+        mapper: _noteMapper);
+  }
+
+  @override
   Future<void> insert(Note obj) async {
     await _noteInsertionAdapter.insert(obj, OnConflictStrategy.replace);
   }

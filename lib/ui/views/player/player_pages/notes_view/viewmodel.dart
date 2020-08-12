@@ -17,7 +17,7 @@ class PlayerNotesViewModel extends ReloadableFutureViewModel<List<Note>> {
   });
 
   Future<List<Note>> futureToRun() {
-    return _storeService.database.noteDao.findAllNotes();
+    return _storeService.database.noteDao.findNotesByCourseAndContent(course.id, content.id);
   }
 
   Future addSampleNote() async {

@@ -6,4 +6,7 @@ import 'package:floor/floor.dart';
 abstract class NoteDao extends BaseDao<Note> {
   @Query('SELECT * FROM Note')
   Future<List<Note>> findAllNotes();
+
+  @Query('SELECT * FROM Note WHERE courseId=:courseId AND contentId=:contentId')
+  Future<List<Note>> findNotesByCourseAndContent(String courseId, String contentId);
 }
