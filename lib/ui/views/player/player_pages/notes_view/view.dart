@@ -35,7 +35,7 @@ class PlayerNotesView extends StatelessWidget {
                         getColorFromHex('#021B79')
                       ]
                     ),
-                    onPressed: () {},
+                    onPressed: model.addSampleNote,
                     child: Text(
                       '+', 
                       style: TextStyle(color: Colors.white),
@@ -44,6 +44,10 @@ class PlayerNotesView extends StatelessWidget {
                 ],
               ),
             ),
+            Expanded(
+              flex: 1,
+              child: PlayerNotesList(),
+            )
           ],
         ),
       ), 
@@ -55,13 +59,17 @@ class PlayerNotesView extends StatelessWidget {
 class PlayerNotesList extends ViewModelWidget<PlayerNotesViewModel> {
   @override
   Widget build(BuildContext context, PlayerNotesViewModel model) {
-    return model.isBusy ? CircularProgressIndicator() : ListView.builder(
-      itemCount: model.data.length,
-      itemBuilder: (BuildContext context, int index) => PlayerNotesListItem(
-        note: model.data[index],
-        color: index.isEven ? getColorFromHex('#FAFCFF') : Colors.white
+    return model.isBusy 
+      ?  Container(
+        child: CircularProgressIndicator(),
       )
-    );
+      : ListView.builder(
+        itemCount: model.data.length,
+        itemBuilder: (BuildContext context, int index) => PlayerNotesListItem(
+          note: model.data[index],
+          color: index.isEven ? getColorFromHex('#FAFCFF') : Colors.white
+        )
+      );
   }
 }
 
@@ -77,7 +85,8 @@ class PlayerNotesListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(30, 0, 30, 0),
+      padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+      color: color,
       child: Text(note.content),
     );
   }
