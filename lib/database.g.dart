@@ -113,6 +113,24 @@ class _$NoteDao extends NoteDao {
                   'id': item.id,
                   'content': item.content,
                   'videoId': item.videoId
+                }),
+        _noteUpdateAdapter = UpdateAdapter(
+            database,
+            'Note',
+            ['id'],
+            (Note item) => <String, dynamic>{
+                  'id': item.id,
+                  'content': item.content,
+                  'videoId': item.videoId
+                }),
+        _noteDeletionAdapter = DeletionAdapter(
+            database,
+            'Note',
+            ['id'],
+            (Note item) => <String, dynamic>{
+                  'id': item.id,
+                  'content': item.content,
+                  'videoId': item.videoId
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -128,20 +146,62 @@ class _$NoteDao extends NoteDao {
 
   final InsertionAdapter<Note> _noteInsertionAdapter;
 
+  final UpdateAdapter<Note> _noteUpdateAdapter;
+
+  final DeletionAdapter<Note> _noteDeletionAdapter;
+
   @override
   Future<List<Note>> findAllNotes() async {
     return _queryAdapter.queryList('SELECT * FROM Note', mapper: _noteMapper);
   }
 
   @override
-  Future<void> insertNote(Note note) async {
-    await _noteInsertionAdapter.insert(note, OnConflictStrategy.abort);
+  Future<void> insert(Note obj) async {
+    await _noteInsertionAdapter.insert(obj, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> insertNew(Note obj) async {
+    await _noteInsertionAdapter.insert(obj, OnConflictStrategy.ignore);
+  }
+
+  @override
+  Future<List<int>> insertAll(List<Note> list) {
+    return _noteInsertionAdapter.insertListAndReturnIds(
+        list, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> update(Note obj) async {
+    await _noteUpdateAdapter.update(obj, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> remove(Note obj) async {
+    await _noteDeletionAdapter.delete(obj);
   }
 }
 
 class _$BookmarkDao extends BookmarkDao {
   _$BookmarkDao(this.database, this.changeListener)
-      : _queryAdapter = QueryAdapter(database);
+      : _queryAdapter = QueryAdapter(database),
+        _bookmarkInsertionAdapter = InsertionAdapter(
+            database,
+            'Bookmark',
+            (Bookmark item) =>
+                <String, dynamic>{'id': item.id, 'videoId': item.videoId}),
+        _bookmarkUpdateAdapter = UpdateAdapter(
+            database,
+            'Bookmark',
+            ['id'],
+            (Bookmark item) =>
+                <String, dynamic>{'id': item.id, 'videoId': item.videoId}),
+        _bookmarkDeletionAdapter = DeletionAdapter(
+            database,
+            'Bookmark',
+            ['id'],
+            (Bookmark item) =>
+                <String, dynamic>{'id': item.id, 'videoId': item.videoId});
 
   final sqflite.DatabaseExecutor database;
 
@@ -152,9 +212,41 @@ class _$BookmarkDao extends BookmarkDao {
   static final _bookmarkMapper = (Map<String, dynamic> row) =>
       Bookmark(id: row['id'] as int, videoId: row['videoId'] as String);
 
+  final InsertionAdapter<Bookmark> _bookmarkInsertionAdapter;
+
+  final UpdateAdapter<Bookmark> _bookmarkUpdateAdapter;
+
+  final DeletionAdapter<Bookmark> _bookmarkDeletionAdapter;
+
   @override
   Future<List<Bookmark>> findAllBookmarks() async {
     return _queryAdapter.queryList('SELECT * FROM Bookmark',
         mapper: _bookmarkMapper);
+  }
+
+  @override
+  Future<void> insert(Bookmark obj) async {
+    await _bookmarkInsertionAdapter.insert(obj, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> insertNew(Bookmark obj) async {
+    await _bookmarkInsertionAdapter.insert(obj, OnConflictStrategy.ignore);
+  }
+
+  @override
+  Future<List<int>> insertAll(List<Bookmark> list) {
+    return _bookmarkInsertionAdapter.insertListAndReturnIds(
+        list, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> update(Bookmark obj) async {
+    await _bookmarkUpdateAdapter.update(obj, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> remove(Bookmark obj) async {
+    await _bookmarkDeletionAdapter.delete(obj);
   }
 }
