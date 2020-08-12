@@ -40,6 +40,8 @@ dependencies:
   onesignal_flutter: ^2.0.0
   floor: ^0.14.0
   youtube_player_flutter: 7.0.0
+  shared_preferences: 0.5.8
+  dio: ^3.0.0
 
 
 dev_dependencies:

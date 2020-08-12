@@ -8,6 +8,7 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+import '../services/amoeba_api.dart';
 import '../services/external_services_module.dart';
 import '../services/store.dart';
 
@@ -25,11 +26,14 @@ GetIt $initGetIt(
       () => externalServicesModule.navigationService);
 
   // Eager singletons must be registered in the right order
+  gh.singleton<AmoebaApiService>(externalServicesModule.amoebaService);
   gh.singleton<StoreService>(externalServicesModule.storeService);
   return get;
 }
 
 class _$ExternalServicesModule extends ExternalServicesModule {
+  @override
+  AmoebaApiService get amoebaService => AmoebaApiService();
   @override
   NavigationService get navigationService => NavigationService();
   @override
