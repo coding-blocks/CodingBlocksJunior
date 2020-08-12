@@ -11,7 +11,8 @@ class DashboardNotesView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<DashboardNotesViewModel>.reactive(
       disposeViewModel: false,
-      builder: (context, model, child) => Scaffold(
+      initialiseSpecialViewModelsOnce: true,
+        builder: (context, model, child) => Scaffold(
         appBar: DashboardPagesAppBar(),
         body: Container(
           padding: EdgeInsets.fromLTRB(30, 12, 30, 0),

@@ -7,7 +7,8 @@ class DashboardProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<DashboardProfileViewModel>.reactive(
       disposeViewModel: false,
-      builder: (context, model, child) => Scaffold(
+      initialiseSpecialViewModelsOnce: true,
+        builder: (context, model, child) => Scaffold(
         body: Center(
           child: Text('Profile'),
         ),

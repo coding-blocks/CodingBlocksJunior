@@ -42,8 +42,8 @@ class DashboardNavigationBar extends ViewModelWidget<DashboardViewModel> {
           type: BottomNavigationBarType.fixed,
           currentIndex: model.selectedIndex,
           onTap: (int index) {
-            tabController.animateTo(index);
             model.setSelectedIndex(index);
+            tabController.animateTo(index);
           },
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(

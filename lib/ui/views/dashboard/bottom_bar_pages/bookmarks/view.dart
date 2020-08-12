@@ -10,6 +10,7 @@ class DashboardBookmarksView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<DashboardBookmarksViewModel>.reactive(
         disposeViewModel: false,
+        initialiseSpecialViewModelsOnce: true,
         builder: (context, model, child) => Scaffold(
         appBar: DashboardPagesAppBar(),
         body: Container(

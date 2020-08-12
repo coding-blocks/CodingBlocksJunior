@@ -18,7 +18,6 @@ class DashboardHomeViewModel extends StreamViewModel<QuerySnapshot> {
 
   @override
   void onData(QuerySnapshot data) {
-    print("Did it");
     courses = data.documents.map((DocumentSnapshot snapshot) => Course.fromSnapshot(snapshot)).toList();
   }
 
