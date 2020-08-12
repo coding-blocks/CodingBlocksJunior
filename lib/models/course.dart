@@ -33,4 +33,9 @@ class Course {
       .document(id)
       .collection('contents')
       .snapshots();
+
+  Stream<DocumentSnapshot> get courseStream => Firestore.instance
+      .collection('courses')
+      .document(id)
+      .snapshots();
 }

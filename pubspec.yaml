@@ -50,6 +50,8 @@ dev_dependencies:
   auto_route_generator:
   injectable_generator:
   floor_generator: ^0.14.0
+  percent_indicator: ^2.1.5
+
 
 dependency_overrides:
   analyzer: '0.39.14'

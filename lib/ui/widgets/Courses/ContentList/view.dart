@@ -22,7 +22,10 @@ class ContentListView extends StatelessWidget {
             itemCount: model.contents.length,
             itemBuilder: (context, index) {
               return InkWell(
-                child: ContentListItemView(content: model.contents[index], index: index,),
+                child: ContentListItemView(
+                  content: model.contents[index],
+                  index: index,
+                ),
                 onTap: () => onTap(model.contents[index]),
               );
             }));
@@ -38,43 +41,41 @@ class ContentListItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(0, 11, 0, 11),
+      padding: EdgeInsets.fromLTRB(30, 11, 30, 11),
       child: SizedBox(
         height: 84.38, // assuming 16:9 ratio
         child: Row(children: [
           SizedBox(
             width: 150, //  assuming 16:9 ratio
-            child:
-                content.url != null ? Hero(tag: content.url ,child: Thumbnail(url: content.url)) : null,
+            child: content.url != null ? Thumbnail(url: content.url) : null,
           ),
           Expanded(
             child: Padding(
               padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
-              child:
-                  Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text('Lecture ' + (index + 1).toString()),
-                SizedBox(
-                  height: 5,
-                ),
-                Hero(
-                  tag: "hero_tag_content_title_${content.id}",
-                  child: Text(
-                    content.title,
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.blueAccent),
-                  ),
-                ),
-                Expanded(
-                  child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: Text(
-                        'Date: 18th Aug, 2020',
-                        style: TextStyle(fontSize: 11, color: Colors.black87),
-                      )),
-                )
-              ]),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text('Lecture ' + (index + 1).toString()),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Text(
+                      content.title,
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.blueAccent),
+                    ),
+                    Expanded(
+                      child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: Text(
+                            'Date: 18th Aug, 2020',
+                            style:
+                                TextStyle(fontSize: 11, color: Colors.black87),
+                          )),
+                    )
+                  ]),
             ),
           )
         ]),
