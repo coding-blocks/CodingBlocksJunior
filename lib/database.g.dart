@@ -82,9 +82,9 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Note` (`id` INTEGER, `content` TEXT, `videoId` TEXT, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `Note` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `content` TEXT, `contentId` TEXT, `courseId` TEXT)');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Bookmark` (`id` INTEGER, `videoId` TEXT, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `Bookmark` (`id` INTEGER, `contentId` TEXT, `courseId` TEXT, PRIMARY KEY (`id`))');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -112,7 +112,8 @@ class _$NoteDao extends NoteDao {
             (Note item) => <String, dynamic>{
                   'id': item.id,
                   'content': item.content,
-                  'videoId': item.videoId
+                  'contentId': item.contentId,
+                  'courseId': item.courseId
                 }),
         _noteUpdateAdapter = UpdateAdapter(
             database,
@@ -121,7 +122,8 @@ class _$NoteDao extends NoteDao {
             (Note item) => <String, dynamic>{
                   'id': item.id,
                   'content': item.content,
-                  'videoId': item.videoId
+                  'contentId': item.contentId,
+                  'courseId': item.courseId
                 }),
         _noteDeletionAdapter = DeletionAdapter(
             database,
@@ -130,7 +132,8 @@ class _$NoteDao extends NoteDao {
             (Note item) => <String, dynamic>{
                   'id': item.id,
                   'content': item.content,
-                  'videoId': item.videoId
+                  'contentId': item.contentId,
+                  'courseId': item.courseId
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -142,7 +145,8 @@ class _$NoteDao extends NoteDao {
   static final _noteMapper = (Map<String, dynamic> row) => Note(
       id: row['id'] as int,
       content: row['content'] as String,
-      videoId: row['videoId'] as String);
+      contentId: row['contentId'] as String,
+      courseId: row['courseId'] as String);
 
   final InsertionAdapter<Note> _noteInsertionAdapter;
 
@@ -188,20 +192,29 @@ class _$BookmarkDao extends BookmarkDao {
         _bookmarkInsertionAdapter = InsertionAdapter(
             database,
             'Bookmark',
-            (Bookmark item) =>
-                <String, dynamic>{'id': item.id, 'videoId': item.videoId}),
+            (Bookmark item) => <String, dynamic>{
+                  'id': item.id,
+                  'contentId': item.contentId,
+                  'courseId': item.courseId
+                }),
         _bookmarkUpdateAdapter = UpdateAdapter(
             database,
             'Bookmark',
             ['id'],
-            (Bookmark item) =>
-                <String, dynamic>{'id': item.id, 'videoId': item.videoId}),
+            (Bookmark item) => <String, dynamic>{
+                  'id': item.id,
+                  'contentId': item.contentId,
+                  'courseId': item.courseId
+                }),
         _bookmarkDeletionAdapter = DeletionAdapter(
             database,
             'Bookmark',
             ['id'],
-            (Bookmark item) =>
-                <String, dynamic>{'id': item.id, 'videoId': item.videoId});
+            (Bookmark item) => <String, dynamic>{
+                  'id': item.id,
+                  'contentId': item.contentId,
+                  'courseId': item.courseId
+                });
 
   final sqflite.DatabaseExecutor database;
 
@@ -209,8 +222,10 @@ class _$BookmarkDao extends BookmarkDao {
 
   final QueryAdapter _queryAdapter;
 
-  static final _bookmarkMapper = (Map<String, dynamic> row) =>
-      Bookmark(id: row['id'] as int, videoId: row['videoId'] as String);
+  static final _bookmarkMapper = (Map<String, dynamic> row) => Bookmark(
+      id: row['id'] as int,
+      contentId: row['contentId'] as String,
+      courseId: row['courseId'] as String);
 
   final InsertionAdapter<Bookmark> _bookmarkInsertionAdapter;
 

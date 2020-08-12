@@ -4,10 +4,12 @@ import 'package:floor/floor.dart';
 class Bookmark {
   @primaryKey
   final int id;
-  final String videoId;
+  final String contentId;
+  final String courseId;
 
   Bookmark({
     this.id, 
-    this.videoId
+    this.contentId,
+    this.courseId
   });
 }

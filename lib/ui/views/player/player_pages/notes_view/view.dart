@@ -1,3 +1,5 @@
+import 'package:coding_blocks_junior/models/content.dart';
+import 'package:coding_blocks_junior/models/course.dart';
 import 'package:coding_blocks_junior/models/note.dart';
 import 'package:coding_blocks_junior/ui/views/player/player_pages/notes_view/viewmodel.dart';
 import 'package:coding_blocks_junior/ui/widgets/Base/gradient_button.dart';
@@ -6,6 +8,14 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class PlayerNotesView extends StatelessWidget {
+  final Course course;
+  final Content content;
+
+  PlayerNotesView({
+    @required this.course,
+    @required this.content
+  });
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder.nonReactive(
@@ -51,7 +61,7 @@ class PlayerNotesView extends StatelessWidget {
           ],
         ),
       ), 
-      viewModelBuilder: () => PlayerNotesViewModel()
+      viewModelBuilder: () => PlayerNotesViewModel(course: course, content: content)
     );
   }
 }

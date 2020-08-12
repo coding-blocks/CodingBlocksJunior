@@ -2,14 +2,16 @@ import 'package:floor/floor.dart';
 
 @entity
 class Note {
-  @primaryKey
+  @PrimaryKey(autoGenerate: true)
   final int id;
   final String content;
-  final String videoId;
+  final String contentId;
+  final String courseId;
 
   Note({
     this.id, 
     this.content, 
-    this.videoId
+    this.contentId,
+    this.courseId
   });
 }

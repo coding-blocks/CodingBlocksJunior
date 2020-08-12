@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coding_blocks_junior/models/content.dart';
+import 'package:coding_blocks_junior/models/course.dart';
 import 'package:stacked/stacked.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -9,15 +10,26 @@ class PlayerViewModel extends FutureViewModel<Content> {
 
   YoutubePlayerController ytController;
   Content content;
+  Course course;
   PlayerViewModel({this.contentId, this.courseId, this.content});
 
   @override
   Future<Content> futureToRun() async {
     content = await fetchContent();
     setupYoutubePlayer(content.url);
+    course = await fetchCourse();
     return content;
   }
 
+  Future<Course> fetchCourse() async {
+    var docs = await Firestore
+      .instance
+      .collection('courses')
+      .where(FieldPath.documentId, isEqualTo: courseId)
+      .getDocuments();
+
+    return Course.fromSnapshot(docs.documents[0]);
+  }
   Future<Content> fetchContent () async {
     if (content != null)
       return content;
