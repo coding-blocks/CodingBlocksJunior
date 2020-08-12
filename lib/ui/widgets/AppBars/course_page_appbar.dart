@@ -2,10 +2,10 @@ import 'package:coding_blocks_junior/models/course.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class RoundedAppBar extends StatelessWidget {
+class CoursePageAppBar extends StatelessWidget {
   final Course course;
 
-  RoundedAppBar(this.course);
+  CoursePageAppBar(this.course);
 
   @override
   Widget build(BuildContext context) {

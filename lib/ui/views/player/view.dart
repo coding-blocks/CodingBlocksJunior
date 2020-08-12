@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:coding_blocks_junior/ui/views/player/player_pages/index.dart';
+import 'package:coding_blocks_junior/ui/views/player/player_pages/notes_view/view.dart';
 import 'package:coding_blocks_junior/ui/views/player/viewmodel.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:flutter/material.dart';
@@ -40,7 +40,7 @@ class PlayerView extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+                  padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
                   child: Row(
                     children: <Widget>[
                       Hero(
@@ -59,15 +59,23 @@ class PlayerView extends StatelessWidget {
                         children: <Widget>[
                           Container(
                             margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
-                            child: Icon(Icons.share),
+                            child: Icon(
+                              Icons.share,
+                              color: getColorFromHex('#033194'),
+                            ),
                           ),
-                          Icon(Icons.bookmark)
+                          Icon(
+                            Icons.bookmark,
+                            color: getColorFromHex('#033194'),
+                          )
                         ],
                       ),
                     ],
                   ),
                 ),
-                Expanded(child: PlayerPagesView())
+                Expanded(
+                  child: PlayerNotesView()
+                )
               ]
             ],
           ),
