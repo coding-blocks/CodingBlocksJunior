@@ -1,8 +1,8 @@
 import 'package:coding_blocks_junior/models/content.dart';
 import 'package:coding_blocks_junior/models/course.dart';
 import 'package:coding_blocks_junior/models/note.dart';
-import 'package:coding_blocks_junior/ui/views/player/player_pages/notes_view/viewmodel.dart';
 import 'package:coding_blocks_junior/ui/widgets/Base/gradient_button.dart';
+import 'package:coding_blocks_junior/ui/widgets/Player/notes_view/viewmodel.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';

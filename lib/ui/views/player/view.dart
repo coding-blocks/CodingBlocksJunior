@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:coding_blocks_junior/ui/views/player/player_pages/notes_view/view.dart';
 import 'package:coding_blocks_junior/ui/views/player/viewmodel.dart';
+import 'package:coding_blocks_junior/ui/widgets/Player/notes_view/view.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
