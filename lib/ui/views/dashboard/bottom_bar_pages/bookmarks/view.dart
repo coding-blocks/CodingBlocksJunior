@@ -21,7 +21,7 @@ class DashboardBookmarksView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   AssetIcon(
-                    asset: 'assets/bookmark-blue.png',
+                    asset: 'assets/bookmark-blue-5x.png',
                     height: 26,
                     width: 26,
                   ),

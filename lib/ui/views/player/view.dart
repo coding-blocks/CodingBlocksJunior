@@ -17,56 +17,62 @@ class PlayerView extends StatelessWidget {
 //    print(contentId);
 
     return ViewModelBuilder<PlayerViewModel>.reactive(
-        viewModelBuilder: () =>
-            PlayerViewModel(contentId: contentId, courseId: courseId, content: arguments['content']),
-        builder: (context, model, child) => Scaffold(
-              body: Container(
-                child: Column(
-                  children: <Widget>[
-                    if (model.isBusy || model.ytController == null)
-                      Center(child: CircularProgressIndicator())
-                    else ...[
-                      Hero(
-                        tag: model.data.url,
-                        child: YoutubePlayerBuilder(
-                          player: YoutubePlayer(
-                            controller: model.ytController,
-                          ),
-                          builder: (context, player) =>
-                              Column(children: <Widget>[player]),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.fromLTRB(20, 10, 30, 20),
-                        child: Row(
-                          children: <Widget>[
-                            Hero(
-                              tag: "hero_tag_content_title_$contentId",
-                              child: Text(
-                                model.data.title,
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: getColorFromHex('#1D4479')),
-                              ),
-                            ),
-                            Spacer(),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(Icons.share),
-                                SizedBox(width: 20,),
-                                Icon(Icons.bookmark)
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      Expanded(child: PlayerPagesView())
-                    ]
-                  ],
+      viewModelBuilder: () => PlayerViewModel(
+        contentId: contentId, 
+        courseId: courseId, 
+        content: arguments['content']
+      ),
+      builder: (context, model, child) => Scaffold(
+        body: Container(
+          child: Column(
+            children: <Widget>[
+              if (model.isBusy || model.ytController == null)
+                Center(child: CircularProgressIndicator())
+              else ...[
+                Hero(
+                  tag: model.data.url,
+                  child: YoutubePlayerBuilder(
+                    player: YoutubePlayer(
+                      controller: model.ytController,
+                    ),
+                    builder: (context, player) =>
+                        Column(children: <Widget>[player]),
+                  ),
                 ),
-              ),
-            ));
+                Padding(
+                  padding: EdgeInsets.fromLTRB(30, 10, 30, 0),
+                  child: Row(
+                    children: <Widget>[
+                      Hero(
+                        tag: "hero_tag_content_title_$contentId",
+                        child: Text(
+                          model.data.title,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: getColorFromHex('#1D4479')),
+                        ),
+                      ),
+                      Spacer(),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Container(
+                            margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
+                            child: Icon(Icons.share),
+                          ),
+                          Icon(Icons.bookmark)
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Expanded(child: PlayerPagesView())
+              ]
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

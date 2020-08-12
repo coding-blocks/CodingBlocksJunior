@@ -22,7 +22,7 @@ class DashboardNotesView extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   AssetIcon(
-                    asset: 'assets/notes-blue.png',
+                    asset: 'assets/notes-blue-5x.png',
                     height: 26,
                     width: 26,
                   ),
