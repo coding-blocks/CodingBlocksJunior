@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:coding_blocks_junior/ui/widgets/AppBars/course_page_appbar.dart';
-import 'package:coding_blocks_junior/ui/widgets/appbar/RoundedAppBar.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:coding_blocks_junior/ui/views/course/viewmodel.dart';
