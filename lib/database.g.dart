@@ -64,6 +64,8 @@ class _$AppDatabase extends AppDatabase {
 
   BookmarkDao _bookmarkDaoInstance;
 
+  ProgressDao _progressDaoInstance;
+
   Future<sqflite.Database> open(String path, List<Migration> migrations,
       [Callback callback]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
@@ -85,6 +87,8 @@ class _$AppDatabase extends AppDatabase {
             'CREATE TABLE IF NOT EXISTS `Note` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `content` TEXT, `contentId` TEXT, `courseId` TEXT)');
         await database.execute(
             'CREATE TABLE IF NOT EXISTS `Bookmark` (`id` INTEGER, `contentId` TEXT, `courseId` TEXT, PRIMARY KEY (`id`))');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `Progress` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `contentId` TEXT, `courseId` TEXT, `timestamp` TEXT)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -100,6 +104,11 @@ class _$AppDatabase extends AppDatabase {
   @override
   BookmarkDao get bookmarkDao {
     return _bookmarkDaoInstance ??= _$BookmarkDao(database, changeListener);
+  }
+
+  @override
+  ProgressDao get progressDao {
+    return _progressDaoInstance ??= _$ProgressDao(database, changeListener);
   }
 }
 
@@ -272,5 +281,96 @@ class _$BookmarkDao extends BookmarkDao {
   @override
   Future<void> remove(Bookmark obj) async {
     await _bookmarkDeletionAdapter.delete(obj);
+  }
+}
+
+class _$ProgressDao extends ProgressDao {
+  _$ProgressDao(this.database, this.changeListener)
+      : _queryAdapter = QueryAdapter(database),
+        _progressInsertionAdapter = InsertionAdapter(
+            database,
+            'Progress',
+            (Progress item) => <String, dynamic>{
+                  'id': item.id,
+                  'contentId': item.contentId,
+                  'courseId': item.courseId,
+                  'timestamp': item.timestamp
+                }),
+        _progressUpdateAdapter = UpdateAdapter(
+            database,
+            'Progress',
+            ['id'],
+            (Progress item) => <String, dynamic>{
+                  'id': item.id,
+                  'contentId': item.contentId,
+                  'courseId': item.courseId,
+                  'timestamp': item.timestamp
+                }),
+        _progressDeletionAdapter = DeletionAdapter(
+            database,
+            'Progress',
+            ['id'],
+            (Progress item) => <String, dynamic>{
+                  'id': item.id,
+                  'contentId': item.contentId,
+                  'courseId': item.courseId,
+                  'timestamp': item.timestamp
+                });
+
+  final sqflite.DatabaseExecutor database;
+
+  final StreamController<String> changeListener;
+
+  final QueryAdapter _queryAdapter;
+
+  static final _progressMapper = (Map<String, dynamic> row) => Progress(
+      id: row['id'] as int,
+      contentId: row['contentId'] as String,
+      courseId: row['courseId'] as String);
+
+  final InsertionAdapter<Progress> _progressInsertionAdapter;
+
+  final UpdateAdapter<Progress> _progressUpdateAdapter;
+
+  final DeletionAdapter<Progress> _progressDeletionAdapter;
+
+  @override
+  Future<List<Progress>> findAllProgress() async {
+    return _queryAdapter.queryList('SELECT * FROM Progress',
+        mapper: _progressMapper);
+  }
+
+  @override
+  Future<List<Progress>> findCourseProgress(String courseId) async {
+    return _queryAdapter.queryList(
+        'SELECT COUNT(*) FROM Progress WHERE courseId=?',
+        arguments: <dynamic>[courseId],
+        mapper: _progressMapper);
+  }
+
+  @override
+  Future<void> insert(Progress obj) async {
+    await _progressInsertionAdapter.insert(obj, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> insertNew(Progress obj) async {
+    await _progressInsertionAdapter.insert(obj, OnConflictStrategy.ignore);
+  }
+
+  @override
+  Future<List<int>> insertAll(List<Progress> list) {
+    return _progressInsertionAdapter.insertListAndReturnIds(
+        list, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> update(Progress obj) async {
+    await _progressUpdateAdapter.update(obj, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> remove(Progress obj) async {
+    await _progressDeletionAdapter.delete(obj);
   }
 }
