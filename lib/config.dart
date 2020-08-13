@@ -1,5 +1,8 @@
 final config = {
   'api': {
-    'url': 'https://online-api.codingblocks.com/api/v2',
-  }
+    'url': 'http://192.168.0.102:3000/api/v2/junior',
+  },
+//  'api': {
+//    'url': 'https://online-api.codingblocks.com/api/v2',
+//  }
 };

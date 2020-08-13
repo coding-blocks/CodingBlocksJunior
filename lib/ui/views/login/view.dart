@@ -3,30 +3,28 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class LoginView extends StatelessWidget {
+  var onClose;
+
+  LoginView({this.onClose});
+
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<LoginViewModel>.reactive(
-      viewModelBuilder: () => LoginViewModel(),
+      viewModelBuilder: () =>
+          LoginViewModel(context: context, onClose: onClose),
       builder: (context, model, child) => Container(
         padding: EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          border: Border.all(width: 1.0)
-        ),
-        height: MediaQuery.of(context).size.height/3,
+        decoration: BoxDecoration(border: Border.all(width: 1.0)),
+        height: MediaQuery.of(context).size.height / 3,
         child: PageView(
           controller: model.pageController,
           physics: NeverScrollableScrollPhysics(),
-          children: <Widget>[
-            MobileInputView(),
-            OtpInputView()
-          ],
+          children: <Widget>[MobileInputView(), OtpInputView()],
         ),
       ),
-
     );
   }
 }
-
 
 class MobileInputView extends ViewModelWidget<LoginViewModel> {
   @override
@@ -46,7 +44,6 @@ class MobileInputView extends ViewModelWidget<LoginViewModel> {
   }
 }
 
-
 class OtpInputView extends ViewModelWidget<LoginViewModel> {
   @override
   Widget build(BuildContext context, LoginViewModel model) {
@@ -59,7 +56,10 @@ class OtpInputView extends ViewModelWidget<LoginViewModel> {
         RaisedButton(
           child: Text('Verify Otp'),
           onPressed: model.verifyOtp,
-        )
+        ),
+        Center(
+          child: Text(model.errorText, style: TextStyle(color: Colors.red)),
+        ),
       ],
     );
   }

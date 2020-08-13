@@ -10,6 +10,7 @@ import 'package:stacked_services/stacked_services.dart';
 
 import '../services/amoeba_api.dart';
 import '../services/external_services_module.dart';
+import '../services/session.dart';
 import '../services/store.dart';
 
 /// adds generated dependencies
@@ -27,6 +28,7 @@ GetIt $initGetIt(
 
   // Eager singletons must be registered in the right order
   gh.singleton<AmoebaApiService>(externalServicesModule.amoebaService);
+  gh.singleton<SessionService>(externalServicesModule.sessionService);
   gh.singleton<StoreService>(externalServicesModule.storeService);
   return get;
 }
@@ -36,6 +38,8 @@ class _$ExternalServicesModule extends ExternalServicesModule {
   AmoebaApiService get amoebaService => AmoebaApiService();
   @override
   NavigationService get navigationService => NavigationService();
+  @override
+  SessionService get sessionService => SessionService();
   @override
   StoreService get storeService => StoreService();
 }

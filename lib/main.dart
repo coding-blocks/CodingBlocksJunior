@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:coding_blocks_junior/services/session.dart';
 import 'package:coding_blocks_junior/services/store.dart';
 import 'package:flutter/material.dart';
 
@@ -7,9 +8,12 @@ import 'package:coding_blocks_junior/app/router.gr.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-void main() {
-  runApp(MyApp());
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
+  SessionService sessionService = locator<SessionService>();
+  await sessionService.ready;
+  runApp(MyApp());
   setupOneSignal();
 }
 

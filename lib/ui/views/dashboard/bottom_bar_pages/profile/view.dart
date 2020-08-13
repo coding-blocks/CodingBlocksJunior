@@ -10,14 +10,29 @@ class DashboardProfileView extends StatelessWidget {
       disposeViewModel: false,
       initialiseSpecialViewModelsOnce: true,
       viewModelBuilder: () => DashboardProfileViewModel(),
-        builder: (context, model, child) => Scaffold(
-            body: Center(
-              child: RaisedButton(
-                child: Text('Login'),
-                onPressed: () => showBottomSheet(elevation: 2,context: context, builder: (context) => LoginView()),
+      builder: (context, model, child) => Scaffold(
+        body: !model.sessionService.isAuthenticated
+            ? Center(
+                child: RaisedButton(
+                  child: Text('Login'),
+                  onPressed: () => showBottomSheet(
+                      elevation: 2,
+                      context: context,
+                      builder: (context) =>
+                          LoginView(onClose: model.notifyListeners)),
+                ),
+              )
+            : Container(
+                padding: EdgeInsets.all(30),
+                child: Column(children: [
+                  Text('Hello, ${model.sessionService.user.displayName}'),
+                  RaisedButton(
+                    child: Text('Logout'),
+                    onPressed: model.logout,
+                  )
+                ]),
               ),
-            ),
-          ),
+      ),
     );
   }
 }
