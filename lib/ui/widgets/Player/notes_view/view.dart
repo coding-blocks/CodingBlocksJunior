@@ -97,7 +97,7 @@ class PlayerNotesListItem extends StatelessWidget {
     return Container(
       padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
       color: color,
-      child: Text(note.content),
+      child: Text(note.text),
     );
   }
 }

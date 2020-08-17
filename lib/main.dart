@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:coding_blocks_junior/services/session.dart';
-import 'package:coding_blocks_junior/services/store.dart';
 import 'package:flutter/material.dart';
 
 import 'package:coding_blocks_junior/app/locator.dart';

@@ -41,7 +41,7 @@ class NoteListItem extends StatelessWidget {
             Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: Text(note.content)
+              child: Text(note.text)
             )
           ],
         ),

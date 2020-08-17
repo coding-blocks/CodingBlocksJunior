@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Content {
-  String id;
-  String title;
-  String type;
-  String url;
+  final String id;
+  final String title;
+  final String type;
+  final String url;
 
   Content({
     this.id,

@@ -1,13 +1,14 @@
-import 'package:coding_blocks_junior/app/locator.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coding_blocks_junior/models/note.dart';
-import 'package:coding_blocks_junior/services/store.dart';
 import 'package:stacked/stacked.dart';
 
 class DashboardNotesViewModel extends FutureViewModel<List<Note>> {
-  StoreService _storeService = locator<StoreService>();
-
   @override
-  Future<List<Note>> futureToRun() {
-    return _storeService.database.noteDao.findAllNotes();
+  Future<List<Note>> futureToRun() async {
+    var notesSnapshot = await Firestore
+      .instance
+      .collection('notes')
+      .getDocuments();
+    return notesSnapshot.documents.map((snapshot) => Note.fromSnapshot(snapshot)).toList();
   }
 }

@@ -1,15 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:coding_blocks_junior/app/locator.dart';
 import 'package:coding_blocks_junior/models/content.dart';
 import 'package:coding_blocks_junior/models/course.dart';
 import 'package:coding_blocks_junior/models/progress.dart';
-import 'package:coding_blocks_junior/services/store.dart';
 import 'package:stacked/stacked.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PlayerViewModel extends FutureViewModel<Content> {
-  StoreService _storeService = locator<StoreService>();
-
   String contentId;
   String courseId;
 
@@ -22,7 +18,6 @@ class PlayerViewModel extends FutureViewModel<Content> {
   Future<Content> futureToRun() async {
     content = await fetchContent();
     setupYoutubePlayer(content.url);
-//    updateProgress();
     course = await fetchCourse();
     return content;
   }
@@ -56,12 +51,5 @@ class PlayerViewModel extends FutureViewModel<Content> {
         autoPlay: true,
       ),
     );
-  }
-
-  void updateProgress() {
-    _storeService.database.progressDao.insert(Progress(
-        contentId: content.id,
-        courseId: courseId
-    ));
   }
 }
