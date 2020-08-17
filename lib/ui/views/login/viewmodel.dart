@@ -38,14 +38,16 @@ class LoginViewModel extends BaseViewModel {
     errorText = '';
     notifyListeners();
 
+    final user = sessionService.user;
     try {
       final response = await amoebaApiService.dio.post('/otp/verify', data: {
         "phone": "+91-$mobile",
         "otp": otp.toString(),
-        "client": "junior_app"
+        "client": "junior_app",
+        if (user.isAnonymous) "uid": user.uid
       });
       await sessionService.login(response.data);
-      this.onClose(); // notify parent of close
+      this.onClose(); // notify parent of close; to update ui with populated user
       Navigator.pop(context); // close the bottom sheet modal
     } on DioError catch (e) {
       if (e.response.data['error'] == 'invalid_grant') {

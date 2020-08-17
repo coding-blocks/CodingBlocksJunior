@@ -5,8 +5,8 @@ import 'package:stacked/stacked.dart';
 class DashboardProfileViewModel extends BaseViewModel {
   SessionService sessionService = locator<SessionService>();
 
-  void logout() {
-    sessionService.logout();
+  void logout() async{
+    await sessionService.logout();
     notifyListeners();
   }
 }

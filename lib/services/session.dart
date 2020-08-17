@@ -2,9 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SessionService {
-  var isAuthenticated = false;
   var ready;
-  String firebaseToken;
   FirebaseUser user;
 
   SessionService() {
@@ -13,8 +11,6 @@ class SessionService {
 
   Future _loadSessionData() async {
     var prefs = await SharedPreferences.getInstance();
-    isAuthenticated = prefs.getBool('isAuthenticated') ?? false;
-    firebaseToken = prefs.getString('firebaseToken');
     user = await FirebaseAuth.instance.currentUser();
 
     if(user == null) {
@@ -23,26 +19,21 @@ class SessionService {
     }
   }
 
-  Future _saveSessionDate() async {
+  Future _saveSessionData() async {
     var prefs = await SharedPreferences.getInstance();
-    prefs.setBool('isAuthenticated', isAuthenticated);
-    prefs.setString('firebaseToken', firebaseToken);
   }
 
   Future login(loginPayload) async {
-    firebaseToken = loginPayload['firebaseToken'];
+    final firebaseToken = loginPayload['firebaseToken'];
     await FirebaseAuth.instance.signInWithCustomToken(token: firebaseToken);
     user = await FirebaseAuth.instance.currentUser();
-    isAuthenticated = true;
-    _saveSessionDate();
+    _saveSessionData();
   }
 
   Future logout() async {
-    isAuthenticated = false;
-    firebaseToken = null;
-    user = null;
     await FirebaseAuth.instance.signOut();
-
-    _saveSessionDate();
+    await FirebaseAuth.instance.signInAnonymously();
+    user = await FirebaseAuth.instance.currentUser();
+    _saveSessionData();
   }
 }

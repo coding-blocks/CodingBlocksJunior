@@ -11,27 +11,32 @@ class DashboardProfileView extends StatelessWidget {
       initialiseSpecialViewModelsOnce: true,
       viewModelBuilder: () => DashboardProfileViewModel(),
       builder: (context, model, child) => Scaffold(
-        body: model.sessionService.user == null
-            ? Center(
-                child: RaisedButton(
-                  child: Text('Login'),
-                  onPressed: () => showBottomSheet(
-                      elevation: 2,
-                      context: context,
-                      builder: (context) =>
-                          LoginView(onClose: model.notifyListeners)),
+        body: Column(
+          children: [
+            SizedBox(height: 40,),
+            Text('Hello  ${model.sessionService.user.uid} ${model.sessionService.user.displayName}'),
+            model.sessionService.user.isAnonymous
+              ? Center(
+                  child: RaisedButton(
+                    child: Text('Login'),
+                    onPressed: () => showBottomSheet(
+                        elevation: 2,
+                        context: context,
+                        builder: (context) =>
+                            LoginView(onClose: model.notifyListeners)),
+                  ),
+                )
+              : Container(
+                  padding: EdgeInsets.all(30),
+                  child: Column(children: [
+                    Text('Hello  ${model.sessionService.user.uid} ${model.sessionService.user.displayName}'),
+                    RaisedButton(
+                      child: Text('Logout'),
+                      onPressed: model.logout,
+                    )
+                  ]),
                 ),
-              )
-            : Container(
-                padding: EdgeInsets.all(30),
-                child: Column(children: [
-                  Text('Hello, ${model.sessionService.user.displayName}'),
-                  RaisedButton(
-                    child: Text('Logout'),
-                    onPressed: model.logout,
-                  )
-                ]),
-              ),
+        ]),
       ),
     );
   }
