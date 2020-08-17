@@ -1,4 +1,5 @@
 import 'package:coding_blocks_junior/ui/views/dashboard/bottom_bar_pages/profile/viewmodel.dart';
+import 'package:coding_blocks_junior/ui/views/login/view.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -8,12 +9,35 @@ class DashboardProfileView extends StatelessWidget {
     return ViewModelBuilder<DashboardProfileViewModel>.reactive(
       disposeViewModel: false,
       initialiseSpecialViewModelsOnce: true,
-        builder: (context, model, child) => Scaffold(
-        body: Center(
-          child: Text('Profile'),
-        ),
-      ), 
-      viewModelBuilder: () => DashboardProfileViewModel()
+      viewModelBuilder: () => DashboardProfileViewModel(),
+      builder: (context, model, child) => Scaffold(
+        body: Column(
+          children: [
+            SizedBox(height: 40,),
+            Text('Hello  ${model.sessionService.user.uid} ${model.sessionService.user.displayName}'),
+            model.sessionService.user.isAnonymous
+              ? Center(
+                  child: RaisedButton(
+                    child: Text('Login'),
+                    onPressed: () => showBottomSheet(
+                        elevation: 2,
+                        context: context,
+                        builder: (context) =>
+                            LoginView(onClose: model.notifyListeners)),
+                  ),
+                )
+              : Container(
+                  padding: EdgeInsets.all(30),
+                  child: Column(children: [
+                    Text('Hello  ${model.sessionService.user.uid} ${model.sessionService.user.displayName}'),
+                    RaisedButton(
+                      child: Text('Logout'),
+                      onPressed: model.logout,
+                    )
+                  ]),
+                ),
+        ]),
+      ),
     );
   }
 }
