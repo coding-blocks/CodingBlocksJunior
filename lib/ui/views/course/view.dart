@@ -9,25 +9,26 @@ class CourseView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String slug = RouteData
-        .of(context)
-        .pathParams['slug'].value;
+      .of(context)
+      .pathParams['slug'].value;
 
     return ViewModelBuilder<CourseViewModel>.reactive(
-        builder: (context, model, child) =>
-            SafeArea(
-              child: Scaffold(
-                  body: Container(
-                      child: model.isBusy
-                          ? CircularProgressIndicator()
-                          : Column(
-                        children: [
-                          CoursePageAppBar(model.data),
-                          ContentListView(
-                              contentStream: model.data.contentStream,
-                              onTap: model.goToContent),
-                        ],
-                      ))),
+      builder: (context, model, child) => Scaffold(
+        body: Container(
+          child: model.isBusy
+            ? CircularProgressIndicator()
+            : Column(
+              children: [
+                CoursePageAppBar(model.data),
+                ContentListView(
+                  contentStream: model.data.contentStream,
+                  onTap: model.goToContent
+                ),
+              ],
             ),
-        viewModelBuilder: () => CourseViewModel(slug));
+        )
+      ),
+      viewModelBuilder: () => CourseViewModel(slug)
+    );
   }
 }
