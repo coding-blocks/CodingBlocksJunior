@@ -64,6 +64,8 @@ class _$AppDatabase extends AppDatabase {
 
   BookmarkDao _bookmarkDaoInstance;
 
+  ProgressDao _progressDaoInstance;
+
   Future<sqflite.Database> open(String path, List<Migration> migrations,
       [Callback callback]) async {
     final databaseOptions = sqflite.OpenDatabaseOptions(
@@ -82,9 +84,11 @@ class _$AppDatabase extends AppDatabase {
       },
       onCreate: (database, version) async {
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Note` (`id` INTEGER, `content` TEXT, `videoId` TEXT, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `Note` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `content` TEXT, `contentId` TEXT, `courseId` TEXT)');
         await database.execute(
-            'CREATE TABLE IF NOT EXISTS `Bookmark` (`id` INTEGER, `videoId` TEXT, PRIMARY KEY (`id`))');
+            'CREATE TABLE IF NOT EXISTS `Bookmark` (`id` INTEGER, `contentId` TEXT, `courseId` TEXT, PRIMARY KEY (`id`))');
+        await database.execute(
+            'CREATE TABLE IF NOT EXISTS `Progress` (`id` INTEGER PRIMARY KEY AUTOINCREMENT, `contentId` TEXT, `courseId` TEXT, `timestamp` TEXT)');
 
         await callback?.onCreate?.call(database, version);
       },
@@ -101,6 +105,11 @@ class _$AppDatabase extends AppDatabase {
   BookmarkDao get bookmarkDao {
     return _bookmarkDaoInstance ??= _$BookmarkDao(database, changeListener);
   }
+
+  @override
+  ProgressDao get progressDao {
+    return _progressDaoInstance ??= _$ProgressDao(database, changeListener);
+  }
 }
 
 class _$NoteDao extends NoteDao {
@@ -112,7 +121,28 @@ class _$NoteDao extends NoteDao {
             (Note item) => <String, dynamic>{
                   'id': item.id,
                   'content': item.content,
-                  'videoId': item.videoId
+                  'contentId': item.contentId,
+                  'courseId': item.courseId
+                }),
+        _noteUpdateAdapter = UpdateAdapter(
+            database,
+            'Note',
+            ['id'],
+            (Note item) => <String, dynamic>{
+                  'id': item.id,
+                  'content': item.content,
+                  'contentId': item.contentId,
+                  'courseId': item.courseId
+                }),
+        _noteDeletionAdapter = DeletionAdapter(
+            database,
+            'Note',
+            ['id'],
+            (Note item) => <String, dynamic>{
+                  'id': item.id,
+                  'content': item.content,
+                  'contentId': item.contentId,
+                  'courseId': item.courseId
                 });
 
   final sqflite.DatabaseExecutor database;
@@ -124,9 +154,14 @@ class _$NoteDao extends NoteDao {
   static final _noteMapper = (Map<String, dynamic> row) => Note(
       id: row['id'] as int,
       content: row['content'] as String,
-      videoId: row['videoId'] as String);
+      contentId: row['contentId'] as String,
+      courseId: row['courseId'] as String);
 
   final InsertionAdapter<Note> _noteInsertionAdapter;
+
+  final UpdateAdapter<Note> _noteUpdateAdapter;
+
+  final DeletionAdapter<Note> _noteDeletionAdapter;
 
   @override
   Future<List<Note>> findAllNotes() async {
@@ -134,14 +169,70 @@ class _$NoteDao extends NoteDao {
   }
 
   @override
-  Future<void> insertNote(Note note) async {
-    await _noteInsertionAdapter.insert(note, OnConflictStrategy.abort);
+  Future<List<Note>> findNotesByCourseAndContent(
+      String courseId, String contentId) async {
+    return _queryAdapter.queryList(
+        'SELECT * FROM Note WHERE courseId=? AND contentId=?',
+        arguments: <dynamic>[courseId, contentId],
+        mapper: _noteMapper);
+  }
+
+  @override
+  Future<void> insert(Note obj) async {
+    await _noteInsertionAdapter.insert(obj, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> insertNew(Note obj) async {
+    await _noteInsertionAdapter.insert(obj, OnConflictStrategy.ignore);
+  }
+
+  @override
+  Future<List<int>> insertAll(List<Note> list) {
+    return _noteInsertionAdapter.insertListAndReturnIds(
+        list, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> update(Note obj) async {
+    await _noteUpdateAdapter.update(obj, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> remove(Note obj) async {
+    await _noteDeletionAdapter.delete(obj);
   }
 }
 
 class _$BookmarkDao extends BookmarkDao {
   _$BookmarkDao(this.database, this.changeListener)
-      : _queryAdapter = QueryAdapter(database);
+      : _queryAdapter = QueryAdapter(database),
+        _bookmarkInsertionAdapter = InsertionAdapter(
+            database,
+            'Bookmark',
+            (Bookmark item) => <String, dynamic>{
+                  'id': item.id,
+                  'contentId': item.contentId,
+                  'courseId': item.courseId
+                }),
+        _bookmarkUpdateAdapter = UpdateAdapter(
+            database,
+            'Bookmark',
+            ['id'],
+            (Bookmark item) => <String, dynamic>{
+                  'id': item.id,
+                  'contentId': item.contentId,
+                  'courseId': item.courseId
+                }),
+        _bookmarkDeletionAdapter = DeletionAdapter(
+            database,
+            'Bookmark',
+            ['id'],
+            (Bookmark item) => <String, dynamic>{
+                  'id': item.id,
+                  'contentId': item.contentId,
+                  'courseId': item.courseId
+                });
 
   final sqflite.DatabaseExecutor database;
 
@@ -149,12 +240,137 @@ class _$BookmarkDao extends BookmarkDao {
 
   final QueryAdapter _queryAdapter;
 
-  static final _bookmarkMapper = (Map<String, dynamic> row) =>
-      Bookmark(id: row['id'] as int, videoId: row['videoId'] as String);
+  static final _bookmarkMapper = (Map<String, dynamic> row) => Bookmark(
+      id: row['id'] as int,
+      contentId: row['contentId'] as String,
+      courseId: row['courseId'] as String);
+
+  final InsertionAdapter<Bookmark> _bookmarkInsertionAdapter;
+
+  final UpdateAdapter<Bookmark> _bookmarkUpdateAdapter;
+
+  final DeletionAdapter<Bookmark> _bookmarkDeletionAdapter;
 
   @override
   Future<List<Bookmark>> findAllBookmarks() async {
     return _queryAdapter.queryList('SELECT * FROM Bookmark',
         mapper: _bookmarkMapper);
+  }
+
+  @override
+  Future<void> insert(Bookmark obj) async {
+    await _bookmarkInsertionAdapter.insert(obj, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> insertNew(Bookmark obj) async {
+    await _bookmarkInsertionAdapter.insert(obj, OnConflictStrategy.ignore);
+  }
+
+  @override
+  Future<List<int>> insertAll(List<Bookmark> list) {
+    return _bookmarkInsertionAdapter.insertListAndReturnIds(
+        list, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> update(Bookmark obj) async {
+    await _bookmarkUpdateAdapter.update(obj, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> remove(Bookmark obj) async {
+    await _bookmarkDeletionAdapter.delete(obj);
+  }
+}
+
+class _$ProgressDao extends ProgressDao {
+  _$ProgressDao(this.database, this.changeListener)
+      : _queryAdapter = QueryAdapter(database),
+        _progressInsertionAdapter = InsertionAdapter(
+            database,
+            'Progress',
+            (Progress item) => <String, dynamic>{
+                  'id': item.id,
+                  'contentId': item.contentId,
+                  'courseId': item.courseId,
+                  'timestamp': item.timestamp
+                }),
+        _progressUpdateAdapter = UpdateAdapter(
+            database,
+            'Progress',
+            ['id'],
+            (Progress item) => <String, dynamic>{
+                  'id': item.id,
+                  'contentId': item.contentId,
+                  'courseId': item.courseId,
+                  'timestamp': item.timestamp
+                }),
+        _progressDeletionAdapter = DeletionAdapter(
+            database,
+            'Progress',
+            ['id'],
+            (Progress item) => <String, dynamic>{
+                  'id': item.id,
+                  'contentId': item.contentId,
+                  'courseId': item.courseId,
+                  'timestamp': item.timestamp
+                });
+
+  final sqflite.DatabaseExecutor database;
+
+  final StreamController<String> changeListener;
+
+  final QueryAdapter _queryAdapter;
+
+  static final _progressMapper = (Map<String, dynamic> row) => Progress(
+      id: row['id'] as int,
+      contentId: row['contentId'] as String,
+      courseId: row['courseId'] as String);
+
+  final InsertionAdapter<Progress> _progressInsertionAdapter;
+
+  final UpdateAdapter<Progress> _progressUpdateAdapter;
+
+  final DeletionAdapter<Progress> _progressDeletionAdapter;
+
+  @override
+  Future<List<Progress>> findAllProgress() async {
+    return _queryAdapter.queryList('SELECT * FROM Progress',
+        mapper: _progressMapper);
+  }
+
+  @override
+  Future<List<Progress>> findCourseProgress(String courseId) async {
+    return _queryAdapter.queryList(
+        'SELECT COUNT(*) FROM Progress WHERE courseId=?',
+        arguments: <dynamic>[courseId],
+        mapper: _progressMapper);
+  }
+
+  @override
+  Future<void> insert(Progress obj) async {
+    await _progressInsertionAdapter.insert(obj, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> insertNew(Progress obj) async {
+    await _progressInsertionAdapter.insert(obj, OnConflictStrategy.ignore);
+  }
+
+  @override
+  Future<List<int>> insertAll(List<Progress> list) {
+    return _progressInsertionAdapter.insertListAndReturnIds(
+        list, OnConflictStrategy.replace);
+  }
+
+  @override
+  Future<void> update(Progress obj) async {
+    await _progressUpdateAdapter.update(obj, OnConflictStrategy.abort);
+  }
+
+  @override
+  Future<void> remove(Progress obj) async {
+    await _progressDeletionAdapter.delete(obj);
   }
 }

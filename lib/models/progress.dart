@@ -1,17 +1,16 @@
 import 'package:floor/floor.dart';
 
 @entity
-class Note {
+class Progress {
   @PrimaryKey(autoGenerate: true)
   final int id;
-  final String content;
   final String contentId;
   final String courseId;
+  final String timestamp = DateTime.now().millisecondsSinceEpoch as String;
 
-  Note({
-    this.id, 
-    this.content, 
+  Progress({
+    this.id,
     this.contentId,
-    this.courseId
+    this.courseId,
   });
 }

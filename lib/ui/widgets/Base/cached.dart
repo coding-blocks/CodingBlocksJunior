@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Cached extends StatefulWidget {
-  Widget child;
+  final Widget child;
 
   Cached(this.child);
 
