@@ -24,7 +24,7 @@ class LoginViewModel extends BaseViewModel {
   Future sendOtp() async {
     mobile = mobileInputController.value.text;
     try {
-      await amoebaApiService.dio.post('/otp', data: {'phone': "+91-$mobile"});
+      await amoebaApiService.dio.post('/junior/otp', data: {'phone': "+91-$mobile"});
       nextPage();
     } catch (e) {
       print(e);
@@ -40,7 +40,7 @@ class LoginViewModel extends BaseViewModel {
 
     final user = sessionService.user;
     try {
-      final response = await amoebaApiService.dio.post('/otp/verify', data: {
+      final response = await amoebaApiService.dio.post('/junior/otp/verify', data: {
         "phone": "+91-$mobile",
         "otp": otp.toString(),
         "client": "junior_app",
