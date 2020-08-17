@@ -22,7 +22,7 @@ class PlayerViewModel extends FutureViewModel<Content> {
   Future<Content> futureToRun() async {
     content = await fetchContent();
     setupYoutubePlayer(content.url);
-    updateProgress();
+//    updateProgress();
     course = await fetchCourse();
     return content;
   }
