@@ -16,7 +16,11 @@ class SessionService {
     isAuthenticated = prefs.getBool('isAuthenticated') ?? false;
     firebaseToken = prefs.getString('firebaseToken');
     user = await FirebaseAuth.instance.currentUser();
-    print(prefs);
+
+    if(user == null) {
+      await FirebaseAuth.instance.signInAnonymously();
+      user = await FirebaseAuth.instance.currentUser();
+    }
   }
 
   Future _saveSessionDate() async {
@@ -29,7 +33,6 @@ class SessionService {
     firebaseToken = loginPayload['firebaseToken'];
     await FirebaseAuth.instance.signInWithCustomToken(token: firebaseToken);
     user = await FirebaseAuth.instance.currentUser();
-    print(user.displayName);
     isAuthenticated = true;
     _saveSessionDate();
   }
@@ -37,6 +40,8 @@ class SessionService {
   Future logout() async {
     isAuthenticated = false;
     firebaseToken = null;
+    user = null;
+    await FirebaseAuth.instance.signOut();
 
     _saveSessionDate();
   }

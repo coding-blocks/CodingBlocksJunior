@@ -5,7 +5,6 @@ class AmoebaApiService {
   Dio dio;
 
   AmoebaApiService() {
-    print(config['api']['url']);
     dio = new Dio(BaseOptions(
       baseUrl: config['api']['url'],
     ));

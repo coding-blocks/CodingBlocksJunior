@@ -11,7 +11,7 @@ class DashboardProfileView extends StatelessWidget {
       initialiseSpecialViewModelsOnce: true,
       viewModelBuilder: () => DashboardProfileViewModel(),
       builder: (context, model, child) => Scaffold(
-        body: !model.sessionService.isAuthenticated
+        body: model.sessionService.user == null
             ? Center(
                 child: RaisedButton(
                   child: Text('Login'),
