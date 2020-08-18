@@ -1,9 +1,5 @@
-import 'package:floor/floor.dart';
-
-@entity
 class Bookmark {
-  @primaryKey
-  final int id;
+  final String id;
   final String contentId;
   final String courseId;
 

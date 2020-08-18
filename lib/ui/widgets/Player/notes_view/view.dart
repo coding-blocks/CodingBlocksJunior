@@ -70,7 +70,7 @@ class PlayerNotesList extends ViewModelWidget<PlayerNotesViewModel> {
   @override
   Widget build(BuildContext context, PlayerNotesViewModel model) {
     return model.isBusy 
-      ?  Container(
+      ? Center (
         child: CircularProgressIndicator(),
       )
       : ListView.builder(
