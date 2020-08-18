@@ -5,12 +5,14 @@ class Content {
   final String title;
   final String type;
   final String url;
+  final String thumbnail;
 
   Content({
     this.id,
     this.type,
     this.url,
-    this.title
+    this.title,
+    this.thumbnail
   });
 
   static Content fromSnapshot(DocumentSnapshot snapshot) {
@@ -19,6 +21,7 @@ class Content {
       title: snapshot['title'],
       type: snapshot['type'],
       url: snapshot['url'],
+      thumbnail: snapshot['thumbnail']
     );
   }
 }
