@@ -38,12 +38,12 @@ class PlayerNotesViewModel extends ReloadableFutureViewModel<List<Note>> {
     return notesSnapshot.documents.map((snapshot) => Note.fromSnapshot(snapshot)).toList();
   }
 
-  Future addSampleNote() {
+  Future addNote(String text) {
     return Firestore
       .instance
       .collection('notes')
       .add({
-        'text': 'Sample todo',
+        'text': text,
         'course': courseReference,
         'content': contentReference,
         'userId': _sessionService.user.uid
