@@ -20,7 +20,7 @@ class DashboardProfileViewModel extends FutureViewModel {
 
   FirebaseUser get user => sessionService.user;
   get name => user.isAnonymous ? 'Hello, Anonymous' : user.displayName;
-  get photo => user.isAnonymous ? 'http://minio-i.codingblocks.com/img/default-anon.jpg' : user.photoUrl;
+  get photo => user.isAnonymous ? 'http://minio-i.codingblocks.com/img/default-anon.jpg' : (user.photoUrl ?? 'http://minio-i.codingblocks.com/img/default-anon.jpg');
   get fbKey => _fbKey;
 
 
@@ -76,7 +76,5 @@ class DashboardProfileViewModel extends FutureViewModel {
     }
 
     profile = UserProfile.fromSnapshot(snapshot);
-
-    print(profile);
   }
 }
