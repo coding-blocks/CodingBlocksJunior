@@ -43,7 +43,7 @@ class DashboardProfileView extends StatelessWidget {
             SizedBox(height: 30),
             CircleAvatar(
               radius: 55,
-              backgroundImage: new NetworkImage('http://minio-i.codingblocks.com/img/default-anon.jpg'),
+              backgroundImage: new NetworkImage(model.photo),
             ),
             SizedBox(height: 17),
             Text(
