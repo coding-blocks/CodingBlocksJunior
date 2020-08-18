@@ -62,10 +62,15 @@ class PlayerView extends StatelessWidget {
                               color: getColorFromHex('#033194'),
                             ),
                           ),
-                          Icon(
-                            model.bookmark != null ? Icons.bookmark : Icons.bookmark_border,
-                            color: getColorFromHex('#033194'),
-                          )
+                          InkWell(
+                            onTap: () {
+                              model.toggleBookmark();
+                            },
+                            child: Icon(
+                              model.bookmark != null ? Icons.bookmark : Icons.bookmark_border,
+                              color: getColorFromHex('#033194'),
+                            ),
+                          ),
                         ],
                       ),
                     ],

@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coding_blocks_junior/app/locator.dart';
 import 'package:coding_blocks_junior/models/bookmark.dart';
 import 'package:coding_blocks_junior/models/content.dart';
 import 'package:coding_blocks_junior/models/course.dart';
+import 'package:coding_blocks_junior/services/session.dart';
 import 'package:stacked/stacked.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class PlayerViewModel extends FutureViewModel<Content> {
+  final SessionService _sessionService = locator<SessionService>();
   String contentId;
   String courseId;
 
@@ -13,6 +16,10 @@ class PlayerViewModel extends FutureViewModel<Content> {
   Content content;
   Course course;
   Bookmark bookmark;
+
+  DocumentReference courseReference;
+  DocumentReference contentReference;
+
   PlayerViewModel({this.contentId, this.courseId, this.content});
 
   @override
@@ -21,6 +28,15 @@ class PlayerViewModel extends FutureViewModel<Content> {
     setupYoutubePlayer(content.url);
     course = await fetchCourse();
     bookmark = await fetchBookmark();
+
+    courseReference = Firestore
+      .instance
+      .collection('courses')
+      .document(course.id);
+    contentReference = courseReference
+      .collection('contents')
+      .document(content.id);
+
     return content;
   }
 
@@ -59,6 +75,30 @@ class PlayerViewModel extends FutureViewModel<Content> {
       .getDocuments();
 
     return bookmarkSnapshot.documents.length > 0 ? Bookmark.fromSnapshot(bookmarkSnapshot.documents[0]) : null;
+  }
+
+  Future toggleBookmark() async {
+    if (bookmark != null) {
+      await Firestore
+        .instance
+        .collection('bookmarks')
+        .document(bookmark.id)
+        .delete();
+      bookmark = null;
+    } else {
+      var result = await Firestore
+        .instance
+        .collection('bookmarks')
+        .add({
+          'content': contentReference,
+          'course': courseReference,
+          'userId': _sessionService.user.uid
+        });
+      var bookmarkSnapshot = await result.get();
+
+      bookmark = Bookmark.fromSnapshot(bookmarkSnapshot);
+    }
+    notifyListeners();
   }
 
   setupYoutubePlayer(url) {

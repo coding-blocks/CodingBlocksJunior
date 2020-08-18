@@ -42,7 +42,7 @@ class DashboardNotesView extends StatelessWidget {
                 ],
               ),
             ),
-            if (!model.isBusy && model.data.length == 0) Expanded(
+            if (!model.isBusy && model.notes.length == 0) Expanded(
               flex: 1,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -58,9 +58,9 @@ class DashboardNotesView extends StatelessWidget {
                 ],
               ),
             ),
-            if (!model.isBusy && model.data.length > 0) Expanded(
+            if (!model.isBusy && model.notes.length > 0) Expanded(
               flex: 1,
-              child: NoteList(notes: model.data),
+              child: NoteList(notes: model.notes),
             ),
           ],
         ),
