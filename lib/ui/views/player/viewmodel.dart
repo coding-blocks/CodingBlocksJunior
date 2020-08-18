@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coding_blocks_junior/models/bookmark.dart';
 import 'package:coding_blocks_junior/models/content.dart';
 import 'package:coding_blocks_junior/models/course.dart';
-import 'package:coding_blocks_junior/models/progress.dart';
 import 'package:stacked/stacked.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -12,6 +12,7 @@ class PlayerViewModel extends FutureViewModel<Content> {
   YoutubePlayerController ytController;
   Content content;
   Course course;
+  Bookmark bookmark;
   PlayerViewModel({this.contentId, this.courseId, this.content});
 
   @override
@@ -19,6 +20,7 @@ class PlayerViewModel extends FutureViewModel<Content> {
     content = await fetchContent();
     setupYoutubePlayer(content.url);
     course = await fetchCourse();
+    bookmark = await fetchBookmark();
     return content;
   }
 
@@ -31,7 +33,7 @@ class PlayerViewModel extends FutureViewModel<Content> {
 
     return Course.fromSnapshot(docs.documents[0]);
   }
-  Future<Content> fetchContent () async {
+  Future<Content> fetchContent() async {
     if (content != null)
       return content;
 
@@ -42,6 +44,21 @@ class PlayerViewModel extends FutureViewModel<Content> {
         .getDocuments();
 
     return Content.fromSnapshot(qs.documents[0]);
+  }
+  Future<Bookmark> fetchBookmark() async {
+    String courseId = course.id;
+    String contentId = content.id;
+    DocumentReference contentReference = Firestore
+      .instance
+      .document("/courses/$courseId/contents/$contentId");
+
+    var bookmarkSnapshot = await Firestore
+      .instance
+      .collection('bookmarks')
+      .where('content', isEqualTo: contentReference)
+      .getDocuments();
+
+    return bookmarkSnapshot.documents.length > 0 ? Bookmark.fromSnapshot(bookmarkSnapshot.documents[0]) : null;
   }
 
   setupYoutubePlayer(url) {

@@ -14,8 +14,6 @@ class PlayerView extends StatelessWidget {
     String contentId = params['contentId'].value;
     String courseId = params['courseId'].value;
 
-//    print(contentId);
-
     return ViewModelBuilder<PlayerViewModel>.reactive(
       viewModelBuilder: () => PlayerViewModel(
         contentId: contentId, 
@@ -65,7 +63,7 @@ class PlayerView extends StatelessWidget {
                             ),
                           ),
                           Icon(
-                            Icons.bookmark,
+                            model.bookmark != null ? Icons.bookmark : Icons.bookmark_border,
                             color: getColorFromHex('#033194'),
                           )
                         ],
