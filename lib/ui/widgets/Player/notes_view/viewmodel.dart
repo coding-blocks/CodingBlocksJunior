@@ -8,6 +8,11 @@ import 'package:coding_blocks_junior/viewmodels/reloadable_future_viewmodel.dart
 import 'package:flutter/material.dart';
 
 class PlayerNotesViewModel extends ReloadableFutureViewModel<List<Note>> {
+
+  @override
+  Future initialise() {
+    markProgress();
+  }
   final SessionService _sessionService = locator<SessionService>();
   final Course course;
   final Content content;
@@ -51,5 +56,18 @@ class PlayerNotesViewModel extends ReloadableFutureViewModel<List<Note>> {
       .then((value) {
         loadData();
       });
+  }
+
+
+  Future markProgress() {
+    return Firestore
+        .instance
+        .collection('progresses')
+        .add({
+      'course': courseReference,
+      'content': contentReference,
+      'userId': _sessionService.user.uid,
+      'timestamp': FieldValue.serverTimestamp(),
+    });
   }
 }
