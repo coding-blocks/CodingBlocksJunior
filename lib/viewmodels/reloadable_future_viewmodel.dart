@@ -31,6 +31,8 @@ abstract class ReloadableFutureViewModel<T> extends DynamicSourceViewModel imple
     if (_data != null) {
       onData(_data);
     }
+
+    notifyListeners();
   }
 
   Future initialise() async {

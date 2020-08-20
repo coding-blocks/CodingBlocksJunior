@@ -11,6 +11,7 @@ class PlayerNotesViewModel extends ReloadableFutureViewModel<List<Note>> {
 
   @override
   Future initialise() {
+    super.initialise();
     markProgress();
   }
   final SessionService _sessionService = locator<SessionService>();
@@ -28,19 +29,25 @@ class PlayerNotesViewModel extends ReloadableFutureViewModel<List<Note>> {
       .instance
       .collection('courses')
       .document(course.id);
-    contentReference = courseReference
+    contentReference = Firestore
+      .instance
       .collection('contents')
       .document(content.id);
   }
 
   @override
   Future<List<Note>> futureToRun() async {
+    print("Cincinati bubla bo");
     var notesSnapshot = await Firestore
       .instance
       .collection('notes')
       .where('content', isEqualTo: contentReference)
       .getDocuments();
-    return notesSnapshot.documents.map((snapshot) => Note.fromSnapshot(snapshot)).toList();
+
+
+    return notesSnapshot.documents.isNotEmpty ?
+    notesSnapshot.documents.map((snapshot) => Note.fromSnapshot(snapshot)).toList()
+        : [];
   }
 
   Future addNote(String text) {

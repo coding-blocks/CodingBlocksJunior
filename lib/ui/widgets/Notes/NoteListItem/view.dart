@@ -19,7 +19,7 @@ class NoteListItem extends StatelessWidget {
       builder: (BuildContext context, NoteListItemViewModel model, Widget child) => Container(
         padding: EdgeInsets.all(30),
         color: color,
-        child: Column(
+        child: model.isBusy ? Container() : Column(
           children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

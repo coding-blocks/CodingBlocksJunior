@@ -26,11 +26,11 @@ class AddNote extends StatelessWidget {
             child: TextField(
               controller: _controller,
               maxLines: 8,
-              decoration: InputDecoration.collapsed(
-                fillColor: getColorFromHex('#FAFAFA'),
-                filled: true,
-                hintText: "Enter your text here"
-              ),
+//              decoration: InputDecoration.collapsed(
+//                fillColor: getColorFromHex('#FAFAFA'),
+//                filled: true,
+//                hintText: "Enter your text here"
+//              ),
             ),
           ),
           RaisedButton(

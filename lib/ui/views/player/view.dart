@@ -27,16 +27,16 @@ class PlayerView extends StatelessWidget {
               if (model.isBusy || model.ytController == null)
                 Center(child: CircularProgressIndicator())
               else ...[
-                Hero(
-                  tag: model.data.url,
-                  child: YoutubePlayerBuilder(
-                    player: YoutubePlayer(
-                      controller: model.ytController,
-                    ),
-                    builder: (context, player) =>
-                        Column(children: <Widget>[player]),
-                  ),
-                ),
+//                Hero(
+//                  tag: model.data.url,
+//                  child: YoutubePlayerBuilder(
+//                    player: YoutubePlayer(
+//                      controller: model.ytController,
+//                    ),
+//                    builder: (context, player) =>
+//                        Column(children: <Widget>[player]),
+//                  ),
+//                ),
                 Padding(
                   padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
                   child: Row(
@@ -78,7 +78,7 @@ class PlayerView extends StatelessWidget {
                 ),
                 Expanded(
                   child: PlayerNotesView(
-                    course: model.course, 
+                    course: model.course,
                     content: model.content,
                   )
                 )

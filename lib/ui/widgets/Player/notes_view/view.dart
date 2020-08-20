@@ -85,7 +85,7 @@ class PlayerNotesView extends StatelessWidget {
 class PlayerNotesList extends ViewModelWidget<PlayerNotesViewModel> {
   @override
   Widget build(BuildContext context, PlayerNotesViewModel model) {
-    return model.isBusy 
+    return model.isBusy || model.data == null
       ? Center (
         child: CircularProgressIndicator(),
       )
@@ -117,3 +117,16 @@ class PlayerNotesListItem extends StatelessWidget {
     );
   }
 }
+
+
+class PlayerNotesListEmpty extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Text('No notes yet!'),
+    );
+  }
+}
+
+
+

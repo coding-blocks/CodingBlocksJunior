@@ -1,4 +1,5 @@
 import 'package:coding_blocks_junior/models/bookmark.dart';
+import 'package:coding_blocks_junior/ui/widgets/Base/Thumbnail.dart';
 import 'package:coding_blocks_junior/ui/widgets/Bookmarks/BookmarkListItem/viewmodel.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,7 @@ class BookmarkListItem extends StatelessWidget {
             children: <Widget>[
               Container(
                 margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
-                child: Image.network(model.content.thumbnail, width: 120),
+                child: SizedBox(child: Thumbnail(url: model.content.url), width: 120,),
               ),
               Expanded(
                 flex: 1,
