@@ -44,6 +44,7 @@ dependencies:
   youtube_player_flutter: 7.0.0
   shared_preferences: 0.5.8
   dio: ^3.0.0
+  flutter_form_builder: ^3.13.0 # https://github.com/danvick/flutter_form_builder/issues/399
 
 
 dev_dependencies:

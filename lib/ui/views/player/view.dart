@@ -78,7 +78,7 @@ class PlayerView extends StatelessWidget {
                 ),
                 Expanded(
                   child: PlayerNotesView(
-                    course: model.course, 
+                    course: model.course,
                     content: model.content,
                   )
                 )

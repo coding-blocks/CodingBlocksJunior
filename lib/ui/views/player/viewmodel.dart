@@ -33,7 +33,8 @@ class PlayerViewModel extends FutureViewModel<Content> {
       .instance
       .collection('courses')
       .document(course.id);
-    contentReference = courseReference
+    contentReference = Firestore
+      .instance
       .collection('contents')
       .document(content.id);
 

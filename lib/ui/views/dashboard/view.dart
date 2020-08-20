@@ -22,7 +22,7 @@ class DashboardView extends StatelessWidget {
               Cached(DashboardBookmarksView()),
               Cached(DashboardHomeView()),
               Cached(DashboardNotesView()),
-              Cached(DashboardProfileView()),
+              (DashboardProfileView()),
             ],
           ),
           bottomNavigationBar: DashboardNavigationBar()

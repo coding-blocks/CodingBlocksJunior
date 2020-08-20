@@ -27,17 +27,15 @@ class NoteListItemViewModel extends FutureViewModel<void> {
     var courseDoc = await Firestore
       .instance
       .collection('courses')
-      .where(FieldPath.documentId, isEqualTo: courseId)
-      .getDocuments();
+      .document(courseId)
+      .get();
 
-    course = Course.fromSnapshot(courseDoc.documents[0]);
+    course = Course.fromSnapshot(courseDoc);
 
     var contentDoc = await Firestore.instance
-        .collectionGroup('contents')
-        .where(FieldPath.documentId, isEqualTo: "courses/$courseId/contents/$contentId")
-        .limit(1)
-        .getDocuments();
+        .collection('contents')
+        .document(contentId).get();
 
-    content = Content.fromSnapshot(contentDoc.documents[0]);
+    content = Content.fromSnapshot(contentDoc);
   }
 }

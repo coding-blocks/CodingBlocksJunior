@@ -16,6 +16,7 @@ class Content {
   });
 
   static Content fromSnapshot(DocumentSnapshot snapshot) {
+    print(snapshot);
     return Content(
       id: snapshot.documentID,
       title: snapshot['title'],
