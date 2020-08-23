@@ -397,7 +397,7 @@ packages:
       name: flutter_inappwebview
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.3.0+3"
+    version: "4.0.0+4"
   flutter_keyboard_visibility:
     dependency: transitive
     description:
@@ -1007,7 +1007,7 @@ packages:
       name: youtube_player_flutter
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "7.0.0"
+    version: "7.0.0+7"
 sdks:
   dart: ">=2.9.0-14.0.dev <3.0.0"
   flutter: ">=1.16.0 <2.0.0"

@@ -6,15 +6,24 @@ import 'package:flutter/material.dart';
 import 'package:coding_blocks_junior/app/locator.dart';
 import 'package:coding_blocks_junior/app/router.gr.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked_services/stacked_services.dart';
+
+bool firsRun;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   setupLocator();
   SessionService sessionService = locator<SessionService>();
   await sessionService.ready;
+  firsRun = await getSharedPrefs();
   runApp(MyApp());
   setupOneSignal();
+}
+
+Future<bool> getSharedPrefs() async {
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  return prefs.getBool("firstRun")?? true;
 }
 
 void setupOneSignal() {
@@ -30,8 +39,15 @@ void setupOneSignal() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
+    String view;
+    if(firsRun){
+      view = Routes.onBoardView;
+    }else{
+      view = Routes.dashboardView;
+    }
     return LayoutBuilder(
       builder: (context, constraints) {
         return OrientationBuilder(
@@ -42,7 +58,7 @@ class MyApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               builder: ExtendedNavigator.builder(
                 router: Router(),
-                initialRoute: Routes.dashboardView,
+                initialRoute: view,
                 navigatorKey: locator<NavigationService>().navigatorKey,
                 builder: (context, extendedNav) => Theme(
                   data: ThemeData(
@@ -58,5 +74,11 @@ class MyApp extends StatelessWidget {
         );
       },
     );
+  }
+
+  getFirstRunBool() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool firstRun = (prefs.getBool('firstRun') ?? false);
+    return firstRun;
   }
 }

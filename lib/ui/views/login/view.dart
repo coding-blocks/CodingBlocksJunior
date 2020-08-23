@@ -1,4 +1,6 @@
 import 'package:coding_blocks_junior/ui/views/login/viewmodel.dart';
+import 'package:coding_blocks_junior/ui/widgets/Base/RaisedGradientButton.dart';
+import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -14,8 +16,13 @@ class LoginView extends StatelessWidget {
           LoginViewModel(context: context, onClose: onClose),
       builder: (context, model, child) => Container(
         padding: EdgeInsets.all(20),
-        decoration: BoxDecoration(border: Border.all(width: 1.0)),
-        height: MediaQuery.of(context).size.height / 3,
+        decoration: new BoxDecoration(
+            color: Colors.white,
+            borderRadius: new BorderRadius.only(
+                topLeft: const Radius.circular(10.0),
+                topRight: const Radius.circular(10.0))),
+        height: MediaQuery.of(context).size.height / 2 +
+            MediaQuery.of(context).viewInsets.bottom,
         child: PageView(
           controller: model.pageController,
           physics: NeverScrollableScrollPhysics(),
@@ -30,15 +37,40 @@ class MobileInputView extends ViewModelWidget<LoginViewModel> {
   @override
   Widget build(BuildContext context, LoginViewModel model) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Text("Let's get you onboard"),
-        TextField(
-          controller: model.mobileInputController,
+        Text(
+          "Let's get you onboard",
+          style: TextStyle(
+              fontSize: 2.5 * SizeConfig.textMultiplier,
+              fontWeight: FontWeight.bold,
+              color: Colors.black),
         ),
-        RaisedButton(
-          child: Text('Send Otp'),
-          onPressed: model.sendOtp,
-        )
+        Container(
+          margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
+          child: TextField(
+            decoration: InputDecoration(
+                border: OutlineInputBorder()
+            ),
+            controller: model.mobileInputController,
+          ),
+        ),
+        Container(
+        margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
+          child: RaisedGradientButton(
+            height: 5 * SizeConfig.heightMultiplier,
+            width: 30 * SizeConfig.widthMultiplier,
+            gradient: LinearGradient(
+              colors: <Color>[Colors.blueAccent, Colors.blue],
+            ),
+            child: Text(
+              'Send Otp',
+              style: TextStyle(
+                  fontSize: 2 * SizeConfig.textMultiplier, color: Colors.white),
+            ),
+            onPressed: model.sendOtp,
+          ),
+        ),
       ],
     );
   }
