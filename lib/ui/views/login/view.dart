@@ -1,5 +1,6 @@
 import 'package:coding_blocks_junior/ui/views/login/viewmodel.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:stacked/stacked.dart';
 
 class LoginView extends StatelessWidget {
@@ -19,7 +20,7 @@ class LoginView extends StatelessWidget {
         child: PageView(
           controller: model.pageController,
           physics: NeverScrollableScrollPhysics(),
-          children: <Widget>[MobileInputView(), OtpInputView()],
+          children: <Widget>[MobileInputView(), OtpInputView(), SignupView()],
         ),
       ),
     );
@@ -63,4 +64,47 @@ class OtpInputView extends ViewModelWidget<LoginViewModel> {
       ],
     );
   }
+}
+
+
+class SignupView extends ViewModelWidget<LoginViewModel> {
+  @override
+  Widget build(BuildContext context, LoginViewModel model) {
+   return Container(
+     child: FormBuilder(
+       key: model.signupFormKey,
+       child: SingleChildScrollView(
+         child: Column(children: [
+           Text('Singup'),
+           FormBuilderTextField(
+               attribute: "email",
+               decoration: InputDecoration(labelText: "Email Address"),
+               validators: [
+                 FormBuilderValidators.email(),
+                 FormBuilderValidators.required(),
+                 FormBuilderValidators.max(150),
+               ]),
+           FormBuilderTextField(
+               attribute: "firstname",
+               decoration: InputDecoration(labelText: "First Name"),
+               validators: [
+                 FormBuilderValidators.max(150),
+                 FormBuilderValidators.required()
+               ]),
+           FormBuilderTextField(
+               attribute: "lastname",
+               decoration: InputDecoration(labelText: "Last Name"),
+               validators: [
+                 FormBuilderValidators.max(150),
+                 FormBuilderValidators.required()
+               ]),
+           Center(
+             child: RaisedButton(onPressed: model.signUp, child: Text('Sign Up!'),),
+           )
+         ]),
+       ),
+     ),
+   );
+  }
+
 }

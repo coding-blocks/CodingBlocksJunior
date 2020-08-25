@@ -33,7 +33,7 @@ class DashboardProfileViewModel extends FutureViewModel {
     showBottomSheet(
         elevation: 2,
         context: context,
-        builder: (context) => LoginView(onClose: this.notifyListeners));
+        builder: (context) => LoginView(onClose: () => this.notifyListeners()));
   }
 
   void saveProfile() async{
