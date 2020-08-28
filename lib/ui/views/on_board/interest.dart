@@ -4,14 +4,14 @@ import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:flutter/material.dart';
 
-class OnboardInterests extends StatefulWidget {
-  @override
-  createState() {
-    return new OnboardInterestsState();
-  }
-}
+//class OnboardInterests extends StatefulWidget {
+//  @override
+//  createState() {
+//    return new OnboardInterestsState();
+//  }
+//}
 
-class OnboardInterestsState extends State<OnboardInterests> {
+class OnboardInterests extends ViewModelWidget<OnBoardViewModel> {
   List<String> reportList = [
     "Cricket",
     "App Development",
@@ -24,7 +24,7 @@ class OnboardInterestsState extends State<OnboardInterests> {
   List<String> selectedReportList = List();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, model) {
     return new Scaffold(
       body: Container(
         margin: EdgeInsets.all(5 * SizeConfig.heightMultiplier),
