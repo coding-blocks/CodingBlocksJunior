@@ -55,12 +55,11 @@ class PlayerViewModel extends FutureViewModel<Content> {
       return content;
 
     var qs = await Firestore.instance
-        .collectionGroup('contents')
-        .where(FieldPath.documentId, isEqualTo: "courses/$courseId/contents/$contentId")
-        .limit(1)
-        .getDocuments();
+        .collection('contents')
+        .document(contentId)
+        .get();
 
-    return Content.fromSnapshot(qs.documents[0]);
+    return Content.fromSnapshot(qs);
   }
   Future<Bookmark> fetchBookmark() async {
     String courseId = course.id;

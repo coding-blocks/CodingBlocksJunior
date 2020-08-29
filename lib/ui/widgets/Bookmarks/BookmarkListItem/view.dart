@@ -19,51 +19,54 @@ class BookmarkListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<BookmarkListItemViewModel>.reactive(
       builder: (BuildContext context, BookmarkListItemViewModel model, Widget child) =>
-          If(!model.isBusy , () => Container(
+          If(!model.isBusy , () => InkWell(
+            onTap: model.goToContent,
+            child: Container(
         padding: EdgeInsets.all(30),
         color: color,
         child: IntrinsicHeight(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: <Widget>[
-                Container(
-                  margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
-                  child: SizedBox(child: Thumbnail(url: model.content.url), width: 120,),
-                ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Text(
-                          model.course.title,
-                          style: TextStyle(
-                            color: getColorFromHex('#194A88'),
-                            fontSize: 10
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Container(
+                    margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
+                    child: SizedBox(child: Thumbnail(url: model.content.url), width: 120,),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            model.course.title,
+                            style: TextStyle(
+                              color: getColorFromHex('#194A88'),
+                              fontSize: 10
+                            ),
                           ),
-                        ),
-                        Text(
-                          model.content.title,
-                          style: TextStyle(
-                            color: getColorFromHex('#194A88'),
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold
-                          ),
-                        )
-                      ],
+                          Text(
+                            model.content.title,
+                            style: TextStyle(
+                              color: getColorFromHex('#194A88'),
+                              fontSize: 14,
+                              fontWeight: FontWeight.bold
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Align(
-                  alignment: Alignment.topLeft,
-                  child: Image.asset('assets/bookmark-blue.png', height: 15, width: 15),
-                )
-              ],
-            ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: Image.asset('assets/bookmark-blue.png', height: 15, width: 15),
+                  )
+                ],
+              ),
         )
       ),
+          ),
           ),
       viewModelBuilder: () => BookmarkListItemViewModel(bookmark: bookmark)
     );
