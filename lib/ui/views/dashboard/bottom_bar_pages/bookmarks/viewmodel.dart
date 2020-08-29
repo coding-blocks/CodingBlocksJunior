@@ -3,7 +3,7 @@ import 'package:coding_blocks_junior/models/bookmark.dart';
 import 'package:stacked/stacked.dart';
 
 class DashboardBookmarksViewModel extends StreamViewModel<QuerySnapshot> {
-  List<Bookmark> bookmarks;
+  List<Bookmark> bookmarks = [];
 
   @override
   Stream<QuerySnapshot> get stream => Firestore
