@@ -94,18 +94,21 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
     List<Widget> choices = List();
 
     widget.reportList.forEach((item) {
+      bool isItemSelected = selectedChoices.contains(item);
       choices.add(Container(
         padding: const EdgeInsets.only(left: 2.0,right: 2.0),
         child: ChoiceChip(
           padding: EdgeInsets.all(10.0),
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(Radius.circular(4))),
+            borderRadius: BorderRadius.all(Radius.circular(4)),
+            side: BorderSide(color: getColorFromHex('#2167E3'))
+          ),
           label: Text(item,
               style: TextStyle(
                   fontSize: 1.5 * SizeConfig.textMultiplier,
-                  color: Colors.white,
+                  color: isItemSelected ? Colors.white : getColorFromHex('#2167E3'),
                   fontWeight: FontWeight.bold)),
-          selected: selectedChoices.contains(item),
+          selected: isItemSelected,
           backgroundColor: Colors.white,
           selectedColor: getColorFromHex('#2167E3'),
           onSelected: (selected) {
@@ -126,6 +129,7 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
   @override
   Widget build(BuildContext context) {
     return Wrap(
+      alignment: WrapAlignment.center,
       children: _buildChoiceList(),
     );
   }
