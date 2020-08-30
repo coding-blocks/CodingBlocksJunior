@@ -1,10 +1,11 @@
+import 'package:coding_blocks_junior/ui/views/on_board/viewmodel.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class OnboardInterests extends ViewModelWidget<OnBoardViewModel> {
-  List<String> reportList = [
+  final List<String> reportList = [
     "Cricket",
     "App Development",
     "Video Games",
@@ -12,7 +13,6 @@ class OnboardInterests extends ViewModelWidget<OnBoardViewModel> {
     "Robots",
     "Maths and Science"
   ];
-
   List<String> selectedReportList = List();
 
   @override
