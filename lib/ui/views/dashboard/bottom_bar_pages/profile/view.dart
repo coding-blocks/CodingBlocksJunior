@@ -1,7 +1,9 @@
 import 'package:coding_blocks_junior/ui/views/dashboard/bottom_bar_pages/profile/viewmodel.dart';
 import 'package:coding_blocks_junior/ui/widgets/AppBars/dashboard_pages_appbar.dart';
+import 'package:coding_blocks_junior/ui/widgets/Base/RaisedGradientButton.dart';
 import 'package:coding_blocks_junior/ui/widgets/Base/asset_icon.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
+import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:stacked/stacked.dart';
@@ -9,6 +11,7 @@ import 'package:stacked/stacked.dart';
 class DashboardProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _theme = Theme.of(context);
     return ViewModelBuilder<DashboardProfileViewModel>.reactive(
       disposeViewModel: false,
       initialiseSpecialViewModelsOnce: true,
@@ -23,37 +26,46 @@ class DashboardProfileView extends StatelessWidget {
               children: <Widget>[
                 AssetIcon(
                   asset: 'assets/notes-blue.png',
-                  height: 26,
-                  width: 26,
+                  height: 6 * SizeConfig.imageSizeMultiplier,
+                  width: 6 * SizeConfig.imageSizeMultiplier,
                 ),
                 SizedBox(
                   width: 10,
                 ),
-                Text('Profile',
-                    style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
-                        color: getColorFromHex('#1D4479')))
+                Text('Profile', style: _theme.textTheme.headline4)
               ],
             ),
           ),
           SizedBox(height: 30),
           CircleAvatar(
-            radius: 55,
-            backgroundImage: new NetworkImage(model.photo),
+            radius: 12 * SizeConfig.imageSizeMultiplier,
+            backgroundImage: new NetworkImage(
+              model.photo,
+            ),
           ),
           SizedBox(height: 17),
-          Text(model.name,
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: getColorFromHex('#1D4479'))),
+
+
+          Text(model.name, style: _theme.textTheme.headline6),
           model.user.isAnonymous
               ? Container(
                   padding: EdgeInsets.all(20),
                   child: Center(
-                    child: RaisedButton(
-                        child: Text('Login'), onPressed: model.login),
+                    child: RaisedGradientButton(
+                        height: 5 * SizeConfig.heightMultiplier,
+                        width: 30 * SizeConfig.widthMultiplier,
+                        gradient: LinearGradient(
+                          colors: <Color>[
+                            getColorFromHex('#0575E6'),
+                            getColorFromHex('#021B79')
+                          ],
+                        ),
+                        child: Text('Login',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 2.0 * SizeConfig.textMultiplier,
+                                fontWeight: FontWeight.bold)),
+                        onPressed: model.login),
                   ),
                 )
               : (model.profile == null

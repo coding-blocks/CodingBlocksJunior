@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:coding_blocks_junior/app/locator.dart';
 import 'package:coding_blocks_junior/services/amoeba_api.dart';
 import 'package:coding_blocks_junior/services/session.dart';
@@ -5,17 +7,20 @@ import 'package:coding_blocks_junior/utils/logic.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:stacked/stacked.dart';
 
 class LoginViewModel extends BaseViewModel {
   AmoebaApiService amoebaApiService = locator<AmoebaApiService>();
   SessionService sessionService = locator<SessionService>();
 
+  final StreamController<ErrorAnimationType> otpErrorController = StreamController<ErrorAnimationType>();
   final mobileInputController = new TextEditingController();
   final otpInputController = new TextEditingController();
   String mobile;
   String otpClaimId;
   String errorText = '';
+  bool isVerifying = false;
   final pageController = new PageController(initialPage: 0);
   final signupFormKey = GlobalKey<FormBuilderState>();
 
@@ -43,7 +48,7 @@ class LoginViewModel extends BaseViewModel {
   }
 
   Future sendOtp() async {
-    mobile = mobileInputController.value.text;
+    mobile = mobileInputController.value.text.replaceAll(' ', ''); // effectively trim string
     try {
       final response = await amoebaApiService.dio.post('/jwt/otp/v2', data: {'mobile': "$mobile", 'dialCode': '91'});
       otpClaimId = response.data['id'];
@@ -55,9 +60,11 @@ class LoginViewModel extends BaseViewModel {
     }
   }
 
-  Future verifyOtp() async {
-    final otp = otpInputController.value.text;
-    errorText = '';
+  Future verifyOtp(String otp) async {
+
+    // reset state
+    this.errorText = '';
+    this.isVerifying = true;
     notifyListeners();
 
     try {
@@ -80,10 +87,10 @@ class LoginViewModel extends BaseViewModel {
         this.close();
       }
     } on DioError catch (e) {
-      if (e.response.data['status'] == 400) {
-        this.errorText = 'Invalid Otp';
-        notifyListeners();
-      }
+      otpErrorController.add(ErrorAnimationType.shake);
+      this.errorText = 'Wrong OTP';
+      this.isVerifying = false;
+      notifyListeners();
     }
   }
 

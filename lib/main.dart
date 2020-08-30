@@ -8,6 +8,7 @@ import 'package:coding_blocks_junior/app/router.gr.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:coding_blocks_junior/theme.dart';
 
 bool firsRun;
 
@@ -56,18 +57,12 @@ class MyApp extends StatelessWidget {
             return MaterialApp(
               title: 'Coding Blocks Junior',
               debugShowCheckedModeBanner: false,
+              theme: buildTheme(context),
               builder: ExtendedNavigator.builder(
                 router: Router(),
                 initialRoute: view,
                 navigatorKey: locator<NavigationService>().navigatorKey,
-                builder: (context, extendedNav) => Theme(
-                  data: ThemeData(
-                    fontFamily: 'Gilroy',
-                    primaryColor: Colors.blue,
-                    visualDensity: VisualDensity.adaptivePlatformDensity,
-                  ),
-                  child: extendedNav,
-                ),
+                builder: (context, extendedNav) => extendedNav,
               ),
             );
           },

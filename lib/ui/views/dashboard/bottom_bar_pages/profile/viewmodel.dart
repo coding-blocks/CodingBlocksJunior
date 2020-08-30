@@ -32,11 +32,14 @@ class DashboardProfileViewModel extends FutureViewModel {
   void login () async {
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(30.0),
         ),
         isScrollControlled: true,
         context: context,
-        builder: (context) => LoginView(onClose: () => this.notifyListeners()));
+        builder: (context) => LoginView(onClose: () {
+          this.futureToRun();
+          notifyListeners();
+        }));
   }
 
   void saveProfile() async{
