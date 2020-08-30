@@ -1,3 +1,4 @@
+import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -7,6 +8,8 @@ class RaisedGradientButton extends StatelessWidget {
   final double width;
   final double height;
   final Function onPressed;
+//  final linearGradient = vonLinearGradient(
+//      colors: <Color>[getColorFromHex('#0575E6'), getColorFromHex('#021B79')]);
 
   const RaisedGradientButton({
     Key key,
@@ -29,7 +32,7 @@ class RaisedGradientButton extends StatelessWidget {
           blurRadius: 1.5,
         ),
       ],
-          borderRadius: new BorderRadius.circular(27.5)
+          borderRadius: new BorderRadius.circular(40)
       ),
       child: Material(
         color: Colors.transparent,

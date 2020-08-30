@@ -1,18 +1,11 @@
 import 'package:coding_blocks_junior/ui/views/on_board/viewmodel.dart';
-import 'package:coding_blocks_junior/ui/widgets/Base/RaisedGradientButton.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:flutter/material.dart';
+import 'package:stacked/stacked.dart';
 
-class OnboardInterests extends StatefulWidget {
-  @override
-  createState() {
-    return new OnboardInterestsState();
-  }
-}
-
-class OnboardInterestsState extends State<OnboardInterests> {
-  List<String> reportList = [
+class OnboardInterests extends ViewModelWidget<OnBoardViewModel> {
+  final List<String> reportList = [
     "Cricket",
     "App Development",
     "Video Games",
@@ -20,11 +13,10 @@ class OnboardInterestsState extends State<OnboardInterests> {
     "Robots",
     "Maths and Science"
   ];
-
   List<String> selectedReportList = List();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, OnBoardViewModel model) {
     return new Scaffold(
       body: Container(
         margin: EdgeInsets.all(5 * SizeConfig.heightMultiplier),
@@ -37,20 +29,22 @@ class OnboardInterestsState extends State<OnboardInterests> {
               ),
               flex: 2,
             ),
-            Text('What are you interested in?',
-                style: new TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'Gilroy',
-                    fontWeight: FontWeight.w500,
-                    fontSize: 2.2 * SizeConfig.textMultiplier)),
             Container(
+              padding: EdgeInsets.only(top: 2 * SizeConfig.heightMultiplier),
+              child: Text('What are you interested in?',
+                  style: new TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'Gilroy',
+                      fontWeight: FontWeight.w500,
+                      fontSize: 2.2 * SizeConfig.textMultiplier)),
+            ),
+            Container(
+              padding: EdgeInsets.only(top: 2 * SizeConfig.heightMultiplier),
               alignment: Alignment.center,
               child: MultiSelectChip(
                 reportList,
                 onSelectionChanged: (selectedList) {
-                  setState(() {
-                    selectedReportList = selectedList;
-                  });
+                  selectedReportList = selectedList;
                 },
               ),
             ),
@@ -58,13 +52,21 @@ class OnboardInterestsState extends State<OnboardInterests> {
             Container(
               margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
               child: RaisedButton(
+                padding: EdgeInsets.fromLTRB(
+                    10 * SizeConfig.heightMultiplier,
+                    3 * SizeConfig.widthMultiplier,
+                    10 * SizeConfig.heightMultiplier,
+                    3 * SizeConfig.widthMultiplier),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(4.0)),
                 color: getColorFromHex('#2167E3'),
+                onPressed: selectedReportList.length > 0
+                    ? null
+                    : () => model.goToHome(selectedReportList),
                 child: Text(
                   'Get Started',
                   style: TextStyle(
-                      fontSize: 2 * SizeConfig.textMultiplier,
+                      fontSize: 2.5 * SizeConfig.textMultiplier,
                       color: Colors.white),
                 ),
               ),
@@ -96,17 +98,18 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
     widget.reportList.forEach((item) {
       bool isItemSelected = selectedChoices.contains(item);
       choices.add(Container(
-        padding: const EdgeInsets.only(left: 2.0,right: 2.0),
+        padding: const EdgeInsets.only(left: 2.0, right: 2.0),
         child: ChoiceChip(
           padding: EdgeInsets.all(10.0),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(4)),
-            side: BorderSide(color: getColorFromHex('#2167E3'))
-          ),
+              borderRadius: BorderRadius.all(Radius.circular(4)),
+              side: BorderSide(color: getColorFromHex('#2167E3'))),
           label: Text(item,
               style: TextStyle(
                   fontSize: 1.5 * SizeConfig.textMultiplier,
-                  color: isItemSelected ? Colors.white : getColorFromHex('#2167E3'),
+                  color: isItemSelected
+                      ? Colors.white
+                      : getColorFromHex('#2167E3'),
                   fontWeight: FontWeight.bold)),
           selected: isItemSelected,
           backgroundColor: Colors.white,

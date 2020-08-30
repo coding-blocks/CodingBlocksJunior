@@ -1,5 +1,3 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:coding_blocks_junior/app/router.gr.dart';
 import 'package:coding_blocks_junior/ui/views/dashboard/viewmodel.dart';
 import 'package:coding_blocks_junior/ui/widgets/Dashboard/bottom_bar_nav_icon.dart';
 import 'package:flutter/material.dart';

@@ -68,7 +68,7 @@ class LoginViewModel extends BaseViewModel {
     notifyListeners();
 
     try {
-      await amoebaApiService.dio.post('/jwt/otp/v2/${otpClaimId}/verify', data: {'otp': otp});
+      await amoebaApiService.dio.post('/jwt/otp/v2/$otpClaimId/verify', data: {'otp': otp});
 
       // check if we can login or not
       final apiUser = await this._findUserByMobile(mobile); // check if this mobile number is registered.
@@ -78,7 +78,7 @@ class LoginViewModel extends BaseViewModel {
         // signup flow, get user details
         return pageController.jumpToPage(2); // jump to singup screen
       } else {
-        final response = await amoebaApiService.dio.post('/junior/otp/${otpClaimId}/login', data: {
+        final response = await amoebaApiService.dio.post('/junior/otp/$otpClaimId/login', data: {
           "client": "junior_app",
           if (user.isAnonymous) "uid": user.uid
         });
@@ -99,7 +99,7 @@ class LoginViewModel extends BaseViewModel {
     if (state.saveAndValidate()) {
       final response = await amoebaApiService.dio.post('/junior/users', data: {
         'username': 'junior' + mobile,
-        'mobile': "+91-${mobile}",
+        'mobile': "+91-$mobile",
         'firstname': state.value['firstname'],
         'lastname': state.value['lastname'],
         'email': state.value['email'],

@@ -1,5 +1,6 @@
 import 'package:coding_blocks_junior/ui/views/login/viewmodel.dart';
 import 'package:coding_blocks_junior/ui/widgets/Base/RaisedGradientButton.dart';
+import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -9,9 +10,11 @@ import 'package:stacked/stacked.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class LoginView extends StatelessWidget {
-  var onClose;
+  final Function onClose;
 
-  LoginView({this.onClose});
+  LoginView({
+    this.onClose
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +26,9 @@ class LoginView extends StatelessWidget {
         decoration: new BoxDecoration(
             color: Colors.white,
             borderRadius: new BorderRadius.only(
-                topLeft: const Radius.circular(10.0),
-                topRight: const Radius.circular(10.0))),
-        height: MediaQuery.of(context).size.height / 2 +
+                topLeft: const Radius.circular(30.0),
+                topRight: const Radius.circular(30.0))),
+        height: MediaQuery.of(context).size.height / 2.5 +
             MediaQuery.of(context).viewInsets.bottom,
         child: PageView(
           controller: model.pageController,
@@ -43,6 +46,7 @@ class MobileInputView extends ViewModelWidget<LoginViewModel> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
+
         Text(
           "Let's get you onboard",
           style: TextStyle(
@@ -50,8 +54,15 @@ class MobileInputView extends ViewModelWidget<LoginViewModel> {
               fontWeight: FontWeight.bold,
               color: Colors.black),
         ),
+        Text(
+          "Enter your Phone number to get started!",
+          style: TextStyle(
+              fontSize: 1.2 * SizeConfig.textMultiplier,
+              fontWeight: FontWeight.bold,
+              color: Colors.black),
+        ),
         Container(
-          margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
+          margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
           child: InternationalPhoneNumberInput(
             initialValue: PhoneNumber(isoCode: 'IN'),
             textFieldController: model.mobileInputController,
@@ -66,7 +77,9 @@ class MobileInputView extends ViewModelWidget<LoginViewModel> {
             child: Text(
               'Send Otp',
               style: TextStyle(
-                  fontSize: 2 * SizeConfig.textMultiplier, color: Colors.white),
+                  color: Colors.white,
+                  fontSize: 2 * SizeConfig.textMultiplier,
+                  fontWeight: FontWeight.bold),
             ),
             onPressed: model.sendOtp,
           ),
@@ -121,45 +134,46 @@ class OtpInputView extends ViewModelWidget<LoginViewModel> {
   }
 }
 
-
 class SignupView extends ViewModelWidget<LoginViewModel> {
   @override
   Widget build(BuildContext context, LoginViewModel model) {
-   return Container(
-     child: FormBuilder(
-       key: model.signupFormKey,
-       child: SingleChildScrollView(
-         child: Column(children: [
-           Text('Singup'),
-           FormBuilderTextField(
-               attribute: "email",
-               decoration: InputDecoration(labelText: "Email Address"),
-               validators: [
-                 FormBuilderValidators.email(),
-                 FormBuilderValidators.required(),
-                 FormBuilderValidators.max(150),
-               ]),
-           FormBuilderTextField(
-               attribute: "firstname",
-               decoration: InputDecoration(labelText: "First Name"),
-               validators: [
-                 FormBuilderValidators.max(150),
-                 FormBuilderValidators.required()
-               ]),
-           FormBuilderTextField(
-               attribute: "lastname",
-               decoration: InputDecoration(labelText: "Last Name"),
-               validators: [
-                 FormBuilderValidators.max(150),
-                 FormBuilderValidators.required()
-               ]),
-           Center(
-             child: RaisedButton(onPressed: model.signUp, child: Text('Sign Up!'),),
-           )
-         ]),
-       ),
-     ),
-   );
+    return Container(
+      child: FormBuilder(
+        key: model.signupFormKey,
+        child: SingleChildScrollView(
+          child: Column(children: [
+            Text('Singup'),
+            FormBuilderTextField(
+                attribute: "email",
+                decoration: InputDecoration(labelText: "Email Address"),
+                validators: [
+                  FormBuilderValidators.email(),
+                  FormBuilderValidators.required(),
+                  FormBuilderValidators.max(150),
+                ]),
+            FormBuilderTextField(
+                attribute: "firstname",
+                decoration: InputDecoration(labelText: "First Name"),
+                validators: [
+                  FormBuilderValidators.max(150),
+                  FormBuilderValidators.required()
+                ]),
+            FormBuilderTextField(
+                attribute: "lastname",
+                decoration: InputDecoration(labelText: "Last Name"),
+                validators: [
+                  FormBuilderValidators.max(150),
+                  FormBuilderValidators.required()
+                ]),
+            Center(
+              child: RaisedButton(
+                onPressed: model.signUp,
+                child: Text('Sign Up!'),
+              ),
+            )
+          ]),
+        ),
+      ),
+    );
   }
-
 }

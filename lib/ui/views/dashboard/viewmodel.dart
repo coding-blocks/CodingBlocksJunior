@@ -1,4 +1,3 @@
-import 'package:coding_blocks_junior/app/locator.dart';
 import 'package:stacked/stacked.dart';
 
 class DashboardViewModel extends BaseViewModel {

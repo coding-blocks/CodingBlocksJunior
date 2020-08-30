@@ -32,7 +32,7 @@ class DashboardProfileViewModel extends FutureViewModel {
   void login () async {
     showModalBottomSheet(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(30.0),
         ),
         isScrollControlled: true,
         context: context,
@@ -76,7 +76,7 @@ class DashboardProfileViewModel extends FutureViewModel {
       final ref = await userProfilesCollection.add({
         "userId": user.uid
       });
-      snapshot = await userProfilesCollection.document(ref.documentID);
+      snapshot = userProfilesCollection.document(ref.documentID);
     } else {
       snapshot = query.documents[0];
     }
