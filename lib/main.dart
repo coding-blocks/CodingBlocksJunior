@@ -16,7 +16,7 @@ void main() async {
   setupLocator();
   SessionService sessionService = locator<SessionService>();
   await sessionService.ready;
-  firsRun = false; // await getSharedPrefs();
+  firsRun = await getSharedPrefs();
   runApp(MyApp());
   setupOneSignal();
 }
