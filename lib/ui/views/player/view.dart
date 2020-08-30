@@ -18,7 +18,7 @@ class PlayerView extends StatelessWidget {
       viewModelBuilder: () => PlayerViewModel(
         contentId: contentId, 
         courseId: courseId, 
-        content: arguments['content']
+        content: arguments == null ? null : arguments['content']
       ),
       builder: (context, model, child) => Scaffold(
         body: Container(

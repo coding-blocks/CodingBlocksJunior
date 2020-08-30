@@ -3,7 +3,7 @@ import 'package:coding_blocks_junior/models/note.dart';
 import 'package:stacked/stacked.dart';
 
 class DashboardNotesViewModel extends StreamViewModel<QuerySnapshot> {
-  List<Note> notes;
+  List<Note> notes = [];
  
   @override
   Stream<QuerySnapshot> get stream => Firestore

@@ -21,10 +21,10 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
 apply plugin: 'com.google.gms.google-services'
 
 android {
@@ -54,6 +54,17 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig signingConfigs.debug
         }
+    }
+
+    aaptOptions {
+        cruncherEnabled false
+    }
+    dexOptions {
+        preDexLibraries true
+        maxProcessCount 8
+        // Instead of setting the heap size for the DEX process, increase Gradle's
+        // heap size to enable dex-in-process. To learm more, read the next section.
+        // javaMaxHeapSize "2048m"
     }
 }
 

@@ -1,8 +1,10 @@
 import 'package:coding_blocks_junior/app/locator.dart';
 import 'package:coding_blocks_junior/services/amoeba_api.dart';
 import 'package:coding_blocks_junior/services/session.dart';
+import 'package:coding_blocks_junior/utils/logic.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:stacked/stacked.dart';
 
 class LoginViewModel extends BaseViewModel {
@@ -12,18 +14,39 @@ class LoginViewModel extends BaseViewModel {
   final mobileInputController = new TextEditingController();
   final otpInputController = new TextEditingController();
   String mobile;
+  String otpClaimId;
   String errorText = '';
   final pageController = new PageController(initialPage: 0);
+  final signupFormKey = GlobalKey<FormBuilderState>();
+
+  get user => sessionService.user;
 
   BuildContext context;
   var onClose;
 
   LoginViewModel({this.context, this.onClose});
 
+  Future _findUserByMobile (String mobile) async {
+    try {
+      final response = await amoebaApiService.dio.post('/users/find', data: {
+        "verifiedmobile": "+91-$mobile"
+      });
+
+      return response?.data[0];
+    } catch (error) {
+      if (error is DioError && error.response.statusCode == 404) {
+        return null;
+      } else {
+        rethrow;
+      }
+    }
+  }
+
   Future sendOtp() async {
     mobile = mobileInputController.value.text;
     try {
-      await amoebaApiService.dio.post('/junior/otp', data: {'phone': "+91-$mobile"});
+      final response = await amoebaApiService.dio.post('/jwt/otp/v2', data: {'mobile': "$mobile", 'dialCode': '91'});
+      otpClaimId = response.data['id'];
       nextPage();
     } catch (e) {
       print(e);
@@ -37,25 +60,58 @@ class LoginViewModel extends BaseViewModel {
     errorText = '';
     notifyListeners();
 
-    final user = sessionService.user;
     try {
-      final response = await amoebaApiService.dio.post('/junior/otp/verify', data: {
-        "phone": "+91-$mobile",
-        "otp": otp.toString(),
-        "client": "junior_app",
-        if (user.isAnonymous) "uid": user.uid
-      });
-      await sessionService.login(response.data);
-      this.onClose(); // notify parent of close; to update ui with populated user
-      Navigator.pop(context); // close the bottom sheet modal
+      await amoebaApiService.dio.post('/jwt/otp/v2/${otpClaimId}/verify', data: {'otp': otp});
+
+      // check if we can login or not
+      final apiUser = await this._findUserByMobile(mobile); // check if this mobile number is registered.
+      final canLogin = apiUser != null;
+
+      if (!canLogin) {
+        // signup flow, get user details
+        return pageController.jumpToPage(2); // jump to singup screen
+      } else {
+        final response = await amoebaApiService.dio.post('/junior/otp/${otpClaimId}/login', data: {
+          "client": "junior_app",
+          if (user.isAnonymous) "uid": user.uid
+        });
+        await sessionService.login(response.data);
+
+        this.close();
+      }
     } on DioError catch (e) {
-      if (e.response.data['error'] == 'invalid_grant') {
+      if (e.response.data['status'] == 400) {
         this.errorText = 'Invalid Otp';
         notifyListeners();
       }
     }
   }
 
+  Future signUp () async{
+    final state = signupFormKey.currentState;
+    if (state.saveAndValidate()) {
+      final response = await amoebaApiService.dio.post('/junior/users', data: {
+        'username': 'junior' + mobile,
+        'mobile': "+91-${mobile}",
+        'firstname': state.value['firstname'],
+        'lastname': state.value['lastname'],
+        'email': state.value['email'],
+        'password': generateRandomString(16),
+        'claimId': otpClaimId,
+        'client': 'junior_app',
+        if (user.isAnonymous) "uid": user.uid
+      });
+      await sessionService.login(response.data);
+      this.close();
+    }
+  }
+
   void nextPage() => pageController.nextPage(
       duration: Duration(milliseconds: 500), curve: Curves.ease);
+
+  void close() {
+    this.onClose(); // notify parent of close; to update ui with populated user
+//    notifyListeners();
+    Navigator.pop(context); // close the bottom sheet modal
+  }
 }
