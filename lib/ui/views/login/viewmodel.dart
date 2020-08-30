@@ -2,7 +2,6 @@ import 'package:coding_blocks_junior/app/locator.dart';
 import 'package:coding_blocks_junior/services/amoeba_api.dart';
 import 'package:coding_blocks_junior/services/session.dart';
 import 'package:dio/dio.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 

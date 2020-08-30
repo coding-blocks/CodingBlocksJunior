@@ -5,9 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class LoginView extends StatelessWidget {
-  var onClose;
+  final Function onClose;
 
-  LoginView({this.onClose});
+  LoginView({
+    this.onClose
+  });
 
   @override
   Widget build(BuildContext context) {

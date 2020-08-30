@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class SessionService {
   var ready;
@@ -10,7 +9,6 @@ class SessionService {
   }
 
   Future _loadSessionData() async {
-    var prefs = await SharedPreferences.getInstance();
     user = await FirebaseAuth.instance.currentUser();
 
     if(user == null) {
@@ -19,9 +17,7 @@ class SessionService {
     }
   }
 
-  Future _saveSessionData() async {
-    var prefs = await SharedPreferences.getInstance();
-  }
+  Future _saveSessionData() async {}
 
   Future login(loginPayload) async {
     final firebaseToken = loginPayload['firebaseToken'];

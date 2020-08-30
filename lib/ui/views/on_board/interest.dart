@@ -1,5 +1,3 @@
-import 'package:coding_blocks_junior/ui/views/on_board/viewmodel.dart';
-import 'package:coding_blocks_junior/ui/widgets/Base/RaisedGradientButton.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +56,7 @@ class OnboardInterestsState extends State<OnboardInterests> {
             Container(
               margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
               child: RaisedButton(
+                onPressed: () {},
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(4.0)),
                 color: getColorFromHex('#2167E3'),

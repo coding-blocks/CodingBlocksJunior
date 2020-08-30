@@ -1,4 +1,3 @@
-import 'package:coding_blocks_junior/models/note.dart';
 import 'package:coding_blocks_junior/ui/widgets/AppBars/dashboard_pages_appbar.dart';
 import 'package:coding_blocks_junior/ui/widgets/Base/asset_icon.dart';
 import 'package:coding_blocks_junior/ui/widgets/Notes/NoteList/view.dart';

@@ -7,13 +7,12 @@ import 'package:stacked/stacked.dart';
 import 'viewmodel.dart';
 
 class OnBoardView extends StatelessWidget {
-  PageController _pageController;
+  final PageController _pageController = PageController(
+      initialPage: 0,
+    );
 
   @override
   Widget build(BuildContext context) {
-    _pageController = PageController(
-      initialPage: 0,
-    );
     return ViewModelBuilder<OnBoardViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
         body: PageView(

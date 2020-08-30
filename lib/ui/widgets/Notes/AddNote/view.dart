@@ -1,4 +1,3 @@
-import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:flutter/material.dart';
 
 class AddNote extends StatelessWidget {

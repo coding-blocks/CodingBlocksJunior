@@ -7,10 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class ContentListView extends StatelessWidget {
-  Stream<QuerySnapshot> contentStream;
-  Function onTap;
+  final Stream<QuerySnapshot> contentStream;
+  final Function onTap;
 
-  ContentListView({this.contentStream, this.onTap});
+  ContentListView({
+    this.contentStream, 
+    this.onTap
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +36,13 @@ class ContentListView extends StatelessWidget {
 }
 
 class ContentListItemView extends StatelessWidget {
-  Content content;
-  int index;
+  final Content content;
+  final int index;
 
-  ContentListItemView({@required this.content, this.index});
+  ContentListItemView({
+    @required this.content, 
+    this.index
+  });
 
   @override
   Widget build(BuildContext context) {
