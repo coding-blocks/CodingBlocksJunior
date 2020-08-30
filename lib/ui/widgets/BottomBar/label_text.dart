@@ -11,9 +11,8 @@ class NavLabelText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(
-        fontSize: 2.0 * SizeConfig.textMultiplier,
-        color: getColorFromHex('#056FDE'),
+      style: Theme.of(context).textTheme.bodyText2.copyWith(
+        fontWeight: FontWeight.bold
       ),
     );
   }

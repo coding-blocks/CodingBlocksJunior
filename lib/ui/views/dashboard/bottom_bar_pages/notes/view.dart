@@ -2,6 +2,8 @@ import 'package:coding_blocks_junior/ui/widgets/AppBars/dashboard_pages_appbar.d
 import 'package:coding_blocks_junior/ui/widgets/Base/asset_icon.dart';
 import 'package:coding_blocks_junior/ui/widgets/Notes/NoteList/view.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
+import 'package:coding_blocks_junior/utils/SizeConfig.dart';
+import 'package:coding_blocks_junior/utils/logic.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -10,6 +12,7 @@ import 'viewmodel.dart';
 class DashboardNotesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ViewModelBuilder<DashboardNotesViewModel>.reactive(
       disposeViewModel: false,
       initialiseSpecialViewModelsOnce: true,
@@ -18,25 +21,18 @@ class DashboardNotesView extends StatelessWidget {
         body: Column(
           children: [
             Container(
-              padding: EdgeInsets.fromLTRB(30, 10, 30, 20),
+              padding: getInsetsLTRB(30, 10, 30, 10),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   AssetIcon(
                     asset: 'assets/notes-blue.png',
-                    height: 26,
-                    width: 26,
+                    height: 26 * SizeConfig.imageSizeMultiplier,
+                    width: 26 * SizeConfig.imageSizeMultiplier,
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                    child: Text(
-                      'Notes',
-                      style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
-                        color: getColorFromHex('#1D4479')
-                      ),
-                    ),
+                    margin: getInsetsLTRB(10, 0, 0, 0),
+                    child: Text('Notes', style: theme.textTheme.headline4),
                   )
                 ],
               ),
@@ -46,13 +42,12 @@ class DashboardNotesView extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('assets/notes-blue-5x.png', height: 82, width: 82,),
+                  Image.asset('assets/notes-blue-5x.png',
+                    height: 12 * SizeConfig.imageSizeMultiplier ,
+                    width: 12 * SizeConfig.imageSizeMultiplier),
                   Text(
                     'Your Notes appears here!',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: getColorFromHex('#1D4479')
-                    )
+                    style: theme.textTheme.subtitle1
                   )
                 ],
               ),

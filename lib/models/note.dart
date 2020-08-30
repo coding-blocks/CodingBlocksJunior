@@ -5,6 +5,7 @@ import 'package:floor/floor.dart';
 class Note {
   final String id;
   final String text;
+  final Timestamp createdAt;
   final String contentId;
   final String courseId;
   final DocumentReference content;
@@ -12,7 +13,8 @@ class Note {
 
   Note({
     this.id, 
-    this.text, 
+    this.text,
+    this.createdAt,
     this.contentId,
     this.courseId,
     this.content,
@@ -23,8 +25,9 @@ class Note {
     return Note(
       id: snapshot.documentID,
       text: snapshot['text'],
+      createdAt: snapshot['createdAt'],
       contentId: snapshot['content'].documentID,
-      courseId: snapshot['course'].documentID
+      courseId: snapshot['course'].documentID,
     );
   }
 }

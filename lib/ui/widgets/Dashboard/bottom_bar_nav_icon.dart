@@ -9,8 +9,8 @@ class BottomBarNavIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 6 * SizeConfig.imageSizeMultiplier,
-      width: 6 * SizeConfig.imageSizeMultiplier,
+      height: 21 * SizeConfig.imageSizeMultiplier,
+      width: 21 * SizeConfig.imageSizeMultiplier,
       child: Image.asset(asset),
     );
   }

@@ -2,6 +2,7 @@ import 'package:coding_blocks_junior/ui/views/login/viewmodel.dart';
 import 'package:coding_blocks_junior/ui/widgets/Base/RaisedGradientButton.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:coding_blocks_junior/utils/SizeConfig.dart';
+import 'package:coding_blocks_junior/utils/logic.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -22,7 +23,7 @@ class LoginView extends StatelessWidget {
       viewModelBuilder: () =>
           LoginViewModel(context: context, onClose: onClose),
       builder: (context, model, child) => Container(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(20 * SizeConfig.imageSizeMultiplier),
         decoration: new BoxDecoration(
             color: Colors.white,
             borderRadius: new BorderRadius.only(
@@ -43,65 +44,74 @@ class LoginView extends StatelessWidget {
 class MobileInputView extends ViewModelWidget<LoginViewModel> {
   @override
   Widget build(BuildContext context, LoginViewModel model) {
+    final theme = Theme.of(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
 
         Text(
           "Let's get you onboard",
-          style: TextStyle(
-              fontSize: 2.5 * SizeConfig.textMultiplier,
-              fontWeight: FontWeight.bold,
-              color: Colors.black),
-        ),
+          style: theme.textTheme.subtitle1),
         Text(
           "Enter your Phone number to get started!",
-          style: TextStyle(
-              fontSize: 1.2 * SizeConfig.textMultiplier,
-              fontWeight: FontWeight.bold,
-              color: Colors.black),
+          style: theme.textTheme.caption,
         ),
-        Container(
-          margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
-          child: InternationalPhoneNumberInput(
-            initialValue: PhoneNumber(isoCode: 'IN'),
-            textFieldController: model.mobileInputController,
-            countries: ['IN'],
-          )
-        ),
-        Container(
-        margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
-          child: RoundedLoadingButton(
-            height: 5 * SizeConfig.heightMultiplier,
-            width: 30 * SizeConfig.widthMultiplier,
-            child: Text(
-              'Send Otp',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 2 * SizeConfig.textMultiplier,
-                  fontWeight: FontWeight.bold),
-            ),
-            onPressed: model.sendOtp,
-          ),
-        ),
+        if (SizeConfig.isPortrait) ...[PhoneInputBox(), SendOtpButton()]
+        else Row(
+          children: [Expanded(child: PhoneInputBox()), SendOtpButton()],
+        )
       ],
     );
   }
 }
 
+class PhoneInputBox extends  ViewModelWidget<LoginViewModel> {
+  @override
+  Widget build(BuildContext context, LoginViewModel model) {
+    return Container(
+        margin: getInsetsLTRB(0, 50, 0, 0),
+        child: InternationalPhoneNumberInput(
+          initialValue: PhoneNumber(isoCode: 'IN'),
+          textFieldController: model.mobileInputController,
+          countries: ['IN'],
+        )
+    );
+  }
+
+}
+class SendOtpButton extends  ViewModelWidget<LoginViewModel> {
+  @override
+  Widget build(BuildContext context, LoginViewModel model) {
+    return Container(
+      margin: getInsetsLTRB(10, 50, 0, 0),
+      child: RoundedLoadingButton(
+        width: 200,
+        child: Text(
+          'Send Otp',
+          style: TextStyle(
+              color: Colors.white,
+              fontSize: 14 * SizeConfig.textMultiplier,
+              fontWeight: FontWeight.bold),
+        ),
+        onPressed: model.sendOtp,
+      ),
+    );
+  }
+
+}
+
+
 class OtpInputView extends ViewModelWidget<LoginViewModel> {
   @override
   Widget build(BuildContext context, LoginViewModel model) {
+    final theme = Theme.of(context);
     return Column(
       children: <Widget>[
         Padding(
-          padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+          padding: getInsetsLTRB(0, 0, 0, 10),
           child: Text(
             "Enter OTP",
-            style: TextStyle(
-                fontSize: 2.5 * SizeConfig.textMultiplier,
-                fontWeight: FontWeight.bold,
-                color: Colors.black),
+            style: theme.textTheme.subtitle1,
           ),
         ),
         Text("Enter the OTP sent to +91-${model.mobile}"),

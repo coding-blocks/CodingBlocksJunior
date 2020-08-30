@@ -3,12 +3,16 @@ import 'package:coding_blocks_junior/ui/widgets/AppBars/dashboard_pages_appbar.d
 import 'package:coding_blocks_junior/ui/widgets/Base/asset_icon.dart';
 import 'package:coding_blocks_junior/ui/widgets/Bookmarks/BookmarkList/view.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
+import 'package:coding_blocks_junior/utils/SizeConfig.dart';
+import 'package:coding_blocks_junior/utils/SizeConfig.dart';
+import 'package:coding_blocks_junior/utils/logic.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class DashboardBookmarksView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _theme = Theme.of(context);
     return ViewModelBuilder<DashboardBookmarksViewModel>.reactive(
       disposeViewModel: false,
       initialiseSpecialViewModelsOnce: true,
@@ -17,24 +21,20 @@ class DashboardBookmarksView extends StatelessWidget {
         body: Column(
           children: [
             Container(
-              padding: EdgeInsets.fromLTRB(30, 10, 30, 20),
+              padding: getInsetsLTRB(30, 10, 30, 20),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   AssetIcon(
                     asset: 'assets/bookmark-blue.png',
-                    height: 26,
-                    width: 26,
+                    height: 26 * SizeConfig.imageSizeMultiplier,
+                    width: 26 * SizeConfig.imageSizeMultiplier,
                   ),
                   Container(
-                    margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                    margin: getInsetsLTRB(10, 0, 0, 0),
                     child: Text(
                       'Bookmarks!',
-                      style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
-                        color: getColorFromHex('#1D4479')
-                      ),
+                      style: _theme.textTheme.headline4,
                     ),
                   )
                 ],
@@ -45,7 +45,10 @@ class DashboardBookmarksView extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset('assets/bookmark-blue-5x.png', height: 82, width: 82,),
+                  Image.asset('assets/bookmark-blue-5x.png',
+                    height: 82 * SizeConfig.imageSizeMultiplier,
+                    width: 82 * SizeConfig.imageSizeMultiplier,
+                  ),
                   Text(
                     'Your Bookmarked videos appears here!',
                     style: TextStyle(

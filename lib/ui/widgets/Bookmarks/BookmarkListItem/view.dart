@@ -17,20 +17,24 @@ class BookmarkListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ViewModelBuilder<BookmarkListItemViewModel>.reactive(
       builder: (BuildContext context, BookmarkListItemViewModel model, Widget child) =>
           If(!model.isBusy , () => InkWell(
             onTap: model.goToContent,
             child: Container(
-        padding: EdgeInsets.all(30),
-        color: color,
+              color: color,
+        padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
         child: IntrinsicHeight(
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: <Widget>[
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
-                    child: SizedBox(child: Thumbnail(url: model.content.url), width: 120,),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
+                      child: Thumbnail(url: model.content.url),
+                    ),
                   ),
                   Expanded(
                     flex: 1,
@@ -41,18 +45,13 @@ class BookmarkListItem extends StatelessWidget {
                         children: <Widget>[
                           Text(
                             model.course.title,
-                            style: TextStyle(
-                              color: getColorFromHex('#194A88'),
-                              fontSize: 10
-                            ),
+                            style: theme.textTheme.bodyText2,
                           ),
                           Text(
                             model.content.title,
-                            style: TextStyle(
-                              color: getColorFromHex('#194A88'),
-                              fontSize: 14,
+                            style: theme.textTheme.subtitle1.copyWith(
                               fontWeight: FontWeight.bold
-                            ),
+                            )
                           )
                         ],
                       ),
@@ -60,7 +59,7 @@ class BookmarkListItem extends StatelessWidget {
                   ),
                   Align(
                     alignment: Alignment.topLeft,
-                    child: Image.asset('assets/bookmark-blue.png', height: 15, width: 15),
+                    child: Image.asset('assets/bookmark-blue.png', height: 20, width: 20),
                   )
                 ],
               ),

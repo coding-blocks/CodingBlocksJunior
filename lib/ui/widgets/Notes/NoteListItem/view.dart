@@ -1,8 +1,9 @@
 import 'package:coding_blocks_junior/models/note.dart';
 import 'package:coding_blocks_junior/ui/widgets/Notes/NoteListItem/viewmodel.dart';
-import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:stacked/stacked.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class NoteListItem extends StatelessWidget {
   final Note note;
@@ -15,6 +16,7 @@ class NoteListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ViewModelBuilder.reactive(
       builder: (BuildContext context, NoteListItemViewModel model, Widget child) => Container(
         padding: EdgeInsets.all(30),
@@ -26,10 +28,8 @@ class NoteListItem extends StatelessWidget {
               children: <Widget>[
                 Text(
                   model.course.title + ' | ' + model.content.title,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: getColorFromHex('#1D4479')
+                  style: theme.textTheme.bodyText1.copyWith(
+                    fontWeight: FontWeight.bold
                   ),
                 ),
                 InkWell(
@@ -38,10 +38,17 @@ class NoteListItem extends StatelessWidget {
                 )
               ],
             ),
+            Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  timeago.format(model.note.createdAt.toDate()),
+                  style: theme.textTheme.caption,
+                ),
+            ),
             Container(
               alignment: Alignment.centerLeft,
               margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-              child: Text(note.text)
+              child: Text(note.text, style: theme.textTheme.bodyText2, textAlign: TextAlign.justify,)
             )
           ],
         ),

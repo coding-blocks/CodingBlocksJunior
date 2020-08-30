@@ -19,7 +19,7 @@ class DashboardProfileViewModel extends FutureViewModel {
   DashboardProfileViewModel({this.context});
 
   FirebaseUser get user => sessionService.user;
-  get name => user.isAnonymous ? 'Hello, Anonymous' : user.displayName;
+  get name => user.isAnonymous ? 'Anonymous' : user.displayName;
   get photo => user.isAnonymous ? 'http://minio-i.codingblocks.com/img/default-anon.jpg' : (user.photoUrl ?? 'http://minio-i.codingblocks.com/img/default-anon.jpg');
   get fbKey => _fbKey;
 
