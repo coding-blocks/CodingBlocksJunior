@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:coding_blocks_junior/utils/youtube.dart';
 
 class Thumbnail extends StatelessWidget {
-  String url;
+  final String url;
 
-  Thumbnail({this.url});
+  Thumbnail({
+    this.url
+  });
 
   @override
   Widget build(BuildContext context) {

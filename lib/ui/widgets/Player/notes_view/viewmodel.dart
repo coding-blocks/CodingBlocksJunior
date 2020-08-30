@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 class PlayerNotesViewModel extends ReloadableFutureViewModel<List<Note>> {
 
   @override
-  Future initialise() {
+  Future initialise() async {
     super.initialise();
     markProgress();
   }

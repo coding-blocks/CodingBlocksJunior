@@ -7,9 +7,11 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:stacked/stacked.dart';
 
 class LoginView extends StatelessWidget {
-  var onClose;
+  final Function onClose;
 
-  LoginView({this.onClose});
+  LoginView({
+    this.onClose
+  });
 
   @override
   Widget build(BuildContext context) {
