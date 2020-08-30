@@ -45,7 +45,10 @@ dependencies:
   shared_preferences: 0.5.8
   dio: ^3.0.0
   flutter_form_builder: ^3.13.0 # https://github.com/danvick/flutter_form_builder/issues/399
-
+  rounded_loading_button: ^1.0.0
+  pin_code_fields: 5.0.1
+  intl_phone_number_input: 0.4.6
+  google_fonts: 1.1.0
 
 dev_dependencies:
   flutter_test:

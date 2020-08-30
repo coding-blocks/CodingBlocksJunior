@@ -43,3 +43,7 @@ app.*.map.json
 !/packages/flutter_tools/test/data/dart_dependencies_test/**/.packages
 
 node_modules/
+
+
+# exclude this for now cuz i have way more resources than macbooks :/
+android/gradle.properties

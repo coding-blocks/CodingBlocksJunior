@@ -3,7 +3,10 @@ import 'package:coding_blocks_junior/ui/widgets/Base/RaisedGradientButton.dart';
 import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:stacked/stacked.dart';
+import 'package:rounded_loading_button/rounded_loading_button.dart';
 
 class LoginView extends StatelessWidget {
   var onClose;
@@ -49,21 +52,17 @@ class MobileInputView extends ViewModelWidget<LoginViewModel> {
         ),
         Container(
           margin: EdgeInsets.fromLTRB(0, 30, 0, 0),
-          child: TextField(
-            decoration: InputDecoration(
-                border: OutlineInputBorder()
-            ),
-            controller: model.mobileInputController,
-          ),
+          child: InternationalPhoneNumberInput(
+            initialValue: PhoneNumber(isoCode: 'IN'),
+            textFieldController: model.mobileInputController,
+            countries: ['IN'],
+          )
         ),
         Container(
         margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
-          child: RaisedGradientButton(
+          child: RoundedLoadingButton(
             height: 5 * SizeConfig.heightMultiplier,
             width: 30 * SizeConfig.widthMultiplier,
-            gradient: LinearGradient(
-              colors: <Color>[Colors.blueAccent, Colors.blue],
-            ),
             child: Text(
               'Send Otp',
               style: TextStyle(
@@ -82,17 +81,41 @@ class OtpInputView extends ViewModelWidget<LoginViewModel> {
   Widget build(BuildContext context, LoginViewModel model) {
     return Column(
       children: <Widget>[
-        Text("Enter the OTP sent to +91-${model.mobile}"),
-        TextField(
-          controller: model.otpInputController,
+        Padding(
+          padding: EdgeInsets.fromLTRB(0, 0, 0, 10),
+          child: Text(
+            "Enter OTP",
+            style: TextStyle(
+                fontSize: 2.5 * SizeConfig.textMultiplier,
+                fontWeight: FontWeight.bold,
+                color: Colors.black),
+          ),
         ),
-        RaisedButton(
-          child: Text('Verify Otp'),
-          onPressed: model.verifyOtp,
+        Text("Enter the OTP sent to +91-${model.mobile}"),
+        // TextField(
+        //   controller: model.otpInputController,
+        // ),
+        PinCodeTextField(
+          controller: model.otpInputController,
+          onCompleted: model.verifyOtp,
+          errorAnimationController: model.otpErrorController,
+          enabled: !model.isVerifying,
+          length: 6,
+          obsecureText: false,
+          animationType: AnimationType.fade,
+          animationDuration: Duration(milliseconds: 300),
+          pinTheme: PinTheme(
+            inactiveColor: Colors.blue,
+            shape: PinCodeFieldShape.underline,
+            fieldHeight: 50,
+            fieldWidth: 40,
+            // activeFillColor: Colors.white,
+          ),
         ),
         Center(
           child: Text(model.errorText, style: TextStyle(color: Colors.red)),
         ),
+        if (model.isVerifying) CircularProgressIndicator()
       ],
     );
   }

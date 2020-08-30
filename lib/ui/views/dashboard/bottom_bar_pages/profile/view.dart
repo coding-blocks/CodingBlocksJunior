@@ -9,6 +9,7 @@ import 'package:stacked/stacked.dart';
 class DashboardProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _theme = Theme.of(context);
     return ViewModelBuilder<DashboardProfileViewModel>.reactive(
       disposeViewModel: false,
       initialiseSpecialViewModelsOnce: true,
@@ -30,10 +31,7 @@ class DashboardProfileView extends StatelessWidget {
                   width: 10,
                 ),
                 Text('Profile',
-                    style: TextStyle(
-                        fontSize: 26,
-                        fontWeight: FontWeight.bold,
-                        color: getColorFromHex('#1D4479')))
+                    style: _theme.textTheme.headline4)
               ],
             ),
           ),
@@ -43,11 +41,10 @@ class DashboardProfileView extends StatelessWidget {
             backgroundImage: new NetworkImage(model.photo),
           ),
           SizedBox(height: 17),
+
+
           Text(model.name,
-              style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: getColorFromHex('#1D4479'))),
+              style: _theme.textTheme.headline6),
           model.user.isAnonymous
               ? Container(
                   padding: EdgeInsets.all(20),
