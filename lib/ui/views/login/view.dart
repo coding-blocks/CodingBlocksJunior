@@ -12,9 +12,7 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 class LoginView extends StatelessWidget {
   final Function onClose;
 
-  LoginView({
-    this.onClose
-  });
+  LoginView({this.onClose});
 
   @override
   Widget build(BuildContext context) {
@@ -43,43 +41,56 @@ class LoginView extends StatelessWidget {
 class MobileInputView extends ViewModelWidget<LoginViewModel> {
   @override
   Widget build(BuildContext context, LoginViewModel model) {
+    final _theme = Theme.of(context);
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-
         Text(
-          "Let's get you onboard",
+          "Let's get you onboard 🙌",
           style: TextStyle(
-              fontSize: 2.5 * SizeConfig.textMultiplier,
+              fontSize: 14 * SizeConfig.textMultiplier,
               fontWeight: FontWeight.bold,
               color: Colors.black),
         ),
         Text(
           "Enter your Phone number to get started!",
           style: TextStyle(
-              fontSize: 1.2 * SizeConfig.textMultiplier,
-              fontWeight: FontWeight.bold,
-              color: Colors.black),
+              fontSize: 8 * SizeConfig.textMultiplier, color: Colors.black),
         ),
         Container(
-          margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
-          child: InternationalPhoneNumberInput(
-            initialValue: PhoneNumber(isoCode: 'IN'),
-            textFieldController: model.mobileInputController,
-            countries: ['IN'],
-          )
-        ),
+            margin: EdgeInsets.fromLTRB(
+                50 * SizeConfig.heightMultiplier,
+                25 * SizeConfig.heightMultiplier,
+                50 * SizeConfig.heightMultiplier,
+                25 * SizeConfig.heightMultiplier),
+            child: InternationalPhoneNumberInput(
+              inputBorder: OutlineInputBorder(),
+              selectorTextStyle: TextStyle(
+                  fontSize: 10 * SizeConfig.textMultiplier,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+              textStyle: TextStyle(
+                  fontSize: 10 * SizeConfig.textMultiplier,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black),
+              initialValue: PhoneNumber(isoCode: 'IN'),
+              textFieldController: model.mobileInputController,
+              countries: ['IN'],
+            )),
         Container(
-        margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
-          child: RoundedLoadingButton(
-            height: 5 * SizeConfig.heightMultiplier,
-            width: 30 * SizeConfig.widthMultiplier,
+          child: RaisedGradientButton(
+            height: 35 * SizeConfig.heightMultiplier,
+            width: 80 * SizeConfig.widthMultiplier,
+            gradient: LinearGradient(
+              colors: <Color>[
+                getColorFromHex('#0575E6'),
+                getColorFromHex('#021B79')
+              ],
+            ),
             child: Text(
-              'Send Otp',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 2 * SizeConfig.textMultiplier,
-                  fontWeight: FontWeight.bold),
+              'Get Otp',
+              style: _theme.textTheme.button,
             ),
             onPressed: model.sendOtp,
           ),

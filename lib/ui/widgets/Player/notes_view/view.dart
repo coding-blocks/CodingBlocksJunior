@@ -1,10 +1,11 @@
 import 'package:coding_blocks_junior/models/content.dart';
 import 'package:coding_blocks_junior/models/course.dart';
 import 'package:coding_blocks_junior/models/note.dart';
-import 'package:coding_blocks_junior/ui/widgets/Base/gradient_button.dart';
+import 'package:coding_blocks_junior/ui/widgets/Base/RaisedGradientButton.dart';
 import 'package:coding_blocks_junior/ui/widgets/Notes/AddNote/view.dart';
 import 'package:coding_blocks_junior/ui/widgets/Player/notes_view/viewmodel.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
+import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -31,15 +32,14 @@ class PlayerNotesView extends StatelessWidget {
                   Text(
                     'Notes',
                     style: TextStyle(
-                      fontSize: 15,
+                      fontSize: 3 * SizeConfig.textMultiplier,
                       color: getColorFromHex('#033194'),
                       fontWeight: FontWeight.bold
                     ),
                   ),
-                  GradientButton(
+                  RaisedGradientButton(
                     height: 20,
                     width: 20,
-                    borderRadius: BorderRadius.circular(5),
                     gradient: LinearGradient(
                       colors: [
                         getColorFromHex('#0575E6'),

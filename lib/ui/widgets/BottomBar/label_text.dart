@@ -12,7 +12,7 @@ class NavLabelText extends StatelessWidget {
     return Text(
       text,
       style: TextStyle(
-        fontSize: 2.0 * SizeConfig.textMultiplier,
+        fontSize: 10 * SizeConfig.textMultiplier,
         color: getColorFromHex('#056FDE'),
       ),
     );

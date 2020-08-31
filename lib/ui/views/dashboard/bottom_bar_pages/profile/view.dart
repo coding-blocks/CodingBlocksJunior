@@ -23,11 +23,12 @@ class DashboardProfileView extends StatelessWidget {
           Container(
             padding: EdgeInsets.fromLTRB(30, 10, 30, 20),
             child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 AssetIcon(
                   asset: 'assets/notes-blue.png',
-                  height: 6 * SizeConfig.imageSizeMultiplier,
-                  width: 6 * SizeConfig.imageSizeMultiplier,
+                  height: 20 ,
+                  width: 20 ,
                 ),
                 SizedBox(
                   width: 10,
@@ -38,22 +39,20 @@ class DashboardProfileView extends StatelessWidget {
           ),
           SizedBox(height: 30),
           CircleAvatar(
-            radius: 12 * SizeConfig.imageSizeMultiplier,
+            radius: 52 * SizeConfig.imageSizeMultiplier,
             backgroundImage: new NetworkImage(
               model.photo,
             ),
           ),
           SizedBox(height: 17),
-
-
           Text(model.name, style: _theme.textTheme.headline6),
           model.user.isAnonymous
               ? Container(
                   padding: EdgeInsets.all(20),
                   child: Center(
                     child: RaisedGradientButton(
-                        height: 5 * SizeConfig.heightMultiplier,
-                        width: 30 * SizeConfig.widthMultiplier,
+                        height: 35 * SizeConfig.heightMultiplier,
+                        width: 80 * SizeConfig.widthMultiplier,
                         gradient: LinearGradient(
                           colors: <Color>[
                             getColorFromHex('#0575E6'),
@@ -61,10 +60,7 @@ class DashboardProfileView extends StatelessWidget {
                           ],
                         ),
                         child: Text('Login',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 2.0 * SizeConfig.textMultiplier,
-                                fontWeight: FontWeight.bold)),
+                            style: _theme.textTheme.button),
                         onPressed: model.login),
                   ),
                 )

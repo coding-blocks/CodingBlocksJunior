@@ -1,6 +1,7 @@
 import 'package:coding_blocks_junior/models/note.dart';
 import 'package:coding_blocks_junior/ui/widgets/Notes/NoteListItem/viewmodel.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
+import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -27,7 +28,7 @@ class NoteListItem extends StatelessWidget {
                 Text(
                   model.course.title + ' | ' + model.content.title,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 2 *  SizeConfig.textMultiplier,
                     fontWeight: FontWeight.bold,
                     color: getColorFromHex('#1D4479')
                   ),
