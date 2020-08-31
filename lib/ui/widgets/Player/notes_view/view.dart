@@ -13,72 +13,66 @@ class PlayerNotesView extends StatelessWidget {
   final Course course;
   final Content content;
 
-  PlayerNotesView({
-    @required this.course,
-    @required this.content
-  });
+  PlayerNotesView({@required this.course, @required this.content});
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder.nonReactive(
-      builder: (context, model, child) => Scaffold(
-        body: Column(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        builder: (context, model, child) => Scaffold(
+              body: Column(
                 children: <Widget>[
-                  Text(
-                    'Notes',
-                    style: TextStyle(
-                      fontSize: 3 * SizeConfig.textMultiplier,
-                      color: getColorFromHex('#033194'),
-                      fontWeight: FontWeight.bold
+                  Container(
+                    padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'Notes',
+                          style: TextStyle(
+                              fontSize: 3 * SizeConfig.textMultiplier,
+                              color: getColorFromHex('#033194'),
+                              fontWeight: FontWeight.bold),
+                        ),
+                        RaisedGradientButton(
+                          height: 20,
+                          width: 20,
+                          gradient: LinearGradient(colors: [
+                            getColorFromHex('#0575E6'),
+                            getColorFromHex('#021B79')
+                          ]),
+                          onPressed: () => showModalBottomSheet<dynamic>(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(30.0),
+                              ),
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (BuildContext context) =>
+                                  SingleChildScrollView(
+                                    child: AddNote(
+                                      onSave: (String text) {
+                                        model.addNote(text).then(() {
+                                          Navigator.of(context).pop();
+                                        });
+                                      },
+                                    ),
+                                  )),
+                          child: Text(
+                            '+',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  RaisedGradientButton(
-                    height: 20,
-                    width: 20,
-                    gradient: LinearGradient(
-                      colors: [
-                        getColorFromHex('#0575E6'),
-                        getColorFromHex('#021B79')
-                      ]
-                    ),
-                    onPressed: () => showModalBottomSheet(
-                      elevation: 2,
-                      context: context,
-                      isScrollControlled: true,
-                      builder: (BuildContext context) => SingleChildScrollView(
-                        child: AddNote(
-                          onSave: (String text) {
-                            model
-                              .addNote(text)
-                              .then(() {
-                                Navigator.of(context).pop();
-                              });
-                          },
-                        ),
-                      )
-                    ),
-                    child: Text(
-                      '+', 
-                      style: TextStyle(color: Colors.white),
-                    ),
+                  Expanded(
+                    flex: 1,
+                    child: PlayerNotesList(),
                   )
                 ],
               ),
             ),
-            Expanded(
-              flex: 1,
-              child: PlayerNotesList(),
-            )
-          ],
-        ),
-      ), 
-      viewModelBuilder: () => PlayerNotesViewModel(course: course, content: content)
-    );
+        viewModelBuilder: () =>
+            PlayerNotesViewModel(course: course, content: content));
   }
 }
 
@@ -86,16 +80,17 @@ class PlayerNotesList extends ViewModelWidget<PlayerNotesViewModel> {
   @override
   Widget build(BuildContext context, PlayerNotesViewModel model) {
     return model.isBusy || model.data == null
-      ? Center (
-        child: CircularProgressIndicator(),
-      )
-      : ListView.builder(
-        itemCount: model.data.length,
-        itemBuilder: (BuildContext context, int index) => PlayerNotesListItem(
-          note: model.data[index],
-          color: index.isEven ? getColorFromHex('#FAFCFF') : Colors.white
-        )
-      );
+        ? Center(
+            child: CircularProgressIndicator(),
+          )
+        : ListView.builder(
+            itemCount: model.data.length,
+            itemBuilder: (BuildContext context, int index) =>
+                PlayerNotesListItem(
+                    note: model.data[index],
+                    color: index.isEven
+                        ? getColorFromHex('#FAFCFF')
+                        : Colors.white));
   }
 }
 
@@ -103,10 +98,7 @@ class PlayerNotesListItem extends StatelessWidget {
   final Color color;
   final Note note;
 
-  PlayerNotesListItem({
-    this.color,
-    @required this.note
-  });
+  PlayerNotesListItem({this.color, @required this.note});
 
   @override
   Widget build(BuildContext context) {
@@ -118,7 +110,6 @@ class PlayerNotesListItem extends StatelessWidget {
   }
 }
 
-
 class PlayerNotesListEmpty extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -127,6 +118,3 @@ class PlayerNotesListEmpty extends StatelessWidget {
     );
   }
 }
-
-
-

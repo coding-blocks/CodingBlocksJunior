@@ -79,22 +79,20 @@ class MobileInputView extends ViewModelWidget<LoginViewModel> {
               textFieldController: model.mobileInputController,
               countries: ['IN'],
             )),
-        Container(
-          child: RaisedGradientButton(
-            height: 35 * SizeConfig.heightMultiplier,
-            width: 80 * SizeConfig.widthMultiplier,
-            gradient: LinearGradient(
-              colors: <Color>[
-                getColorFromHex('#0575E6'),
-                getColorFromHex('#021B79')
-              ],
-            ),
-            child: Text(
-              'Get Otp',
-              style: _theme.textTheme.button,
-            ),
-            onPressed: model.sendOtp,
+        RaisedGradientButton(
+          height: 35 * SizeConfig.heightMultiplier,
+          width: 80 * SizeConfig.widthMultiplier,
+          gradient: LinearGradient(
+            colors: <Color>[
+              getColorFromHex('#0575E6'),
+              getColorFromHex('#021B79')
+            ],
           ),
+          child: Text(
+            'Get Otp',
+            style: _theme.textTheme.button,
+          ),
+          onPressed: model.sendOtp,
         ),
       ],
     );
