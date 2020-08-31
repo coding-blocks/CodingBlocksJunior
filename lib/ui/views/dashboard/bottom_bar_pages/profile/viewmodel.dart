@@ -36,10 +36,12 @@ class DashboardProfileViewModel extends FutureViewModel {
         ),
         isScrollControlled: true,
         context: context,
-        builder: (context) => LoginView(onClose: () {
-          this.futureToRun();
-          notifyListeners();
-        }));
+        builder: (context) => SingleChildScrollView(
+          child: LoginView(onClose: () async  {
+            await this.futureToRun();
+            notifyListeners();
+          }),
+        ));
   }
 
   void saveProfile() async{

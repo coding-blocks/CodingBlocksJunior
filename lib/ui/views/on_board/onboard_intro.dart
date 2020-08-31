@@ -1,12 +1,14 @@
 import 'package:coding_blocks_junior/utils/SizeConfig.dart';
+import 'package:coding_blocks_junior/utils/logic.dart';
 import 'package:flutter/material.dart';
 
 class OnboardIntro extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return new Scaffold(
       body: Container(
-        margin: EdgeInsets.all(5 * SizeConfig.heightMultiplier),
+        margin: getInsetsAll(5),
         alignment: Alignment.center,
         child: Column(
           children: [
@@ -19,11 +21,10 @@ class OnboardIntro extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: new Text('HEY, WELCOME TO',
-                  style: new TextStyle(
-                      letterSpacing: 2.5,
-                      color: Colors.black,
-                      fontFamily: 'Gilroy',
-                      fontSize: 2.2 * SizeConfig.textMultiplier)),
+                  style: theme.textTheme.bodyText1.copyWith(
+                    fontSize: 18,
+                    letterSpacing: 2.5,
+                  )),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),
@@ -31,9 +32,8 @@ class OnboardIntro extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: new TextStyle(
                       color: Colors.black,
-                      fontFamily: 'Gilroy',
                       fontWeight: FontWeight.w700,
-                      fontSize: 4 * SizeConfig.textMultiplier)),
+                      fontSize: 31 * SizeConfig.textMultiplier)),
             ),
             Spacer(),
             Row(
@@ -47,9 +47,8 @@ class OnboardIntro extends StatelessWidget {
                     textAlign: TextAlign.right,
                     style: new TextStyle(
                         color: Colors.black,
-                        fontFamily: 'Gilroy',
                         fontWeight: FontWeight.w500,
-                        fontSize: 1.5 * SizeConfig.textMultiplier)),
+                    )),
               ],
             ),
           ],

@@ -1,6 +1,8 @@
 import 'package:coding_blocks_junior/ui/views/on_board/viewmodel.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:coding_blocks_junior/utils/SizeConfig.dart';
+import 'package:coding_blocks_junior/utils/logic.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -17,9 +19,10 @@ class OnboardInterests extends ViewModelWidget<OnBoardViewModel> {
 
   @override
   Widget build(BuildContext context, OnBoardViewModel model) {
+    final theme = Theme.of(context);
     return new Scaffold(
       body: Container(
-        margin: EdgeInsets.all(5 * SizeConfig.heightMultiplier),
+        margin: getInsetsAll(5),
         alignment: Alignment.center,
         child: Column(
           children: [
@@ -32,11 +35,7 @@ class OnboardInterests extends ViewModelWidget<OnBoardViewModel> {
             Container(
               padding: EdgeInsets.only(top: 2 * SizeConfig.heightMultiplier),
               child: Text('What are you interested in?',
-                  style: new TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'Gilroy',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 2.2 * SizeConfig.textMultiplier)),
+                  style: theme.textTheme.headline6),
             ),
             Container(
               padding: EdgeInsets.only(top: 2 * SizeConfig.heightMultiplier),
@@ -50,13 +49,11 @@ class OnboardInterests extends ViewModelWidget<OnBoardViewModel> {
             ),
             Spacer(),
             Container(
-              margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
+              width: double.infinity,
+              margin: getInsetsLTRB(0, 50, 0, 0),
+              padding: getInsetsLTRB(30, 0, 30, 0),
               child: RaisedButton(
-                padding: EdgeInsets.fromLTRB(
-                    10 * SizeConfig.heightMultiplier,
-                    3 * SizeConfig.widthMultiplier,
-                    10 * SizeConfig.heightMultiplier,
-                    3 * SizeConfig.widthMultiplier),
+                padding: getInsetsLTRB(10, 3, 10, 3),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(4.0)),
                 color: getColorFromHex('#2167E3'),
@@ -65,8 +62,7 @@ class OnboardInterests extends ViewModelWidget<OnBoardViewModel> {
                     : () => model.goToHome(selectedReportList),
                 child: Text(
                   'Get Started',
-                  style: TextStyle(
-                      fontSize: 2.5 * SizeConfig.textMultiplier,
+                  style: theme.textTheme.bodyText1.copyWith(
                       color: Colors.white),
                 ),
               ),
@@ -92,21 +88,20 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
   // String selectedChoice = "";
   List<String> selectedChoices = List();
 
-  _buildChoiceList() {
+  _buildChoiceList(ThemeData theme) {
     List<Widget> choices = List();
 
     widget.reportList.forEach((item) {
       bool isItemSelected = selectedChoices.contains(item);
       choices.add(Container(
-        padding: const EdgeInsets.only(left: 2.0, right: 2.0),
+        padding: getInsetsLTRB(2, 0, 2, 0),
         child: ChoiceChip(
-          padding: EdgeInsets.all(10.0),
+          padding: getInsetsAll(10),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(4)),
               side: BorderSide(color: getColorFromHex('#2167E3'))),
           label: Text(item,
-              style: TextStyle(
-                  fontSize: 1.5 * SizeConfig.textMultiplier,
+              style: theme.textTheme.caption.copyWith(
                   color: isItemSelected
                       ? Colors.white
                       : getColorFromHex('#2167E3'),
@@ -131,9 +126,10 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Wrap(
       alignment: WrapAlignment.center,
-      children: _buildChoiceList(),
+      children: _buildChoiceList(theme),
     );
   }
 }

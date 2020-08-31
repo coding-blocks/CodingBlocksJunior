@@ -30,15 +30,12 @@ class DashboardProfileView extends StatelessWidget {
                   height: 26 * SizeConfig.imageSizeMultiplier,
                   width: 26 * SizeConfig.imageSizeMultiplier,
                 ),
-                SizedBox(
-                  width: 10 * SizeConfig.imageSizeMultiplier,
-                ),
+
                 Text('Profile', style: _theme.textTheme.headline4)
               ],
             ),
           ),
-          SizedBox(height: 30),
-          !SizeConfig.isPortrait ? LandscapeLayout() : PotraitLayout()
+          Expanded(child: !SizeConfig.isPortrait ? LandscapeLayout() : PotraitLayout())
 
         ]),
     ));
@@ -54,17 +51,19 @@ class LandscapeLayout extends ViewModelWidget<DashboardProfileViewModel> {
       padding: getInsetsLTRB(30, 0, 30, 0),
       child: Row(
           children: [
-            Column(
-              children: [
-                CircleAvatar(
-                  radius: 85 * SizeConfig.imageSizeMultiplier,
-                  backgroundImage: new NetworkImage(
-                    model.photo,
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  CircleAvatar(
+                    radius: 75 * SizeConfig.imageSizeMultiplier,
+                    backgroundImage: new NetworkImage(
+                      model.photo,
+                    ),
                   ),
-                ),
-                SizedBox(height: 17 * SizeConfig.imageSizeMultiplier),
-                Center(child: Text(model.name, style: _theme.textTheme.headline6)), 
-              ],
+                  SizedBox(height: 15 * SizeConfig.imageSizeMultiplier),
+                  Center(child: Text(model.name, style: _theme.textTheme.headline6)),
+                ],
+              ),
             ),
             if (model.user.isAnonymous) Expanded(
               child: Container(
@@ -107,7 +106,7 @@ class PotraitLayout extends ViewModelWidget<DashboardProfileViewModel> {
           padding: EdgeInsets.all(20 * SizeConfig.imageSizeMultiplier),
           child: Center(
             child: RaisedGradientButton(
-                width: 30,
+                width: 150,
                 child: Text('Login',
                     style: TextStyle(
                         color: Colors.white,
@@ -115,7 +114,7 @@ class PotraitLayout extends ViewModelWidget<DashboardProfileViewModel> {
                 onPressed: model.login),
           ),
         )
-        else (model.profile == null ? CircularProgressIndicator() : Expanded(child: UserProfileEditor())),
+        else (model.profile == null ? CircularProgressIndicator(): Expanded(child: UserProfileEditor())),
       ]
     );
   }
@@ -129,7 +128,7 @@ class UserProfileEditor extends ViewModelWidget<DashboardProfileViewModel> {
 
     return SingleChildScrollView(
       child: Container(
-        padding: EdgeInsets.all(30 * SizeConfig.imageSizeMultiplier),
+        padding: getInsetsLTRB(30, 0, 30, 0),
         child: Column(children: [
           FormBuilder(
             key: model.fbKey,

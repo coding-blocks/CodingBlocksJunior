@@ -1,5 +1,6 @@
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:coding_blocks_junior/utils/SizeConfig.dart';
+import 'package:coding_blocks_junior/utils/logic.dart';
 import 'package:flutter/material.dart';
 
 class OnboardAgeGroup extends StatefulWidget {
@@ -36,6 +37,7 @@ class OnboardAgeGroupState extends State<OnboardAgeGroup> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return new Scaffold(
       body: Container(
         margin: EdgeInsets.all(5 * SizeConfig.heightMultiplier),
@@ -49,11 +51,7 @@ class OnboardAgeGroupState extends State<OnboardAgeGroup> {
               flex: 2,
             ),
             Text('Which Grade are you in?',
-                style: new TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'Gilroy',
-                    fontWeight: FontWeight.w500,
-                    fontSize: 2.2 * SizeConfig.textMultiplier)),
+                style: theme.textTheme.headline6),
             Expanded(
               flex: 2,
               child: new ListView.builder(
@@ -89,34 +87,32 @@ class RadioItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return new Container(
       decoration: new BoxDecoration(
         color: getColorFromHex('#2167E3'),
         borderRadius: const BorderRadius.all(const Radius.circular(4.0)),
       ),
-      margin: new EdgeInsets.fromLTRB(0, 8, 0, 8),
-      padding: new EdgeInsets.all(16.0),
+      margin: getInsetsLTRB(0, 8, 0, 8),
+      padding: getInsetsAll(16),
       child: new Row(
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
           new Container(
             child: new Center(
               child: new Text(_item.text,
-                  style: new TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Gilroy',
-                      fontWeight: FontWeight.w500,
-                      fontSize: 2.0 * SizeConfig.textMultiplier)),
+                  style: theme.textTheme.bodyText1.copyWith(
+                      color: Colors.white)),
             ),
           ),
           Expanded(
             flex: 1,
             child: Container(
-              padding: EdgeInsets.fromLTRB(15, 0, 15, 0),
+              padding: getInsetsLTRB(15, 0, 15, 0),
               child: Row(
                 children: _item.classes.map((classPill) => 
                   Container(
-                    margin: EdgeInsets.fromLTRB(0, 0, 5, 0),
+                    margin: getInsetsLTRB(0, 0, 5, 0),
                     child: ClassPill(
                       klass: classPill.text,
                       color: classPill.color,
@@ -158,7 +154,7 @@ class ClassPill extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
         color: color,
       ),
-      padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
+      padding: getInsetsLTRB(8, 4, 8, 4),
       child: Text(klass),
     );
   }

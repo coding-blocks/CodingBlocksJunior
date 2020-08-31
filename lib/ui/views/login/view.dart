@@ -27,10 +27,10 @@ class LoginView extends StatelessWidget {
         decoration: new BoxDecoration(
             color: Colors.white,
             borderRadius: new BorderRadius.only(
-                topLeft: const Radius.circular(30.0),
-                topRight: const Radius.circular(30.0))),
-        height: MediaQuery.of(context).size.height / 2.5 +
-            MediaQuery.of(context).viewInsets.bottom,
+                topLeft:  Radius.circular(30.0 * SizeConfig.imageSizeMultiplier),
+                topRight: Radius.circular(30.0 * SizeConfig.imageSizeMultiplier))),
+        height: (MediaQuery.of(context).size.height / 2.5 +
+            MediaQuery.of(context).viewInsets.bottom) + (SizeConfig.isPortrait ? 0 : 20),
         child: PageView(
           controller: model.pageController,
           physics: NeverScrollableScrollPhysics(),
@@ -48,7 +48,6 @@ class MobileInputView extends ViewModelWidget<LoginViewModel> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-
         Text(
           "Let's get you onboard",
           style: theme.textTheme.subtitle1),
@@ -107,38 +106,40 @@ class OtpInputView extends ViewModelWidget<LoginViewModel> {
     final theme = Theme.of(context);
     return Column(
       children: <Widget>[
+        Text(
+          "Enter OTP",
+          style: theme.textTheme.subtitle1,
+        ),
         Padding(
-          padding: getInsetsLTRB(0, 0, 0, 10),
-          child: Text(
-            "Enter OTP",
-            style: theme.textTheme.subtitle1,
-          ),
-        ),
-        Text("Enter the OTP sent to +91-${model.mobile}"),
-        // TextField(
-        //   controller: model.otpInputController,
-        // ),
-        PinCodeTextField(
-          controller: model.otpInputController,
-          onCompleted: model.verifyOtp,
-          errorAnimationController: model.otpErrorController,
-          enabled: !model.isVerifying,
-          length: 6,
-          obsecureText: false,
-          animationType: AnimationType.fade,
-          animationDuration: Duration(milliseconds: 300),
-          pinTheme: PinTheme(
-            inactiveColor: Colors.blue,
-            shape: PinCodeFieldShape.underline,
-            fieldHeight: 50,
-            fieldWidth: 40,
-            // activeFillColor: Colors.white,
-          ),
-        ),
+            padding: getInsetsLTRB(0, 5, 0, 0),
+            child: Text("Enter the OTP sent to +91-${model.mobile}", style: theme.textTheme.caption,)),
         Center(
           child: Text(model.errorText, style: TextStyle(color: Colors.red)),
         ),
-        if (model.isVerifying) CircularProgressIndicator()
+        if (!model.isVerifying)
+          Padding(
+            padding: SizeConfig.isPortrait ? getInsetsLTRB(10, 0, 10, 0) : getInsetsLTRB(100, 0, 100, 0),
+            child: PinCodeTextField(
+              appContext: context,
+              controller: model.otpInputController,
+              onCompleted: model.verifyOtp,
+              errorAnimationController: model.otpErrorController,
+              enabled: !model.isVerifying,
+              length: 6,
+              obsecureText: false,
+              animationType: AnimationType.fade,
+              animationDuration: Duration(milliseconds: 300),
+              pinTheme: PinTheme(
+                inactiveColor: Colors.blue,
+                shape: PinCodeFieldShape.underline,
+                fieldHeight: 50,
+                fieldWidth: 40,
+                // activeFillColor: Colors.white,
+              ),
+            ),
+          )
+        else
+          CircularProgressIndicator()
       ],
     );
   }

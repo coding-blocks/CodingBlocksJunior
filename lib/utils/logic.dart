@@ -19,3 +19,5 @@ EdgeInsets getInsetsLTRB (int left, int top, int right, int bottom) {
       bottom * SizeConfig.heightMultiplier
   );
 }
+
+EdgeInsets getInsetsAll (int x) => EdgeInsets.all(x * SizeConfig.imageSizeMultiplier);

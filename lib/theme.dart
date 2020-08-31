@@ -18,7 +18,7 @@ ThemeData buildTheme (context) => ThemeData(
       headline3: TextStyle(color: primaryBlue, fontSize: 28 * fs),
       headline4: TextStyle(color: primaryBlue, fontSize: 26 * fs, fontWeight: FontWeight.w600),
       headline5: TextStyle(color: primaryBlue, fontSize: 24 * fs),
-      headline6: TextStyle(color: primaryBlue, fontSize: 22 * fs, fontWeight: FontWeight.w600),
+      headline6: TextStyle(fontSize: 22 * fs, fontWeight: FontWeight.w600),
       subtitle1: TextStyle(color: primaryBlue, fontSize: 16 * fs),
       bodyText1: TextStyle(fontSize: 16 * fs),
       bodyText2: TextStyle(color: primaryBlue, fontSize: 14 * fs),
