@@ -43,8 +43,9 @@ jobs:
           path: build/app/outputs/apk/release/app-release.apk
 
       - name: Create a Release APK
-        uses: ncipollo/release-action@v1
+        uses: marvinpinto/action-automatic-releases@latest
         with:
-          artifacts: "build/app/outputs/apk/release/*.apk"
+          files: "build/app/outputs/apk/release/*.apk"
+          automatic_release_tag: "latest"
           tag: ${{ github.head_ref }}
           token: ${{ secrets.GITHUB_TOKEN }}
