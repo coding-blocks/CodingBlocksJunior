@@ -5,7 +5,7 @@ name: Flutter CI
 on:
   push:
     branches:
-      - release_build
+      - master
 
     # on: push    # Default will running for every branch.
 
@@ -47,4 +47,5 @@ jobs:
         with:
           files: "build/app/outputs/apk/release/*.apk"
           automatic_release_tag: "latest"
+          prerelease: false          
           repo_token: ${{ secrets.GITHUB_TOKEN }}
