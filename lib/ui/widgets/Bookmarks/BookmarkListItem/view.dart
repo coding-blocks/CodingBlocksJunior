@@ -16,6 +16,7 @@ class BookmarkListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _theme = Theme.of(context);
     return ViewModelBuilder<BookmarkListItemViewModel>.reactive(
         builder: (BuildContext context, BookmarkListItemViewModel model,
                 Widget child) =>
@@ -34,7 +35,7 @@ class BookmarkListItem extends StatelessWidget {
                             margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
                             child: SizedBox(
                               child: Thumbnail(url: model.content.url),
-                              width: 25 * SizeConfig.widthMultiplier,
+                              width: 100 * SizeConfig.widthMultiplier,
                             ),
                           ),
                           Expanded(
@@ -49,14 +50,14 @@ class BookmarkListItem extends StatelessWidget {
                                     style: TextStyle(
                                         color: getColorFromHex('#194A88'),
                                         fontSize:
-                                            2 * SizeConfig.textMultiplier),
+                                        8 * SizeConfig.textMultiplier),
                                   ),
                                   Text(
                                     model.content.title,
                                     style: TextStyle(
                                         color: getColorFromHex('#194A88'),
                                         fontSize:
-                                            2.4 * SizeConfig.textMultiplier,
+                                            12 * SizeConfig.textMultiplier,
                                         fontWeight: FontWeight.bold),
                                   )
                                 ],
@@ -67,8 +68,8 @@ class BookmarkListItem extends StatelessWidget {
                               alignment: Alignment.topLeft,
                               child: AssetIcon(
                                 asset: 'assets/bookmark-blue.png',
-                                height: 4,
-                                width: 4,
+                                height: 16,
+                                width: 16,
                               ))
                         ],
                       ),

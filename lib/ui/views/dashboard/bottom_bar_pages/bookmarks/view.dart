@@ -25,8 +25,8 @@ class DashboardBookmarksView extends StatelessWidget {
                       children: [
                         AssetIcon(
                           asset: 'assets/bookmark-blue-5x.png',
-                          height: 20,
-                          width: 20,
+                          height: 24,
+                          width: 24,
                         ),
                         Container(
                           margin: EdgeInsets.fromLTRB(10, 0, 0, 0),

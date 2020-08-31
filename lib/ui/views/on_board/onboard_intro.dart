@@ -6,7 +6,7 @@ class OnboardIntro extends StatelessWidget {
   Widget build(BuildContext context) {
     return new Scaffold(
       body: Container(
-        margin: EdgeInsets.all(5 * SizeConfig.heightMultiplier),
+        margin: EdgeInsets.all(25 * SizeConfig.heightMultiplier),
         alignment: Alignment.center,
         child: Column(
           children: [
@@ -23,7 +23,7 @@ class OnboardIntro extends StatelessWidget {
                       letterSpacing: 2.5,
                       color: Colors.black,
                       fontFamily: 'Gilroy',
-                      fontSize: 2.2 * SizeConfig.textMultiplier)),
+                      fontSize: 14 * SizeConfig.textMultiplier)),
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10),
@@ -33,7 +33,7 @@ class OnboardIntro extends StatelessWidget {
                       color: Colors.black,
                       fontFamily: 'Gilroy',
                       fontWeight: FontWeight.w700,
-                      fontSize: 4 * SizeConfig.textMultiplier)),
+                      fontSize: 24 * SizeConfig.textMultiplier)),
             ),
             Spacer(),
             Row(
@@ -49,7 +49,7 @@ class OnboardIntro extends StatelessWidget {
                         color: Colors.black,
                         fontFamily: 'Gilroy',
                         fontWeight: FontWeight.w500,
-                        fontSize: 1.5 * SizeConfig.textMultiplier)),
+                        fontSize: 12 * SizeConfig.textMultiplier)),
               ],
             ),
           ],

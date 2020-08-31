@@ -19,7 +19,7 @@ class OnboardInterests extends ViewModelWidget<OnBoardViewModel> {
   Widget build(BuildContext context, OnBoardViewModel model) {
     return new Scaffold(
       body: Container(
-        margin: EdgeInsets.all(5 * SizeConfig.heightMultiplier),
+        margin: EdgeInsets.all(25 * SizeConfig.heightMultiplier),
         alignment: Alignment.center,
         child: Column(
           children: [
@@ -36,7 +36,7 @@ class OnboardInterests extends ViewModelWidget<OnBoardViewModel> {
                       color: Colors.black,
                       fontFamily: 'Gilroy',
                       fontWeight: FontWeight.w500,
-                      fontSize: 2.2 * SizeConfig.textMultiplier)),
+                      fontSize: 14 * SizeConfig.textMultiplier)),
             ),
             Container(
               padding: EdgeInsets.only(top: 2 * SizeConfig.heightMultiplier),
@@ -53,10 +53,10 @@ class OnboardInterests extends ViewModelWidget<OnBoardViewModel> {
               margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
               child: RaisedButton(
                 padding: EdgeInsets.fromLTRB(
-                    10 * SizeConfig.heightMultiplier,
-                    3 * SizeConfig.widthMultiplier,
-                    10 * SizeConfig.heightMultiplier,
-                    3 * SizeConfig.widthMultiplier),
+                    50 * SizeConfig.heightMultiplier,
+                    15 * SizeConfig.widthMultiplier,
+                    50 * SizeConfig.heightMultiplier,
+                    15 * SizeConfig.widthMultiplier),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(4.0)),
                 color: getColorFromHex('#2167E3'),
@@ -66,7 +66,7 @@ class OnboardInterests extends ViewModelWidget<OnBoardViewModel> {
                 child: Text(
                   'Get Started',
                   style: TextStyle(
-                      fontSize: 2.5 * SizeConfig.textMultiplier,
+                      fontSize: 16 * SizeConfig.textMultiplier,
                       color: Colors.white),
                 ),
               ),
@@ -106,7 +106,7 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
               side: BorderSide(color: getColorFromHex('#2167E3'))),
           label: Text(item,
               style: TextStyle(
-                  fontSize: 1.5 * SizeConfig.textMultiplier,
+                  fontSize: 10 * SizeConfig.textMultiplier,
                   color: isItemSelected
                       ? Colors.white
                       : getColorFromHex('#2167E3'),

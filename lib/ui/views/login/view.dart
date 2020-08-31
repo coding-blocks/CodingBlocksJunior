@@ -26,8 +26,11 @@ class LoginView extends StatelessWidget {
             borderRadius: new BorderRadius.only(
                 topLeft: const Radius.circular(30.0),
                 topRight: const Radius.circular(30.0))),
-        height: MediaQuery.of(context).size.height / 2.5 +
-            MediaQuery.of(context).viewInsets.bottom,
+        height: SizeConfig.isPortrait
+            ? MediaQuery.of(context).size.height / 2.5 +
+                MediaQuery.of(context).viewInsets.bottom
+            : MediaQuery.of(context).size.height / 2 +
+                MediaQuery.of(context).viewInsets.bottom,
         child: PageView(
           controller: model.pageController,
           physics: NeverScrollableScrollPhysics(),
@@ -59,11 +62,9 @@ class MobileInputView extends ViewModelWidget<LoginViewModel> {
               fontSize: 8 * SizeConfig.textMultiplier, color: Colors.black),
         ),
         Container(
-            margin: EdgeInsets.fromLTRB(
-                50 * SizeConfig.heightMultiplier,
-                25 * SizeConfig.heightMultiplier,
-                50 * SizeConfig.heightMultiplier,
-                25 * SizeConfig.heightMultiplier),
+            margin: EdgeInsets.all(
+              25 * SizeConfig.heightMultiplier,
+            ),
             child: InternationalPhoneNumberInput(
               inputBorder: OutlineInputBorder(),
               selectorTextStyle: TextStyle(

@@ -14,23 +14,23 @@ class OnboardAgeGroupState extends State<OnboardAgeGroup> {
   List<RadioModel> sampleData = [
     RadioModel(false, "Foundation", [
       ClassPillModel(text: "1", color: getColorFromHex("#F5C792")),
-      ClassPillModel(text: "1", color: getColorFromHex("#85CEF2")),
-      ClassPillModel(text: "1", color: getColorFromHex("#E99C9F"))
+      ClassPillModel(text: "3", color: getColorFromHex("#85CEF2")),
+      ClassPillModel(text: "4", color: getColorFromHex("#E99C9F"))
     ]),
     RadioModel(false, "Junior", [
-      ClassPillModel(text: "1", color: getColorFromHex("#F5C792")),
-      ClassPillModel(text: "1", color: getColorFromHex("#85CEF2")),
-      ClassPillModel(text: "1", color: getColorFromHex("#E99C9F"))
+      ClassPillModel(text: "4", color: getColorFromHex("#F5C792")),
+      ClassPillModel(text: "5", color: getColorFromHex("#85CEF2")),
+      ClassPillModel(text: "6", color: getColorFromHex("#E99C9F"))
     ]),
     RadioModel(false, "Middle", [
-      ClassPillModel(text: "1", color: getColorFromHex("#F5C792")),
-      ClassPillModel(text: "1", color: getColorFromHex("#85CEF2")),
-      ClassPillModel(text: "1", color: getColorFromHex("#E99C9F"))
+      ClassPillModel(text: "7", color: getColorFromHex("#F5C792")),
+      ClassPillModel(text: "8", color: getColorFromHex("#85CEF2")),
+      ClassPillModel(text: "9", color: getColorFromHex("#E99C9F")),
+      ClassPillModel(text: "10", color: getColorFromHex("#E99C9F"))
     ]),
     RadioModel(false, "Senior", [
-      ClassPillModel(text: "1", color: getColorFromHex("#F5C792")),
-      ClassPillModel(text: "1", color: getColorFromHex("#85CEF2")),
-      ClassPillModel(text: "1", color: getColorFromHex("#E99C9F"))
+      ClassPillModel(text: "11", color: getColorFromHex("#F5C792")),
+      ClassPillModel(text: "12", color: getColorFromHex("#85CEF2")),
     ]),
   ];
 
@@ -38,7 +38,7 @@ class OnboardAgeGroupState extends State<OnboardAgeGroup> {
   Widget build(BuildContext context) {
     return new Scaffold(
       body: Container(
-        margin: EdgeInsets.all(5 * SizeConfig.heightMultiplier),
+        margin: EdgeInsets.all(25 * SizeConfig.heightMultiplier),
         alignment: Alignment.center,
         child: Column(
           children: [
@@ -52,8 +52,8 @@ class OnboardAgeGroupState extends State<OnboardAgeGroup> {
                 style: new TextStyle(
                     color: Colors.black,
                     fontFamily: 'Gilroy',
-                    fontWeight: FontWeight.w500,
-                    fontSize: 2.2 * SizeConfig.textMultiplier)),
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14 * SizeConfig.textMultiplier)),
             Expanded(
               flex: 2,
               child: new ListView.builder(
@@ -106,7 +106,7 @@ class RadioItem extends StatelessWidget {
                       color: Colors.white,
                       fontFamily: 'Gilroy',
                       fontWeight: FontWeight.w500,
-                      fontSize: 2.0 * SizeConfig.textMultiplier)),
+                      fontSize: 12 * SizeConfig.textMultiplier)),
             ),
           ),
           Expanded(
@@ -159,7 +159,11 @@ class ClassPill extends StatelessWidget {
         color: color,
       ),
       padding: EdgeInsets.fromLTRB(8, 4, 8, 4),
-      child: Text(klass),
+      child: Text(klass, style: TextStyle(
+        color: Colors.black,
+        fontFamily: 'Gilroy',
+          fontWeight: FontWeight.w700
+      )),
     );
   }
 }
