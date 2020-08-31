@@ -46,5 +46,5 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           artifacts: "build/app/outputs/apk/release/*.apk"
-          tag: "${GITHUB_REF#refs/heads/}.${GITHUB_SHA}"
+          tag: ${{ steps.get-sha.outputs.sha }}
           token: ${{ secrets.GITHUB_TOKEN }}
