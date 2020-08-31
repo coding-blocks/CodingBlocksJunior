@@ -17,14 +17,14 @@ void main() async {
   setupLocator();
   SessionService sessionService = locator<SessionService>();
   await sessionService.ready;
-  firsRun = await getSharedPrefs();
+  firsRun = true;
   runApp(MyApp());
   setupOneSignal();
 }
 
 Future<bool> getSharedPrefs() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.getBool("firstRun")?? true;
+  return prefs.getBool("firstRun")?? false;
 }
 
 void setupOneSignal() {

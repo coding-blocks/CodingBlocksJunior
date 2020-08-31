@@ -1,3 +1,4 @@
+import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:flutter/material.dart';
 
 class AssetIcon extends StatelessWidget {
@@ -14,8 +15,8 @@ class AssetIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height,
-      width: width,
+      height: height * SizeConfig.imageSizeMultiplier,
+      width: width * SizeConfig.imageSizeMultiplier,
       child: Image.asset(asset),
     );
   }

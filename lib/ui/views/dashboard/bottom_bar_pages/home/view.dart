@@ -7,6 +7,7 @@ import 'package:stacked/stacked.dart';
 class DashboardHomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final _theme = Theme.of(context);
     return ViewModelBuilder<DashboardHomeViewModel>.reactive(
       disposeViewModel: false,
       initialiseSpecialViewModelsOnce: true,

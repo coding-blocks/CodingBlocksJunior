@@ -43,8 +43,8 @@ class DashboardNotesView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset('assets/notes-blue-5x.png',
-                    height: 12 * SizeConfig.imageSizeMultiplier ,
-                    width: 12 * SizeConfig.imageSizeMultiplier),
+                    height: 50 * SizeConfig.imageSizeMultiplier ,
+                    width: 50 * SizeConfig.imageSizeMultiplier),
                   Text(
                     'Your Notes appears here!',
                     style: theme.textTheme.subtitle1

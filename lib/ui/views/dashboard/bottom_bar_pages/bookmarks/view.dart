@@ -46,8 +46,8 @@ class DashboardBookmarksView extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.asset('assets/bookmark-blue-5x.png',
-                    height: 82 * SizeConfig.imageSizeMultiplier,
-                    width: 82 * SizeConfig.imageSizeMultiplier,
+                    height: 50 * SizeConfig.imageSizeMultiplier,
+                    width: 50 * SizeConfig.imageSizeMultiplier,
                   ),
                   Text(
                     'Your Bookmarked videos appears here!',

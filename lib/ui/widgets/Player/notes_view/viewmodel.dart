@@ -68,13 +68,13 @@ class PlayerNotesViewModel extends ReloadableFutureViewModel<List<Note>> {
 
   Future markProgress() {
     return Firestore
-        .instance
-        .collection('progresses')
-        .add({
-      'course': courseReference,
-      'content': contentReference,
-      'userId': _sessionService.user.uid,
-      'timestamp': FieldValue.serverTimestamp(),
-    });
+      .instance
+      .collection('progresses')
+      .add({
+        'course': courseReference,
+        'content': contentReference,
+        'userId': _sessionService.user.uid,
+        'timestamp': FieldValue.serverTimestamp(),
+      });
   }
 }
