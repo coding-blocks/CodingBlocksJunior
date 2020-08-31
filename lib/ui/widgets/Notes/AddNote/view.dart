@@ -12,10 +12,6 @@ class AddNote extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        border: Border.all(width: 1.0)
-      ),
       height: MediaQuery.of(context).size.height / 3,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -24,12 +20,11 @@ class AddNote extends StatelessWidget {
             padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
             child: TextField(
               controller: _controller,
-              maxLines: 8,
-//              decoration: InputDecoration.collapsed(
-//                fillColor: getColorFromHex('#FAFAFA'),
-//                filled: true,
-//                hintText: "Enter your text here"
-//              ),
+              maxLines: 5,
+             decoration: InputDecoration.collapsed(
+               filled: true,
+               hintText: "Enter your text here"
+             ),
             ),
           ),
           RaisedButton(

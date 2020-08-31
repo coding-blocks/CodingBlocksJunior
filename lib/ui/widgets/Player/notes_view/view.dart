@@ -47,19 +47,19 @@ class PlayerNotesView extends StatelessWidget {
                       ]
                     ),
                     onPressed: () => showModalBottomSheet(
-                      elevation: 2,
-                      context: context,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                      ),
                       isScrollControlled: true,
-                      builder: (BuildContext context) => SingleChildScrollView(
-                        child: AddNote(
-                          onSave: (String text) {
-                            model
-                              .addNote(text)
-                              .then(() {
-                                Navigator.of(context).pop();
-                              });
-                          },
-                        ),
+                      context: context,
+                      builder: (BuildContext context) => AddNote(
+                        onSave: (String text) {
+                          model
+                            .addNote(text)
+                            .then(() {
+                              Navigator.pop(context);
+                            });
+                        },
                       )
                     ),
                     child: Text(
