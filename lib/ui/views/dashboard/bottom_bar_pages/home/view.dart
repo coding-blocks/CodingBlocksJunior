@@ -9,55 +9,55 @@ class DashboardHomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     final _theme = Theme.of(context);
     return ViewModelBuilder<DashboardHomeViewModel>.reactive(
-      disposeViewModel: false,
-      initialiseSpecialViewModelsOnce: true,
-      builder: (context, model, child) => Scaffold(
-        body: Padding(
-          padding: const EdgeInsets.all(28.0),
-          child: Column(
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                alignment: Alignment.centerLeft,
-                child: RichText(
-                    text: TextSpan(
-                        text: 'Hello ',
-                        style: TextStyle(
-                          color: getColorFromHex('#1D4479'),
-                          fontSize: 14,
-                        ),
-                        children: <TextSpan>[
-                      TextSpan(
-                          text: '\nPulkit',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 26)),
-                    ])),
+        disposeViewModel: false,
+        initialiseSpecialViewModelsOnce: true,
+        builder: (context, model, child) => Scaffold(
+              body: Padding(
+                padding: const EdgeInsets.fromLTRB(28.0, 56, 28, 56),
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      alignment: Alignment.centerLeft,
+                      child: RichText(
+                          text: TextSpan(
+                              text: 'Hello ',
+                              style: _theme.textTheme.subtitle1,
+                              children: <TextSpan>[
+                            TextSpan(
+                                text: '\nPulkit',
+                                style: _theme.textTheme.headline4),
+                          ])),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Recommended Course for you!",
+                        style: _theme.textTheme.subtitle2,
+                      ),
+                    ),
+                    if (model.courses.length > 0)
+                      CourseCard(
+                        course: model.courses[0],
+                        isExpanded: true,
+                      ),
+                    Container(
+                      padding: const EdgeInsets.only(top: 10, bottom: 20.0),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        "Other Courses",
+                        style: _theme.textTheme.subtitle2,
+                      ),
+                    ),
+                    ...(model.courses.sublist(1).map((course) => CourseCard(
+                          course: course,
+                          onPress: () => model.goToCourse(course),
+                        )))
+                  ],
+                ),
               ),
-              Container(
-                padding: const EdgeInsets.only(bottom: 8.0),
-                alignment: Alignment.centerLeft,
-                child: Text("Recommended Course for you!",
-                    style: TextStyle(
-                      color: getColorFromHex('#1D4479'),
-                      fontSize: 14,
-                    )),
-              ),
-              if (model.courses.length > 0) CourseCard(course: model.courses[0], isExpanded: true,),
-              Container(
-                padding: const EdgeInsets.only(top: 10, bottom: 20.0),
-                alignment: Alignment.centerLeft,
-                child: Text("Other Courses",
-                    style: TextStyle(
-                      color: getColorFromHex('#1D4479'),
-                      fontSize: 14,
-                    )),
-              ),
-              ...(model.courses.map((course) => CourseCard(course: course, onPress: () => model.goToCourse(course),)))
-            ],
-          ),
-        ),
-      ),
-      viewModelBuilder: () => DashboardHomeViewModel()
-    );
+            ),
+        viewModelBuilder: () => DashboardHomeViewModel());
   }
 }

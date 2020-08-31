@@ -16,13 +16,17 @@ ThemeData buildTheme(context) => ThemeData(
       headline1: TextStyle(color: primaryBlue, fontSize: 32 * fs),
       headline2: TextStyle(color: primaryBlue, fontSize: 30 * fs),
       headline3: TextStyle(color: primaryBlue, fontSize: 24 * fs),
-      headline4: TextStyle(color: primaryBlue, fontSize: 20 * fs, fontWeight: FontWeight.w600),
+      headline4: TextStyle(
+          color: primaryBlue, fontSize: 20 * fs, fontWeight: FontWeight.w600),
       headline5: TextStyle(color: primaryBlue, fontSize: 18 * fs),
-      headline6: TextStyle(color: primaryBlue, fontSize: 14 * fs, fontWeight: FontWeight.normal),
+      headline6: TextStyle(
+          color: primaryBlue, fontSize: 14 * fs, fontWeight: FontWeight.normal),
       subtitle1: TextStyle(color: primaryBlue, fontSize: 12 * fs),
+      subtitle2: TextStyle(color: getColorFromHex('#1D4479'), fontSize: 12 * fs, ),
       bodyText1: TextStyle(color: primaryBlue, fontSize: 12 * fs),
       bodyText2: TextStyle(color: primaryBlue, fontSize: 10 * fs),
-      button: TextStyle(color: Colors.white, fontSize: 12 * fs, fontWeight: FontWeight.w600),
+      button: TextStyle(
+          color: Colors.white, fontSize: 12 * fs, fontWeight: FontWeight.w600),
     ),
     buttonTheme: ButtonThemeData(
         buttonColor: getColorFromHex('#045bc7'),
