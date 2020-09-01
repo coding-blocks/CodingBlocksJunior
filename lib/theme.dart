@@ -23,7 +23,7 @@ ThemeData buildTheme(context) => ThemeData(
         subtitle1: TextStyle(color: primaryBlue, fontSize: 16 * fs),
         subtitle2: TextStyle(color: primaryBlue, fontSize: 14 * fs),
         bodyText1: TextStyle(fontSize: 16 * fs),
-        bodyText2: TextStyle(color: primaryBlue, fontSize: 14 * fs),
+        bodyText2: TextStyle(fontSize: 14 * fs),
         caption: TextStyle(fontSize: 12 * fs)),
     buttonTheme: ButtonThemeData(
         buttonColor: getColorFromHex('#045bc7'),
