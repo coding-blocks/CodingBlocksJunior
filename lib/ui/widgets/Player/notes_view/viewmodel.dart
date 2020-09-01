@@ -17,12 +17,17 @@ class PlayerNotesViewModel extends ReloadableFutureViewModel<List<Note>> {
   final SessionService _sessionService = locator<SessionService>();
   final Course course;
   final Content content;
+  final BuildContext context;
 
   DocumentReference courseReference;
   DocumentReference contentReference;
   DocumentReference progressReference;
 
-  PlayerNotesViewModel({@required this.course, @required this.content}) {
+  PlayerNotesViewModel({
+    @required this.course, 
+    @required this.content,
+    @required this.context
+  }) {
     courseReference =
         Firestore.instance.collection('courses').document(course.id);
     contentReference =
@@ -51,6 +56,7 @@ class PlayerNotesViewModel extends ReloadableFutureViewModel<List<Note>> {
       'content': contentReference,
       'userId': _sessionService.user.uid
     }).then((value) {
+      Navigator.pop(this.context);
       loadData();
     });
   }
