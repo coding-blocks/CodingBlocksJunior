@@ -1,5 +1,6 @@
 import 'package:coding_blocks_junior/models/note.dart';
 import 'package:coding_blocks_junior/ui/widgets/Notes/NoteListItem/viewmodel.dart';
+import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:stacked/stacked.dart';
@@ -35,11 +36,17 @@ class NoteListItem extends StatelessWidget {
                   children: [
                     InkWell(
                       onTap: model.onClickEdit,
-                      child: Icon(Icons.edit),
+                      child: Icon(
+                        Icons.edit,
+                        color: getColorFromHex('#1D4479'),
+                      ),
                     ),
                     InkWell(
                       onTap: model.showDeleteConfirmationDialog,
-                      child: Icon(Icons.delete),
+                      child: Icon(
+                        Icons.delete,
+                        color: getColorFromHex('#1D4479'),
+                      ),
                     )
                   ],
                 )

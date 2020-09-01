@@ -77,14 +77,15 @@ class NoteListItemViewModel extends FutureViewModel<void> {
     );
     Widget deleteButton = FlatButton(
       child: Text('Delete'),
-      onPressed: () async {
-        var result = await Firestore
+      onPressed: () {
+        return Firestore
           .instance
           .collection('notes')
           .document(this.note.id)
-          .delete();
-        Navigator.pop(this.context);
-        return result;
+          .delete()
+          .then((value) {
+            Navigator.pop(this.context);
+          });
       },
     );
 
