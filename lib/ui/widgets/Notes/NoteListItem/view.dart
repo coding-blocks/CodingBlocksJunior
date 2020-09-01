@@ -1,9 +1,9 @@
 import 'package:coding_blocks_junior/models/note.dart';
 import 'package:coding_blocks_junior/ui/widgets/Notes/NoteListItem/viewmodel.dart';
+import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:stacked/stacked.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class NoteListItem extends StatelessWidget {
   final Note note;
@@ -32,18 +32,25 @@ class NoteListItem extends StatelessWidget {
                     fontWeight: FontWeight.bold
                   ),
                 ),
-                InkWell(
-                  onTap: () {},
-                  child: Icon(Icons.edit),
+                Row(
+                  children: [
+                    InkWell(
+                      onTap: model.onClickEdit,
+                      child: Icon(
+                        Icons.edit,
+                        color: getColorFromHex('#1D4479'),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: model.showDeleteConfirmationDialog,
+                      child: Icon(
+                        Icons.delete,
+                        color: getColorFromHex('#1D4479'),
+                      ),
+                    )
+                  ],
                 )
               ],
-            ),
-            Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  timeago.format(model.note.createdAt.toDate()),
-                  style: theme.textTheme.caption,
-                ),
             ),
             Container(
               alignment: Alignment.centerLeft,
@@ -53,7 +60,7 @@ class NoteListItem extends StatelessWidget {
           ],
         ),
       ), 
-      viewModelBuilder: () => NoteListItemViewModel(note: note)
+      viewModelBuilder: () => NoteListItemViewModel(note: note, context: context)
     );
   }
 }

@@ -1,13 +1,22 @@
 import 'package:coding_blocks_junior/ui/widgets/Base/RaisedGradientButton.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:coding_blocks_junior/utils/SizeConfig.dart';
+import 'package:coding_blocks_junior/models/note.dart';
 import 'package:flutter/material.dart';
 
 class AddNote extends StatelessWidget {
   final TextEditingController _controller = TextEditingController();
   final Function(String) onSave;
+  final Note noteToEdit;
 
-  AddNote({@required this.onSave});
+  AddNote({
+    @required this.onSave,
+    this.noteToEdit
+  }) {
+    if (this.noteToEdit != null) {
+      this._controller.text = this.noteToEdit.text;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

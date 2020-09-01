@@ -58,14 +58,19 @@ class BookmarkListItem extends StatelessWidget {
                           ),
                           Align(
                             alignment: Alignment.topLeft,
-                            child: Image.asset('assets/bookmark-blue.png',
-                                height: 30 * SizeConfig.imageSizeMultiplier , width: 30 * SizeConfig.imageSizeMultiplier),
+                            child: InkWell(
+                              onTap: model.showDeleteConfirmationDialog,
+                              child: Icon(
+                                Icons.delete, 
+                                color: getColorFromHex('#1D4479'),
+                              ),
+                            ),
                           )
                         ],
                       ),
                     )),
               ),
             ),
-        viewModelBuilder: () => BookmarkListItemViewModel(bookmark: bookmark));
+        viewModelBuilder: () => BookmarkListItemViewModel(bookmark: bookmark, context: context));
   }
 }
