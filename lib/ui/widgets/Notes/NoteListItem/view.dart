@@ -3,7 +3,6 @@ import 'package:coding_blocks_junior/ui/widgets/Notes/NoteListItem/viewmodel.dar
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:stacked/stacked.dart';
-import 'package:timeago/timeago.dart' as timeago;
 
 class NoteListItem extends StatelessWidget {
   final Note note;
@@ -33,17 +32,10 @@ class NoteListItem extends StatelessWidget {
                   ),
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: model.onClickEdit,
                   child: Icon(Icons.edit),
                 )
               ],
-            ),
-            Align(
-                alignment: Alignment.topLeft,
-                child: Text(
-                  timeago.format(model.note.createdAt.toDate()),
-                  style: theme.textTheme.caption,
-                ),
             ),
             Container(
               alignment: Alignment.centerLeft,
@@ -53,7 +45,7 @@ class NoteListItem extends StatelessWidget {
           ],
         ),
       ), 
-      viewModelBuilder: () => NoteListItemViewModel(note: note)
+      viewModelBuilder: () => NoteListItemViewModel(note: note, context: context)
     );
   }
 }

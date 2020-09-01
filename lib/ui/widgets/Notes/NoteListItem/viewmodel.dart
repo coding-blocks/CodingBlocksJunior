@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coding_blocks_junior/models/content.dart';
 import 'package:coding_blocks_junior/models/course.dart';
 import 'package:coding_blocks_junior/models/note.dart';
+import 'package:coding_blocks_junior/ui/widgets/Notes/AddNote/view.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -9,9 +10,11 @@ class NoteListItemViewModel extends FutureViewModel<void> {
   final Note note;
   Course course;
   Content content;
+  BuildContext context;
 
   NoteListItemViewModel({
-    @required this.note
+    @required this.note,
+    @required this.context
   });
 
   @override
@@ -36,5 +39,32 @@ class NoteListItemViewModel extends FutureViewModel<void> {
         .document(contentId).get();
 
     content = Content.fromSnapshot(contentDoc);
+  }
+
+  onClickEdit() {
+    showModalBottomSheet(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(30.0),
+      ),
+      isScrollControlled: true,
+      context: context,
+      builder: (context) => SingleChildScrollView(
+        child: AddNote(
+          noteToEdit: this.note,
+          onSave: (String text) async {
+            var result = await Firestore
+              .instance
+              .collection('notes')
+              .document(this.note.id)
+              .updateData({
+                'text': text
+              });
+
+            Navigator.pop(context);
+            return result;
+          }
+        ),
+      )
+    );
   }
 }
