@@ -41,7 +41,7 @@ class CoursePageAppBar extends StatelessWidget {
               children: <Widget>[
                 new LinearPercentIndicator(
                   width: 150.0 * SizeConfig.imageSizeMultiplier,
-                  lineHeight: 3.0 * SizeConfig.heightMultiplier,
+                  lineHeight: 4.0 * SizeConfig.heightMultiplier,
                   percent: 0.0,
                   progressColor: Colors.white,
                 ),

@@ -2,6 +2,7 @@ import 'package:coding_blocks_junior/ui/widgets/Base/RaisedGradientButton.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:coding_blocks_junior/models/note.dart';
+import 'package:coding_blocks_junior/utils/logic.dart';
 import 'package:flutter/material.dart';
 
 class AddNote extends StatelessWidget {
@@ -9,10 +10,7 @@ class AddNote extends StatelessWidget {
   final Function(String) onSave;
   final Note noteToEdit;
 
-  AddNote({
-    @required this.onSave,
-    this.noteToEdit
-  }) {
+  AddNote({@required this.onSave, this.noteToEdit}) {
     if (this.noteToEdit != null) {
       this._controller.text = this.noteToEdit.text;
     }
@@ -22,50 +20,47 @@ class AddNote extends StatelessWidget {
   Widget build(BuildContext context) {
     final _theme = Theme.of(context);
     return Container(
-      padding: EdgeInsets.all(20),
+      padding: getInsetsAll(20),
       decoration: new BoxDecoration(
           color: Colors.white,
           borderRadius: new BorderRadius.only(
               topLeft: const Radius.circular(30.0),
               topRight: const Radius.circular(30.0))),
       height: SizeConfig.isPortrait
-          ? MediaQuery.of(context).size.height / 3.5 +
+          ? MediaQuery.of(context).size.height / 4 +
               MediaQuery.of(context).viewInsets.bottom
-          : MediaQuery.of(context).size.height / 3 +
+          : MediaQuery.of(context).size.height / 2.5 +
               MediaQuery.of(context).viewInsets.bottom,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-            margin: EdgeInsets.only(
-              top: 12 * SizeConfig.heightMultiplier,
-              left: 12 * SizeConfig.widthMultiplier,
-              right: 12 * SizeConfig.widthMultiplier,
+            margin: getInsetsOnly(
+              top: 12,
+              left: 12,
+              right: 12,
             ),
             child: TextField(
               controller: _controller,
               minLines: 3,
               maxLines: 8,
               style: TextStyle(
-                fontFamily: 'Gilroy',
-                color: Colors.black,
-                fontSize: 12 * SizeConfig.textMultiplier
-              ),
+                  color: Colors.black,
+                  fontSize: 12 * SizeConfig.textMultiplier),
               decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.all(12.0),
+                  contentPadding: getInsetsAll(12.0),
                   fillColor: getColorFromHex('#FAFAFA'),
                   filled: true,
                   hintText: "Enter your text here"),
             ),
           ),
           Container(
-            margin: EdgeInsets.only(
-              top: 12 * SizeConfig.heightMultiplier,
-              left: 25 * SizeConfig.widthMultiplier,
-              right: 25 * SizeConfig.widthMultiplier,
+            margin: getInsetsOnly(
+              top: 12,
+              left: 25,
+              right: 25,
             ),
             child: RaisedGradientButton(
-              height: 35 * SizeConfig.heightMultiplier,
               gradient: LinearGradient(colors: [
                 getColorFromHex('#0575E6'),
                 getColorFromHex('#021B79')
@@ -73,7 +68,8 @@ class AddNote extends StatelessWidget {
               onPressed: () => onSave(_controller.text),
               child: Text(
                 'Add Note',
-                style: _theme.textTheme.button,
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
             ),
           )
