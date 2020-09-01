@@ -1,9 +1,9 @@
 import 'package:coding_blocks_junior/models/bookmark.dart';
 import 'package:coding_blocks_junior/ui/widgets/Base/Thumbnail.dart';
-import 'package:coding_blocks_junior/ui/widgets/Base/asset_icon.dart';
 import 'package:coding_blocks_junior/ui/widgets/Bookmarks/BookmarkListItem/viewmodel.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:coding_blocks_junior/utils/SizeConfig.dart';
+import 'package:coding_blocks_junior/utils/logic.dart';
 import 'package:coding_blocks_junior/utils/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -16,7 +16,7 @@ class BookmarkListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _theme = Theme.of(context);
+    final theme = Theme.of(context);
     return ViewModelBuilder<BookmarkListItemViewModel>.reactive(
         builder: (BuildContext context, BookmarkListItemViewModel model,
                 Widget child) =>
@@ -25,17 +25,17 @@ class BookmarkListItem extends StatelessWidget {
               () => InkWell(
                 onTap: model.goToContent,
                 child: Container(
-                    padding: EdgeInsets.all(30),
                     color: color,
+                    padding: getInsetsLTRB(30, 15, 30, 15),
                     child: IntrinsicHeight(
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
-                          Container(
-                            margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
-                            child: SizedBox(
+                          ConstrainedBox(
+                            constraints: BoxConstraints.expand(width: (SizeConfig.isPortrait ? 150 : 300) * SizeConfig.imageSizeMultiplier),
+                            child: Container(
+                              margin: getInsetsLTRB(0, 0, 15, 0),
                               child: Thumbnail(url: model.content.url),
-                              width: 100 * SizeConfig.widthMultiplier,
                             ),
                           ),
                           Expanded(
@@ -47,30 +47,20 @@ class BookmarkListItem extends StatelessWidget {
                                 children: <Widget>[
                                   Text(
                                     model.course.title,
-                                    style: TextStyle(
-                                        color: getColorFromHex('#194A88'),
-                                        fontSize:
-                                        8 * SizeConfig.textMultiplier),
+                                    style: theme.textTheme.bodyText2,
                                   ),
-                                  Text(
-                                    model.content.title,
-                                    style: TextStyle(
-                                        color: getColorFromHex('#194A88'),
-                                        fontSize:
-                                            12 * SizeConfig.textMultiplier,
-                                        fontWeight: FontWeight.bold),
-                                  )
+                                  Text(model.content.title,
+                                      style: theme.textTheme.subtitle1.copyWith(
+                                          fontWeight: FontWeight.bold))
                                 ],
                               ),
                             ),
                           ),
                           Align(
-                              alignment: Alignment.topLeft,
-                              child: AssetIcon(
-                                asset: 'assets/bookmark-blue.png',
-                                height: 16,
-                                width: 16,
-                              ))
+                            alignment: Alignment.topLeft,
+                            child: Image.asset('assets/bookmark-blue.png',
+                                height: 30 * SizeConfig.imageSizeMultiplier , width: 30 * SizeConfig.imageSizeMultiplier),
+                          )
                         ],
                       ),
                     )),

@@ -49,6 +49,7 @@ dependencies:
   pin_code_fields: 5.0.1
   intl_phone_number_input: 0.4.6
   google_fonts: 1.1.0
+  timeago: 2.0.27
 
 dev_dependencies:
   flutter_test:
