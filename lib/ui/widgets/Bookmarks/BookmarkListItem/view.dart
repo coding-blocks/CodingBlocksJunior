@@ -32,7 +32,7 @@ class BookmarkListItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
                           ConstrainedBox(
-                            constraints: BoxConstraints.expand(width: (SizeConfig.isPortrait ? 150 : 300) * SizeConfig.imageSizeMultiplier),
+                            constraints: BoxConstraints.expand(width: (SizeConfig.isPortrait ? 150 : 200) * SizeConfig.imageSizeMultiplier),
                             child: Container(
                               margin: getInsetsLTRB(0, 0, 15, 0),
                               child: Thumbnail(url: model.content.url),
