@@ -60,14 +60,12 @@ class BookmarkListItemViewModel extends FutureViewModel<void> {
     Widget deleteButton = FlatButton(
       child: Text('Delete'),
       onPressed: () {
+        Navigator.pop(this.context);
         return Firestore
           .instance
           .collection('bookmarks')
           .document(this.bookmark.id)
-          .delete()
-          .then((value) {
-            Navigator.pop(this.context);
-          });
+          .delete();
       },
     );
 

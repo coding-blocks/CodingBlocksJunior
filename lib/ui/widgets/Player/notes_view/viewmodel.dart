@@ -42,6 +42,7 @@ class PlayerNotesViewModel extends ReloadableFutureViewModel<List<Note>> {
       .instance
       .collection('notes')
       .where('content', isEqualTo: contentReference)
+      .where('userId', isEqualTo: _sessionService.user.uid)
       .getDocuments();
 
 

@@ -76,6 +76,7 @@ class PlayerViewModel extends FutureViewModel<Content> {
       .collection('bookmarks')
       .where('content', isEqualTo: contentReference)
       .where('course', isEqualTo: courseReference)
+      .where('userId', isEqualTo: _sessionService.user.uid)
       .getDocuments();
 
     return bookmarkSnapshot.documents.length > 0 ? Bookmark.fromSnapshot(bookmarkSnapshot.documents[0]) : null;
