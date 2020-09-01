@@ -67,4 +67,37 @@ class NoteListItemViewModel extends FutureViewModel<void> {
       )
     );
   }
+
+  showDeleteConfirmationDialog() {
+    Widget cancelButton = FlatButton(
+      child: Text('Cancel'),
+      onPressed: () {
+        Navigator.pop(this.context);
+      },
+    );
+    Widget deleteButton = FlatButton(
+      child: Text('Delete'),
+      onPressed: () async {
+        var result = await Firestore
+          .instance
+          .collection('notes')
+          .document(this.note.id)
+          .delete();
+        Navigator.pop(this.context);
+        return result;
+      },
+    );
+
+    showDialog(
+      context: this.context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text("Delete Note"),
+        content: Text("Would you like to delete this note?"),
+        actions: [
+          cancelButton,
+          deleteButton
+        ],
+      )
+    );
+  }
 }

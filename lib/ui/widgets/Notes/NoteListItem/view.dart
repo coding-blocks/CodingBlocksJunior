@@ -31,9 +31,17 @@ class NoteListItem extends StatelessWidget {
                     fontWeight: FontWeight.bold
                   ),
                 ),
-                InkWell(
-                  onTap: model.onClickEdit,
-                  child: Icon(Icons.edit),
+                Row(
+                  children: [
+                    InkWell(
+                      onTap: model.onClickEdit,
+                      child: Icon(Icons.edit),
+                    ),
+                    InkWell(
+                      onTap: model.showDeleteConfirmationDialog,
+                      child: Icon(Icons.delete),
+                    )
+                  ],
                 )
               ],
             ),

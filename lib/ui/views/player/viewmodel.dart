@@ -66,12 +66,16 @@ class PlayerViewModel extends FutureViewModel<Content> {
     String contentId = content.id;
     DocumentReference contentReference = Firestore
       .instance
-      .document("/courses/$courseId/contents/$contentId");
+      .document("/contents/$contentId");
+    DocumentReference courseReference = Firestore
+      .instance
+      .document("/courses/$courseId");
 
     var bookmarkSnapshot = await Firestore
       .instance
       .collection('bookmarks')
       .where('content', isEqualTo: contentReference)
+      .where('course', isEqualTo: courseReference)
       .getDocuments();
 
     return bookmarkSnapshot.documents.length > 0 ? Bookmark.fromSnapshot(bookmarkSnapshot.documents[0]) : null;
