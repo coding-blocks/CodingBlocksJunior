@@ -1,9 +1,12 @@
+import 'package:coding_blocks_junior/utils/HexToColor.dart';
+import 'package:coding_blocks_junior/utils/SizeConfig.dart';
+import 'package:coding_blocks_junior/utils/logic.dart';
 import 'package:flutter/material.dart';
 
 class TagChip extends StatelessWidget {
   final text;
 
-  TagChip({ this.text });
+  TagChip({this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -14,15 +17,15 @@ class TagChip extends StatelessWidget {
         child: Chip(
           backgroundColor: Colors.transparent,
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          labelPadding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+          labelPadding: getInsetsLTRB(20, 0, 20, 0),
           shape: StadiumBorder(
-            side: BorderSide(color: Colors.white),
+            side: BorderSide(color: getColorFromHex('#83D3C5')),
           ),
           label: Text(
             text,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 8,
+              fontSize: 8 * SizeConfig.textMultiplier,
             ),
           ),
         ),
