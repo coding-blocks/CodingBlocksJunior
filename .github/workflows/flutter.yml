@@ -47,5 +47,5 @@ jobs:
         with:
           files: "build/app/outputs/apk/release/*.apk"
           automatic_release_tag: "latest"
-          tag: ${{ github.head_ref }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          prerelease: false          
+          repo_token: ${{ secrets.GITHUB_TOKEN }}

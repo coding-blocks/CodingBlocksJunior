@@ -13,9 +13,11 @@ class BookmarkListItemViewModel extends FutureViewModel<void> {
   final Bookmark bookmark;
   Course course;
   Content content;
+  BuildContext context;
 
   BookmarkListItemViewModel({
-    @required this.bookmark
+    @required this.bookmark,
+    @required this.context
   });
 
   @override
@@ -46,5 +48,37 @@ class BookmarkListItemViewModel extends FutureViewModel<void> {
         courseId: bookmark.courseId,
         contentId: bookmark.contentId
     ));
+  }
+
+  showDeleteConfirmationDialog() {
+    Widget cancelButton = FlatButton(
+      child: Text('Cancel'),
+      onPressed: () {
+        Navigator.pop(this.context);
+      },
+    );
+    Widget deleteButton = FlatButton(
+      child: Text('Delete'),
+      onPressed: () {
+        Navigator.pop(this.context);
+        return Firestore
+          .instance
+          .collection('bookmarks')
+          .document(this.bookmark.id)
+          .delete();
+      },
+    );
+
+    showDialog(
+      context: this.context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text("Delete Bookmark"),
+        content: Text("Would you like to delete this bookmark?"),
+        actions: [
+          cancelButton,
+          deleteButton
+        ],
+      )
+    );
   }
 }

@@ -17,23 +17,23 @@ class OnboardAgeGroupState extends State<OnboardAgeGroup> {
   List<RadioModel> sampleData = [
     RadioModel(false, "Foundation", [
       ClassPillModel(text: "1", color: getColorFromHex("#F5C792")),
-      ClassPillModel(text: "1", color: getColorFromHex("#85CEF2")),
-      ClassPillModel(text: "1", color: getColorFromHex("#E99C9F"))
+      ClassPillModel(text: "2", color: getColorFromHex("#85CEF2")),
+      ClassPillModel(text: "3", color: getColorFromHex("#E99C9F"))
     ]),
     RadioModel(false, "Junior", [
-      ClassPillModel(text: "1", color: getColorFromHex("#F5C792")),
-      ClassPillModel(text: "1", color: getColorFromHex("#85CEF2")),
-      ClassPillModel(text: "1", color: getColorFromHex("#E99C9F"))
+      ClassPillModel(text: "4", color: getColorFromHex("#F5C792")),
+      ClassPillModel(text: "5", color: getColorFromHex("#85CEF2")),
+      ClassPillModel(text: "6", color: getColorFromHex("#E99C9F"))
     ]),
     RadioModel(false, "Middle", [
-      ClassPillModel(text: "1", color: getColorFromHex("#F5C792")),
-      ClassPillModel(text: "1", color: getColorFromHex("#85CEF2")),
-      ClassPillModel(text: "1", color: getColorFromHex("#E99C9F"))
+      ClassPillModel(text: "7", color: getColorFromHex("#F5C792")),
+      ClassPillModel(text: "8", color: getColorFromHex("#85CEF2")),
+      ClassPillModel(text: "9", color: getColorFromHex("#E99C9F"))
     ]),
     RadioModel(false, "Senior", [
-      ClassPillModel(text: "1", color: getColorFromHex("#F5C792")),
-      ClassPillModel(text: "1", color: getColorFromHex("#85CEF2")),
-      ClassPillModel(text: "1", color: getColorFromHex("#E99C9F"))
+      ClassPillModel(text: "10", color: getColorFromHex("#F5C792")),
+      ClassPillModel(text: "11", color: getColorFromHex("#85CEF2")),
+      ClassPillModel(text: "12", color: getColorFromHex("#E99C9F"))
     ]),
   ];
 
