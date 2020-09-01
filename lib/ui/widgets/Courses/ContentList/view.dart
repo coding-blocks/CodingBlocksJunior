@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coding_blocks_junior/models/content.dart';
 import 'package:coding_blocks_junior/ui/widgets/Base/Thumbnail.dart';
 import 'package:coding_blocks_junior/ui/widgets/Courses/ContentList/viewmodel.dart';
+import 'package:coding_blocks_junior/utils/SizeConfig.dart';
+import 'package:coding_blocks_junior/utils/logic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
@@ -10,10 +12,7 @@ class ContentListView extends StatelessWidget {
   final Stream<QuerySnapshot> contentStream;
   final Function onTap;
 
-  ContentListView({
-    this.contentStream, 
-    this.onTap
-  });
+  ContentListView({this.contentStream, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -39,52 +38,51 @@ class ContentListItemView extends StatelessWidget {
   final Content content;
   final int index;
 
-  ContentListItemView({
-    @required this.content, 
-    this.index
-  });
+  ContentListItemView({@required this.content, this.index});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.fromLTRB(30, 11, 30, 11),
-      child: SizedBox(
-        height: 84.38, // assuming 16:9 ratio
-        child: Row(children: [
-          SizedBox(
-            width: 150, //  assuming 16:9 ratio
-            child: content.url != null ? Thumbnail(url: content.url) : null,
-          ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Lecture ' + (index + 1).toString()),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      content.title,
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.blueAccent),
-                    ),
-                    Expanded(
-                      child: Align(
-                          alignment: Alignment.bottomRight,
-                          child: Text(
-                            'Date: 18th Aug, 2020',
-                            style:
-                                TextStyle(fontSize: 11, color: Colors.black87),
-                          )),
-                    )
-                  ]),
-            ),
-          )
-        ]),
+    final theme = Theme.of(context);
+    return Container(
+      padding: getInsetsLTRB(30, 15, 30, 15),
+      child: IntrinsicHeight(
+        child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              ConstrainedBox(
+                constraints: BoxConstraints.expand(
+                    width: (SizeConfig.isPortrait ? 150 : 200) *
+                        SizeConfig.imageSizeMultiplier),
+                child: Container(
+                  margin: getInsetsLTRB(0, 0, 15, 0),
+                  child: Thumbnail(url: content.url),
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Container(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Text(
+                        'Lecture ' + (index + 1).toString(),
+                        style: theme.textTheme.bodyText2,
+                      ),
+                      Text(content.title,
+                          style: theme.textTheme.subtitle1
+                              .copyWith(fontWeight: FontWeight.bold))
+                    ],
+                  ),
+                ),
+              ),
+              Align(
+                  alignment: Alignment.bottomRight,
+                  child: Text(
+                    'Date: 18th Aug, 2020',
+                    style: TextStyle(fontSize: 11, color: Colors.black87),
+                  ))
+            ]),
       ),
     );
   }

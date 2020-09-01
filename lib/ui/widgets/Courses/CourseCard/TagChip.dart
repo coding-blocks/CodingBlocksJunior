@@ -25,7 +25,7 @@ class TagChip extends StatelessWidget {
             text,
             style: TextStyle(
               color: Colors.white,
-              fontSize: 8 * SizeConfig.textMultiplier,
+              fontSize: 12 * SizeConfig.textMultiplier,
             ),
           ),
         ),

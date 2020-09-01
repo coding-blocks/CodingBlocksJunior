@@ -24,7 +24,6 @@ class CourseCardExpandedView extends ViewModelWidget<CourseCardViewModel> {
                 Container(
                   height: 35 * SizeConfig.imageSizeMultiplier,
                   width: 35 * SizeConfig.imageSizeMultiplier,
-                  padding: getInsetsAll(2),
                   margin: getInsetsLTRB(0, 0, 10, 0),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,

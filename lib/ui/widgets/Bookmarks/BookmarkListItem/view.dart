@@ -32,7 +32,9 @@ class BookmarkListItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: <Widget>[
                           ConstrainedBox(
-                            constraints: BoxConstraints.expand(width: (SizeConfig.isPortrait ? 150 : 300) * SizeConfig.imageSizeMultiplier),
+                            constraints: BoxConstraints.expand(
+                                width: (SizeConfig.isPortrait ? 150 : 200) *
+                                    SizeConfig.imageSizeMultiplier),
                             child: Container(
                               margin: getInsetsLTRB(0, 0, 15, 0),
                               child: Thumbnail(url: model.content.url),
@@ -61,7 +63,8 @@ class BookmarkListItem extends StatelessWidget {
                             child: InkWell(
                               onTap: model.showDeleteConfirmationDialog,
                               child: Icon(
-                                Icons.delete, 
+                                Icons.delete,
+                                size: 20 * SizeConfig.imageSizeMultiplier,
                                 color: getColorFromHex('#1D4479'),
                               ),
                             ),
@@ -71,6 +74,7 @@ class BookmarkListItem extends StatelessWidget {
                     )),
               ),
             ),
-        viewModelBuilder: () => BookmarkListItemViewModel(bookmark: bookmark, context: context));
+        viewModelBuilder: () =>
+            BookmarkListItemViewModel(bookmark: bookmark, context: context));
   }
 }
