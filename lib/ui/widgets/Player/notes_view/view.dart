@@ -77,7 +77,7 @@ class PlayerNotesView extends StatelessWidget {
           ],
         ),
       ), 
-      viewModelBuilder: () => PlayerNotesViewModel(course: course, content: content)
+      viewModelBuilder: () => PlayerNotesViewModel(course: course, content: content, context: context)
     );
   }
 }

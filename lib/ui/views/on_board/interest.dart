@@ -38,7 +38,6 @@ class OnboardInterests extends ViewModelWidget<OnBoardViewModel> {
                   style: theme.textTheme.headline6),
             ),
             Container(
-              padding: EdgeInsets.only(top: 2 * SizeConfig.heightMultiplier),
               alignment: Alignment.center,
               child: MultiSelectChip(
                 reportList,
@@ -47,7 +46,7 @@ class OnboardInterests extends ViewModelWidget<OnBoardViewModel> {
                 },
               ),
             ),
-            Spacer(),
+            // Spacer(),
             Container(
               width: double.infinity,
               margin: getInsetsLTRB(0, 50, 0, 0),
@@ -94,6 +93,7 @@ class _MultiSelectChipState extends State<MultiSelectChip> {
     widget.reportList.forEach((item) {
       bool isItemSelected = selectedChoices.contains(item);
       choices.add(Container(
+        margin: getInsetsAll(5),
         padding: getInsetsLTRB(2, 0, 2, 0),
         child: ChoiceChip(
           padding: getInsetsAll(10),

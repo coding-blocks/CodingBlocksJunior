@@ -20,7 +20,7 @@ class DashboardView extends StatelessWidget {
           body: TabBarView(
             children: [
               Cached(DashboardBookmarksView()),
-              Cached(DashboardHomeView()),
+              (DashboardHomeView()),
               Cached(DashboardNotesView()),
               (DashboardProfileView()),
             ],

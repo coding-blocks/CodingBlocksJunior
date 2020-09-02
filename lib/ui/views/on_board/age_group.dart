@@ -1,7 +1,9 @@
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:coding_blocks_junior/utils/logic.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class OnboardAgeGroup extends StatefulWidget {
 
@@ -15,23 +17,23 @@ class OnboardAgeGroupState extends State<OnboardAgeGroup> {
   List<RadioModel> sampleData = [
     RadioModel(false, "Foundation", [
       ClassPillModel(text: "1", color: getColorFromHex("#F5C792")),
-      ClassPillModel(text: "1", color: getColorFromHex("#85CEF2")),
-      ClassPillModel(text: "1", color: getColorFromHex("#E99C9F"))
+      ClassPillModel(text: "2", color: getColorFromHex("#85CEF2")),
+      ClassPillModel(text: "3", color: getColorFromHex("#E99C9F"))
     ]),
     RadioModel(false, "Junior", [
-      ClassPillModel(text: "1", color: getColorFromHex("#F5C792")),
-      ClassPillModel(text: "1", color: getColorFromHex("#85CEF2")),
-      ClassPillModel(text: "1", color: getColorFromHex("#E99C9F"))
+      ClassPillModel(text: "4", color: getColorFromHex("#F5C792")),
+      ClassPillModel(text: "5", color: getColorFromHex("#85CEF2")),
+      ClassPillModel(text: "6", color: getColorFromHex("#E99C9F"))
     ]),
     RadioModel(false, "Middle", [
-      ClassPillModel(text: "1", color: getColorFromHex("#F5C792")),
-      ClassPillModel(text: "1", color: getColorFromHex("#85CEF2")),
-      ClassPillModel(text: "1", color: getColorFromHex("#E99C9F"))
+      ClassPillModel(text: "7", color: getColorFromHex("#F5C792")),
+      ClassPillModel(text: "8", color: getColorFromHex("#85CEF2")),
+      ClassPillModel(text: "9", color: getColorFromHex("#E99C9F"))
     ]),
     RadioModel(false, "Senior", [
-      ClassPillModel(text: "1", color: getColorFromHex("#F5C792")),
-      ClassPillModel(text: "1", color: getColorFromHex("#85CEF2")),
-      ClassPillModel(text: "1", color: getColorFromHex("#E99C9F"))
+      ClassPillModel(text: "10", color: getColorFromHex("#F5C792")),
+      ClassPillModel(text: "11", color: getColorFromHex("#85CEF2")),
+      ClassPillModel(text: "12", color: getColorFromHex("#E99C9F"))
     ]),
   ];
 
@@ -48,29 +50,37 @@ class OnboardAgeGroupState extends State<OnboardAgeGroup> {
               child: Image(
                 image: AssetImage('assets/onboarding-2.png'),
               ),
-              flex: 2,
+              flex: 1,
             ),
             Text('Which Grade are you in?',
                 style: theme.textTheme.headline6),
             Expanded(
-              flex: 2,
-              child: new ListView.builder(
-                itemCount: sampleData.length,
-                itemBuilder: (BuildContext context, int index) {
-                  return new InkWell(
-                    //highlightColor: Colors.red,
-                    splashColor: Colors.white,
-                    onTap: () {
-                      setState(() {
-                        sampleData
-                            .forEach((element) => element.isSelected = false);
-                        sampleData[index].isSelected = true;
+              flex: 1,
+              child: SingleChildScrollView(
+                child: Wrap(
+                  spacing: 20.0,
+                  runSpacing: 10.0,
+                  alignment: WrapAlignment.spaceEvenly,
+                  direction: Axis.horizontal,
+                  children: List.generate(sampleData.length, (index) {
+                    return new InkWell(
+                      //highlightColor: Colors.red,
+                      splashColor: Colors.white,
+                      onTap: () {
+                        setState(() {
+                          sampleData
+                              .forEach((element) => element.isSelected = false);
+                          sampleData[index].isSelected = true;
 
-                      });
-                    },
-                    child: new RadioItem(sampleData[index]),
-                  );
-                },
+                        });
+                      },
+                      child: ConstrainedBox(
+                          constraints: SizeConfig.isPortrait ? BoxConstraints(maxWidth: 900) : BoxConstraints(maxWidth: 300 * SizeConfig.widthMultiplier),
+                          child: new RadioItem(sampleData[index])
+                      ),
+                    );
+                  }),
+                ),
               ),
             )
           ],
