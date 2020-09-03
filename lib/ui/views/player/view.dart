@@ -6,9 +6,9 @@ import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:coding_blocks_junior/utils/logic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:coding_blocks_junior/theme.dart';
 
 class PlayerView extends StatelessWidget {
   @override
@@ -26,29 +26,27 @@ class PlayerView extends StatelessWidget {
         content: arguments == null ? null : arguments['content']
       ),
       builder: (context, model, child) => YoutubePlayerBuilder(
-        player: YoutubePlayer(controller: model.ytController,),
+        player: YoutubePlayer(controller: model.ytController, bottomActions: [
+          CurrentPosition(),
+          ProgressBar(isExpanded: true,),
+          YtPlayerIconTheme(
+            child: PlaybackSpeedButton(
+                icon: Icon(Icons.settings)
+            ),
+          ),
+          YtPlayerIconTheme(
+            child: FullScreenButton(
+              icon: Icon(Icons.fullscreen),
+              exitIcon: Icon(Icons.fullscreen),
+            ),
+          ),
+        ]),
         builder: (context, player) => Scaffold(
           body: Column(
             children: <Widget>[
               if (model.isBusy || model.ytController == null)
                 Center(child: CircularProgressIndicator())
               else ...[
-                // Hero(
-                //   tag: model.data.url,
-                //   // child: YoutubePlayerBuilder(
-                //   //   player: YoutubePlayer(
-                //   //     controller: model.ytController,
-                //   //     // bottomActions: [
-                //   //     //   FullScreenButton()
-                //   //     // ],
-                //   //   ),
-                //   //   builder: (context, player) {
-                //   //     // SystemChrome.setEnabledSystemUIOverlays([]);
-                //   //     return
-                //   //   },
-                //   // ),
-                //   child: Column(children: <Widget>[player]),
-                // ),
                 Expanded(child: player),
                 Padding(
                   padding: getInsetsLTRB(15, 20, 15, 20),

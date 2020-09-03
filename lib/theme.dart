@@ -29,5 +29,13 @@ ThemeData buildTheme(context) => ThemeData(
         buttonColor: getColorFromHex('#045bc7'),
         textTheme: ButtonTextTheme.primary),
     inputDecorationTheme:
-        InputDecorationTheme(labelStyle: TextStyle(color: accentColor)),
+    InputDecorationTheme(labelStyle: TextStyle(color: accentColor)),
     visualDensity: VisualDensity.adaptivePlatformDensity);
+
+
+final YtPlayerIconTheme = ({Widget child}) => IconTheme(
+  data: IconThemeData(
+    color: Colors.white, size: 16 * SizeConfig.imageSizeMultiplier,
+  ),
+  child: child,
+);
