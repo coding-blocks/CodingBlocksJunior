@@ -4,6 +4,7 @@ import 'package:coding_blocks_junior/models/bookmark.dart';
 import 'package:coding_blocks_junior/models/content.dart';
 import 'package:coding_blocks_junior/models/course.dart';
 import 'package:coding_blocks_junior/services/session.dart';
+import 'package:flutter/services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -111,7 +112,13 @@ class PlayerViewModel extends FutureViewModel<Content> {
       initialVideoId: YoutubePlayer.convertUrlToId(url),
       flags: YoutubePlayerFlags(
         autoPlay: true,
+        // hideThumbnail: true
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    SystemChrome.setPreferredOrientations(DeviceOrientation.values);
   }
 }

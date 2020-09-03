@@ -6,6 +6,7 @@ import 'package:coding_blocks_junior/ui/widgets/Notes/AddNote/view.dart';
 import 'package:coding_blocks_junior/ui/widgets/Player/notes_view/viewmodel.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:coding_blocks_junior/utils/SizeConfig.dart';
+import 'package:coding_blocks_junior/utils/logic.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
@@ -20,22 +21,18 @@ class PlayerNotesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return ViewModelBuilder.nonReactive(
       builder: (context, model, child) => Scaffold(
         body: Column(
           children: <Widget>[
             Container(
-              padding: EdgeInsets.fromLTRB(30, 20, 30, 0),
+              padding: getInsetsLTRB(15, 20, 15, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
-                    'Notes',
-                    style: TextStyle(
-                      fontSize: 3 * SizeConfig.textMultiplier,
-                      color: getColorFromHex('#033194'),
-                      fontWeight: FontWeight.bold
-                    ),
+                    'Notes', style: theme.textTheme.subtitle2,
                   ),
                   RaisedGradientButton(
                     height: 20,
@@ -110,8 +107,9 @@ class PlayerNotesListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
-      padding: EdgeInsets.fromLTRB(30, 10, 30, 10),
+      padding: getInsetsLTRB(15, 10, 15, 10),
       color: color,
       child: Text(note.text),
     );
