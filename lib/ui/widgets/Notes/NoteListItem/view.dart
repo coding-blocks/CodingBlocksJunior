@@ -15,7 +15,7 @@ class NoteListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    return ViewModelBuilder.reactive(
+    return ViewModelBuilder<NoteListItemViewModel>.reactive(
         builder: (BuildContext context, NoteListItemViewModel model,
                 Widget child) =>
             Container(
@@ -36,7 +36,7 @@ class NoteListItem extends StatelessWidget {
                             Row(
                               children: [
                                 InkWell(
-                                  onTap: model.onClickEdit,
+                                  onTap: () => model.onClickEdit(note),
                                   child: Icon(
                                     Icons.edit,
                                     size: 20 * SizeConfig.imageSizeMultiplier,

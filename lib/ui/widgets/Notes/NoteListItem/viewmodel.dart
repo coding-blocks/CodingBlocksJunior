@@ -41,7 +41,7 @@ class NoteListItemViewModel extends FutureViewModel<void> {
     content = Content.fromSnapshot(contentDoc);
   }
 
-  onClickEdit() {
+  onClickEdit(Note targetNote) {
     showModalBottomSheet(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0),
@@ -50,12 +50,12 @@ class NoteListItemViewModel extends FutureViewModel<void> {
       context: context,
       builder: (context) => SingleChildScrollView(
         child: AddNote(
-          noteToEdit: this.note,
+          noteToEdit: targetNote,
           onSave: (String text) async {
             var result = await Firestore
               .instance
               .collection('notes')
-              .document(this.note.id)
+              .document(targetNote.id)
               .updateData({
                 'text': text
               });
