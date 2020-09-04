@@ -23,7 +23,7 @@ class Instructor {
       id: snapshot.documentID,
       firstname: snapshot['firstname'],
       lastname: snapshot['lastname'],
-      photo: FirebaseImage(snapshot['photo']),
+      photo: FirebaseImage.fromDynamicData(snapshot['photo']),
       email: snapshot['email'],
     );
   }

@@ -54,7 +54,7 @@ class CourseCardExpandedView extends ViewModelWidget<CourseCardViewModel> {
                     ])),
               ],
             ),
-            whenWaiting: CircularProgressIndicator(),
+            whenWaiting: Container(),
             whenNotDone: Container(),
           ),
         ),

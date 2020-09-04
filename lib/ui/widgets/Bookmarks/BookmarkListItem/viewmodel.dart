@@ -4,6 +4,7 @@ import 'package:coding_blocks_junior/app/router.gr.dart';
 import 'package:coding_blocks_junior/models/bookmark.dart';
 import 'package:coding_blocks_junior/models/content.dart';
 import 'package:coding_blocks_junior/models/course.dart';
+import 'package:coding_blocks_junior/utils/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -51,33 +52,26 @@ class BookmarkListItemViewModel extends FutureViewModel<void> {
   }
 
   showDeleteConfirmationDialog() {
-    Widget cancelButton = FlatButton(
-      child: Text('Cancel'),
-      onPressed: () {
-        Navigator.pop(this.context);
-      },
-    );
-    Widget deleteButton = FlatButton(
-      child: Text('Delete'),
-      onPressed: () {
+    final theme = Theme.of(context);
+    cancel () => Navigator.pop(this.context);
+    confirmDelete () {
         Navigator.pop(this.context);
         return Firestore
           .instance
           .collection('bookmarks')
           .document(this.bookmark.id)
           .delete();
-      },
-    );
+    };
 
     showDialog(
       context: this.context,
-      builder: (BuildContext context) => AlertDialog(
-        title: Text("Delete Bookmark"),
-        content: Text("Would you like to delete this bookmark?"),
-        actions: [
-          cancelButton,
-          deleteButton
-        ],
+      child: confirmDialog(
+        heading: Text("Delete Bookmark", style: theme.textTheme.headline6,),
+        description: Text("Would you like to delete this bookmark?"),
+        confirmButtonText: Text('Delete', style: theme.textTheme.bodyText2),
+        confirmAction: confirmDelete,
+        cancelButtonText: Text('Cancel', style: theme.textTheme.bodyText2),
+        cancelAction: cancel
       )
     );
   }

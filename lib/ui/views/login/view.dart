@@ -128,12 +128,14 @@ class OtpInputView extends ViewModelWidget<LoginViewModel> {
               length: 6,
               obsecureText: false,
               animationType: AnimationType.fade,
+              textStyle: theme.textTheme.subtitle1,
               animationDuration: Duration(milliseconds: 300),
               pinTheme: PinTheme(
                 inactiveColor: Colors.blue,
                 shape: PinCodeFieldShape.underline,
                 fieldHeight: 50,
                 fieldWidth: 40,
+
                 // activeFillColor: Colors.white,
               ),
             ),
