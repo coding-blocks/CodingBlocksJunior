@@ -35,6 +35,8 @@ dependencies:
   get_it:
   injectable:
   firebase_core: "0.4.5"
+  firebase_analytics: ^5.0.2
+  firebase_crashlytics: ^0.1.4+1
   cloud_firestore: "0.13.7"
   firebase_auth: ^0.16.0
 
@@ -52,6 +54,7 @@ dependencies:
   google_fonts: 1.1.0
   timeago: 2.0.27
   flutter_hooks: 0.13.2
+  flutter_downloader: ^1.5.0
 
 dev_dependencies:
   flutter_test:
