@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class ContentListView extends StatelessWidget {
-  final Stream<QuerySnapshot> contentStream;
+  final Stream<Content> contentStream;
   final Function onTap;
 
   ContentListView({this.contentStream, this.onTap});
@@ -20,7 +20,7 @@ class ContentListView extends StatelessWidget {
         viewModelBuilder: () =>
             ContentListViewModel(contentStream: contentStream),
         builder: (context, model, child) => ListView.builder(
-            shrinkWrap: true,
+          physics: BouncingScrollPhysics(),
             itemCount: model.contents.length,
             itemBuilder: (context, index) {
               return InkWell(

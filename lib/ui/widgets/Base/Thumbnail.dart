@@ -12,6 +12,6 @@ class Thumbnail extends StatelessWidget {
   Widget build(BuildContext context) {
     var videoId = videoIdFromUrl(url);
     final imgUrl = "https://img.youtube.com/vi/$videoId/hqdefault.jpg";
-    return Image.network(imgUrl, fit: BoxFit.cover,);
+    return Image.network(imgUrl, fit: BoxFit.scaleDown,);
   }
 }

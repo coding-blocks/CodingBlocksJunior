@@ -25,4 +25,10 @@ class Content {
       thumbnail: snapshot['thumbnail']
     );
   }
+
+  static Future<Content> fromId(String id) async {
+    return Content.fromSnapshot(await Firestore.instance
+        .collection('contents')
+        .document(id).get());
+  }
 }
