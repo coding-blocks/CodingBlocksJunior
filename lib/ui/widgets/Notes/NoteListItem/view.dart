@@ -3,6 +3,7 @@ import 'package:coding_blocks_junior/ui/widgets/Notes/NoteListItem/viewmodel.dar
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:coding_blocks_junior/utils/logic.dart';
+import 'package:coding_blocks_junior/utils/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:stacked/stacked.dart';
@@ -19,56 +20,68 @@ class NoteListItem extends StatelessWidget {
     return ViewModelBuilder<NoteListItemViewModel>.reactive(
         builder: (BuildContext context, NoteListItemViewModel model,
                 Widget child) =>
-            Material(
-              color: color,
-              child: InkWell(
-                onTap: model.goToContent,
-                child: Container(
-                  padding: getInsetsAll(30),
-                  child: model.isBusy
-                      ? Container()
-                      : Column(
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  model.course.title + ' | ' + model.content.title,
-                                  style: theme.textTheme.bodyText1
-                                      .copyWith(fontWeight: FontWeight.bold),
-                                ),
-                                Row(
-                                  children: [
-                                    InkWell(
-                                      onTap: () => model.onClickEdit(note),
-                                      child: Icon(
-                                        Icons.edit,
-                                        size: 20 * SizeConfig.imageSizeMultiplier,
-                                        color: getColorFromHex('#1D4479'),
-                                      ),
+            If(
+              !model.isBusy && model.course != null && model.content != null,
+              () => Material(
+                color: color,
+                child: InkWell(
+                  onTap: model.goToContent,
+                  child: Container(
+                    padding: getInsetsAll(30),
+                    child: model.isBusy
+                        ? Container()
+                        : Column(
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: <Widget>[
+                                  Expanded(
+                                    flex: 1,
+                                    child: Text(
+                                      model.course.title +
+                                          ' | ' +
+                                          model.content.title,
+                                      style: theme.textTheme.bodyText1.copyWith(
+                                          fontWeight: FontWeight.bold),
                                     ),
-                                    InkWell(
-                                      onTap: model.showDeleteConfirmationDialog,
-                                      child: Icon(
-                                        Icons.delete,
-                                        size: 20 * SizeConfig.imageSizeMultiplier,
-                                        color: getColorFromHex('#1D4479'),
+                                  ),
+                                  Row(
+                                    children: [
+                                      InkWell(
+                                        onTap: () => model.onClickEdit(note),
+                                        child: Icon(
+                                          Icons.edit,
+                                          size: 20 *
+                                              SizeConfig.imageSizeMultiplier,
+                                          color: getColorFromHex('#1D4479'),
+                                        ),
                                       ),
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                            Container(
-                                alignment: Alignment.centerLeft,
-                                margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                                child: Text(
-                                  note.text,
-                                  style: theme.textTheme.bodyText2,
-                                  textAlign: TextAlign.justify,
-                                ))
-                          ],
-                        ),
+                                      InkWell(
+                                        onTap:
+                                            model.showDeleteConfirmationDialog,
+                                        child: Icon(
+                                          Icons.delete,
+                                          size: 20 *
+                                              SizeConfig.imageSizeMultiplier,
+                                          color: getColorFromHex('#1D4479'),
+                                        ),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                              Container(
+                                  alignment: Alignment.centerLeft,
+                                  margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                                  child: Text(
+                                    note.text,
+                                    style: theme.textTheme.bodyText2,
+                                    textAlign: TextAlign.justify,
+                                  ))
+                            ],
+                          ),
+                  ),
                 ),
               ),
             ),

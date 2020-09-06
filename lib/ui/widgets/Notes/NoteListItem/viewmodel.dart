@@ -18,10 +18,7 @@ class NoteListItemViewModel extends FutureViewModel<void> {
   Content content;
   BuildContext context;
 
-  NoteListItemViewModel({
-    @required this.note,
-    @required this.context
-  });
+  NoteListItemViewModel({@required this.note, @required this.context});
 
   @override
   Future<void> futureToRun() {
@@ -32,79 +29,72 @@ class NoteListItemViewModel extends FutureViewModel<void> {
     final String courseId = note.courseId;
     final String contentId = note.contentId;
 
-    var courseDoc = await Firestore
-      .instance
-      .collection('courses')
-      .document(courseId)
-      .get();
+    var courseDoc =
+        await Firestore.instance.collection('courses').document(courseId).get();
 
     course = Course.fromSnapshot(courseDoc);
 
     var contentDoc = await Firestore.instance
         .collection('contents')
-        .document(contentId).get();
+        .document(contentId)
+        .get();
 
     content = Content.fromSnapshot(contentDoc);
   }
 
   onClickEdit(Note targetNote) {
     showModalBottomSheet(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(30.0),
-      ),
-      isScrollControlled: true,
-      context: context,
-      builder: (context) => SingleChildScrollView(
-        child: AddNote(
-          noteToEdit: targetNote,
-          onSave: (String text) async {
-            var result = await Firestore
-              .instance
-              .collection('notes')
-              .document(targetNote.id)
-              .updateData({
-                'text': text
-              });
-
-            Navigator.pop(context);
-            return result;
-          }
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
         ),
-      )
-    );
+        isScrollControlled: true,
+        context: context,
+        builder: (context) => SingleChildScrollView(
+              child: AddNote(
+                  noteToEdit: targetNote,
+                  onSave: (String text) async {
+                    var result = await Firestore.instance
+                        .collection('notes')
+                        .document(targetNote.id)
+                        .updateData({'text': text});
+
+                    Navigator.pop(context);
+                    return result;
+                  }),
+            ));
   }
 
   showDeleteConfirmationDialog() {
     final theme = Theme.of(context);
 
-    cancel () => Navigator.pop(this.context);
+    cancel() => Navigator.pop(this.context);
 
-    confirmDelete () {
+    confirmDelete() {
       Navigator.pop(this.context);
-      return Firestore
-          .instance
+      return Firestore.instance
           .collection('notes')
           .document(this.note.id)
           .delete();
-    };
+    }
+
+    ;
 
     showDialog(
-      context: this.context,
-      child: confirmDialog(
-        heading: Text("Delete Note", style: theme.textTheme.headline6,),
-        description: Text("Would you like to delete this note?"),
-        confirmButtonText: Text('Delete', style: theme.textTheme.bodyText2),
-        confirmAction: confirmDelete,
-        cancelButtonText: Text('Cancel', style: theme.textTheme.bodyText2),
-        cancelAction: cancel
-      )
-    );
+        context: this.context,
+        child: confirmDialog(
+            heading: Text(
+              "Delete Note",
+              style: theme.textTheme.headline6,
+            ),
+            description: Text("Would you like to delete this note?"),
+            confirmButtonText: Text('Delete', style: theme.textTheme.bodyText2),
+            confirmAction: confirmDelete,
+            cancelButtonText: Text('Cancel', style: theme.textTheme.bodyText2),
+            cancelAction: cancel));
   }
 
-  void goToContent () {
-    _navigationService.navigateTo(Routes.playerView(
-        courseId: note.courseId,
-        contentId: note.contentId
-    ));
+  void goToContent() {
+    _navigationService.navigateTo(
+        Routes.playerView(courseId: note.courseId, contentId: note.contentId));
   }
 }
