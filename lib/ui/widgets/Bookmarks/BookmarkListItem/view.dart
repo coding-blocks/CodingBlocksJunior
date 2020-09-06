@@ -21,7 +21,7 @@ class BookmarkListItem extends StatelessWidget {
         builder: (BuildContext context, BookmarkListItemViewModel model,
                 Widget child) =>
             If(
-              !model.isBusy,
+              !model.isBusy && model.content != null && model.course != null,
               () => InkWell(
                 onTap: model.goToContent,
                 child: Container(

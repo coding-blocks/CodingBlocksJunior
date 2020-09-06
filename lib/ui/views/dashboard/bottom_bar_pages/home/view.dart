@@ -53,11 +53,12 @@ class DashboardHomeView extends StatelessWidget {
                           style: _theme.textTheme.subtitle2,
                         ),
                       ),
-                      ...(model.otherCourses.map((course) => CourseCard(
-                            course: course,
-                            onPress: () => model.goToCourse(course),
-                            isExpanded: false,
-                          )))
+                      if (model.courses.length > 1)
+                        ...(model.courses.sublist(1).map((course) => CourseCard(
+                              course: course,
+                              onPress: () => model.goToCourse(course),
+                              isExpanded: false,
+                            )))
                     ],
                   ),
                 ),

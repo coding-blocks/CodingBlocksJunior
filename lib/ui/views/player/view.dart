@@ -53,13 +53,15 @@ class PlayerView extends StatelessWidget {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Hero(
-                        tag: "hero_tag_content_title_$contentId",
-                        child: Text(
-                            model.data.title,
-                            style: theme.textTheme.subtitle2),
+                      Expanded(
+                        flex: 1,
+                        child: Hero(
+                          tag: "hero_tag_content_title_$contentId",
+                          child: Text(
+                              model.data.title,
+                              style: theme.textTheme.subtitle2),
+                        ),
                       ),
-                      Spacer(),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[

@@ -15,7 +15,7 @@ class AddNote extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final _theme = Theme.of(context);
-    final _controller = useTextEditingController(text: noteToEdit.text);
+    final _controller = useTextEditingController(text: noteToEdit != null ? noteToEdit.text : '');
 
     return Container(
       padding: getInsetsAll(20),

@@ -16,10 +16,7 @@ class BookmarkListItemViewModel extends FutureViewModel<void> {
   Content content;
   BuildContext context;
 
-  BookmarkListItemViewModel({
-    @required this.bookmark,
-    @required this.context
-  });
+  BookmarkListItemViewModel({@required this.bookmark, @required this.context});
 
   @override
   Future<void> futureToRun() {
@@ -30,49 +27,48 @@ class BookmarkListItemViewModel extends FutureViewModel<void> {
     final String courseId = bookmark.courseId;
     final String contentId = bookmark.contentId;
 
-    var courseDoc = await Firestore
-      .instance
-      .collection('courses')
-      .document(courseId).get();
+    var courseDoc =
+        await Firestore.instance.collection('courses').document(courseId).get();
 
     course = Course.fromSnapshot(courseDoc);
 
     var contentDoc = await Firestore.instance
         .collection('contents')
-        .document(contentId).get();
+        .document(contentId)
+        .get();
 
     content = Content.fromSnapshot(contentDoc);
   }
 
-  void goToContent () {
+  void goToContent() {
     _navigationService.navigateTo(Routes.playerView(
-        courseId: bookmark.courseId,
-        contentId: bookmark.contentId
-    ));
+        courseId: bookmark.courseId, contentId: bookmark.contentId));
   }
 
   showDeleteConfirmationDialog() {
     final theme = Theme.of(context);
-    cancel () => Navigator.pop(this.context);
-    confirmDelete () {
-        Navigator.pop(this.context);
-        return Firestore
-          .instance
+    cancel() => Navigator.pop(this.context);
+    confirmDelete() {
+      Navigator.pop(this.context);
+      return Firestore.instance
           .collection('bookmarks')
           .document(this.bookmark.id)
           .delete();
-    };
+    }
+
+    ;
 
     showDialog(
-      context: this.context,
-      child: confirmDialog(
-        heading: Text("Delete Bookmark", style: theme.textTheme.headline6,),
-        description: Text("Would you like to delete this bookmark?"),
-        confirmButtonText: Text('Delete', style: theme.textTheme.bodyText2),
-        confirmAction: confirmDelete,
-        cancelButtonText: Text('Cancel', style: theme.textTheme.bodyText2),
-        cancelAction: cancel
-      )
-    );
+        context: this.context,
+        child: confirmDialog(
+            heading: Text(
+              "Delete Bookmark",
+              style: theme.textTheme.headline6,
+            ),
+            description: Text("Would you like to delete this bookmark?"),
+            confirmButtonText: Text('Delete', style: theme.textTheme.bodyText2),
+            confirmAction: confirmDelete,
+            cancelButtonText: Text('Cancel', style: theme.textTheme.bodyText2),
+            cancelAction: cancel));
   }
 }
