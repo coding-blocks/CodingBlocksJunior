@@ -65,7 +65,14 @@ dev_dependencies:
   injectable_generator:
   floor_generator: ^0.14.0
   percent_indicator: ^2.1.5
+  flutter_launcher_icons: "^0.7.0"
 
+
+flutter_icons:
+  ios: true
+  android: true
+  image_path_ios: "assets/ic_launcher.png"
+  image_path_android: "assets/ic_launcher.png"
 
 dependency_overrides:
   analyzer: '0.39.14'
