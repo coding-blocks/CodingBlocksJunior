@@ -23,7 +23,7 @@ jobs:
         with:
           path: 'android/app'
           file: 'google-services.json'
-          content: ${{secrets.FIREBASE_API_KEY}}
+          content: ${{secrets.GOOGLE_SERVICES_JSON}}
 
       - uses: actions/setup-java@v1
         with:
