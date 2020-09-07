@@ -17,6 +17,14 @@ jobs:
 
       # Setup Java environment in order to build the Android app.
       - uses: actions/checkout@v1
+
+      - name: Create Firebase File
+          uses: 1arp/create-a-file-action@0.2
+          with:
+            path: 'android/app'
+            file: 'google-services.json'
+            content: ${{secrets.FIREBASE_API_KEY}}
+
       - uses: actions/setup-java@v1
         with:
           java-version: '12.x'
