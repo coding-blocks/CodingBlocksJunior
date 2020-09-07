@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 
 import 'package:coding_blocks_junior/app/locator.dart';
 import 'package:coding_blocks_junior/app/router.gr.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:coding_blocks_junior/theme.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 
 bool firsRun;
 
@@ -18,13 +20,21 @@ void main() async {
   SessionService sessionService = locator<SessionService>();
   await sessionService.ready;
   firsRun = await getSharedPrefs();
+  //Crashlytics
+  FlutterError.onError = Crashlytics.instance.recordFlutterError;
+
+
   runApp(MyApp());
   setupOneSignal();
+  WidgetsFlutterBinding.ensureInitialized();
+  await FlutterDownloader.initialize(
+      debug: true // optional: set false to disable printing logs to console
+  );
 }
 
 Future<bool> getSharedPrefs() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  return prefs.getBool("firstRun")?? false;
+  return prefs.getBool("firstRun")?? true;
 }
 
 void setupOneSignal() {
@@ -69,11 +79,5 @@ class MyApp extends StatelessWidget {
         );
       },
     );
-  }
-
-  getFirstRunBool() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool firstRun = (prefs.getBool('firstRun') ?? false);
-    return firstRun;
   }
 }

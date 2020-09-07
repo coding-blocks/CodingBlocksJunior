@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coding_blocks_junior/models/instructor.dart';
+import 'package:coding_blocks_junior/utils/firebase.dart';
+import 'content.dart';
 
 class Course {
   final String title;
@@ -35,10 +37,13 @@ class Course {
     );
   }
 
-  Stream<QuerySnapshot> get contentStream => Firestore.instance
-      .collection('contents')
-      .where(FieldPath.documentId, whereIn: this.contents)
-      .snapshots();
+  Stream<Content> get contentStream {
+    return FirebaseReferenceArray<Content>(
+      array: this.contents,
+      collectionName: 'contents',
+      builder: (e) => Content.fromSnapshot(e)
+    ).dataStream;
+  }
 
   Stream<DocumentSnapshot> get courseStream => Firestore.instance
       .collection('courses')

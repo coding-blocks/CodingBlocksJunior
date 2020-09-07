@@ -51,10 +51,8 @@ class DashboardBookmarksView extends StatelessWidget {
                   ),
                   Text(
                     'Your Bookmarked videos appears here!',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: getColorFromHex('#1D4479')
-                    )
+                    style: _theme.textTheme.subtitle1
+
                   )
                 ],
               ),

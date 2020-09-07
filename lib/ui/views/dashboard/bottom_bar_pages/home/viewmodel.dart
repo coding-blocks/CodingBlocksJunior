@@ -10,6 +10,8 @@ class DashboardHomeViewModel extends StreamViewModel<QuerySnapshot> {
   int limit = 20;
   List<Course> courses = [];
 
+  List<Course> get otherCourses => courses.length > 1 ? courses.sublist(1): [];
+
   Stream<QuerySnapshot> get stream => Firestore
     .instance
     .collection('courses')

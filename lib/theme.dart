@@ -23,11 +23,19 @@ ThemeData buildTheme(context) => ThemeData(
         subtitle1: TextStyle(color: primaryBlue, fontSize: 16 * fs),
         subtitle2: TextStyle(color: primaryBlue, fontSize: 14 * fs),
         bodyText1: TextStyle(fontSize: 16 * fs),
-        bodyText2: TextStyle(color: primaryBlue, fontSize: 14 * fs),
+        bodyText2: TextStyle(fontSize: 14 * fs),
         caption: TextStyle(fontSize: 12 * fs)),
     buttonTheme: ButtonThemeData(
         buttonColor: getColorFromHex('#045bc7'),
         textTheme: ButtonTextTheme.primary),
     inputDecorationTheme:
-        InputDecorationTheme(labelStyle: TextStyle(color: accentColor)),
+    InputDecorationTheme(labelStyle: TextStyle(color: accentColor)),
     visualDensity: VisualDensity.adaptivePlatformDensity);
+
+
+final YtPlayerIconTheme = ({Widget child}) => IconTheme(
+  data: IconThemeData(
+    color: Colors.white, size: 16 * SizeConfig.imageSizeMultiplier,
+  ),
+  child: child,
+);

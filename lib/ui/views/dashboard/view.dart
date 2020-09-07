@@ -19,9 +19,9 @@ class DashboardView extends StatelessWidget {
         child: Scaffold(
           body: TabBarView(
             children: [
-              Cached(DashboardBookmarksView()),
-              (DashboardHomeView()),
-              Cached(DashboardNotesView()),
+              (DashboardBookmarksView()),
+              Cached(DashboardHomeView()),
+              (DashboardNotesView()),
               (DashboardProfileView()),
             ],
           ),

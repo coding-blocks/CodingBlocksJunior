@@ -2,9 +2,13 @@ import 'package:auto_route/auto_route.dart';
 import 'package:coding_blocks_junior/ui/views/player/viewmodel.dart';
 import 'package:coding_blocks_junior/ui/widgets/Player/notes_view/view.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
+import 'package:coding_blocks_junior/utils/SizeConfig.dart';
+import 'package:coding_blocks_junior/utils/logic.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:coding_blocks_junior/theme.dart';
 
 class PlayerView extends StatelessWidget {
   @override
@@ -13,6 +17,7 @@ class PlayerView extends StatelessWidget {
     final arguments = RouteData.of(context).arguments as Map<String, dynamic>;
     String contentId = params['contentId'].value;
     String courseId = params['courseId'].value;
+    final theme = Theme.of(context);
 
     return ViewModelBuilder<PlayerViewModel>.reactive(
       viewModelBuilder: () => PlayerViewModel(
@@ -20,45 +25,51 @@ class PlayerView extends StatelessWidget {
         courseId: courseId, 
         content: arguments == null ? null : arguments['content']
       ),
-      builder: (context, model, child) => Scaffold(
-        body: Container(
-          child: Column(
+      builder: (context, model, child) => YoutubePlayerBuilder(
+        player: YoutubePlayer(controller: model.ytController, bottomActions: [
+          CurrentPosition(),
+          ProgressBar(isExpanded: true,),
+          YtPlayerIconTheme(
+            child: PlaybackSpeedButton(
+                icon: Icon(Icons.settings)
+            ),
+          ),
+          YtPlayerIconTheme(
+            child: FullScreenButton(
+              icon: Icon(Icons.fullscreen),
+              exitIcon: Icon(Icons.fullscreen),
+            ),
+          ),
+        ]),
+        builder: (context, player) => Scaffold(
+          body: Column(
             children: <Widget>[
               if (model.isBusy || model.ytController == null)
                 Center(child: CircularProgressIndicator())
               else ...[
-                Hero(
-                  tag: model.data.url,
-                  child: YoutubePlayerBuilder(
-                    player: YoutubePlayer(
-                      controller: model.ytController,
-                    ),
-                    builder: (context, player) =>
-                        Column(children: <Widget>[player]),
-                  ),
-                ),
+                Expanded(child: player),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(30, 20, 30, 20),
+                  padding: getInsetsLTRB(15, 20, 15, 20),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      Hero(
-                        tag: "hero_tag_content_title_$contentId",
-                        child: Text(
-                          model.data.title,
-                          style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.bold,
-                            color: getColorFromHex('#1D4479')),
+                      Expanded(
+                        flex: 1,
+                        child: Hero(
+                          tag: "hero_tag_content_title_$contentId",
+                          child: Text(
+                              model.data.title,
+                              style: theme.textTheme.subtitle2),
                         ),
                       ),
-                      Spacer(),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Container(
-                            margin: EdgeInsets.fromLTRB(0, 0, 15, 0),
+                            margin: getInsetsLTRB(0, 0, 15, 0),
                             child: Icon(
                               Icons.share,
+                              size: 15.0 * SizeConfig.imageSizeMultiplier,
                               color: getColorFromHex('#033194'),
                             ),
                           ),
@@ -68,6 +79,7 @@ class PlayerView extends StatelessWidget {
                             },
                             child: Icon(
                               model.bookmark != null ? Icons.bookmark : Icons.bookmark_border,
+                              size: 15.0 * SizeConfig.imageSizeMultiplier,
                               color: getColorFromHex('#033194'),
                             ),
                           ),
@@ -77,10 +89,10 @@ class PlayerView extends StatelessWidget {
                   ),
                 ),
                 Expanded(
-                  child: PlayerNotesView(
-                    course: model.course,
-                    content: model.content,
-                  )
+                    child: PlayerNotesView(
+                      course: model.course,
+                      content: model.content,
+                    )
                 )
               ]
             ],

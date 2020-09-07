@@ -1,9 +1,13 @@
 class FirebaseImage {
-  String src;
-  String title;
+  final String src;
+  final String title;
 
-  FirebaseImage(dynamic doc) {
-    this.src = doc['src'];
-    this.title = doc['title'];
+  FirebaseImage({
+    this.src = 'http://minio-i.codingblocks.com/img/default-anon.jpg',
+    this.title = ''
+  });
+
+  static fromDynamicData (dynamic doc) {
+    return doc == null ? FirebaseImage() : FirebaseImage(src: doc['src'], title: doc['title']);
   }
 }
