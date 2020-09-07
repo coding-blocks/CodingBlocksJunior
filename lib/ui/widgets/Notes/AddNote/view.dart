@@ -67,7 +67,7 @@ class AddNote extends HookWidget {
               ]),
               onPressed: () => onSave(_controller.text),
               child: Text(
-                'Add Note',
+                _controller.text.length > 0 ? "Update Note" : "Add Note" ,
                 style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
