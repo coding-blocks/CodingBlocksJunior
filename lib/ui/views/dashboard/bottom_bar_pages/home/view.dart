@@ -23,7 +23,7 @@ class DashboardHomeView extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: RichText(
                             text: TextSpan(
-                                text: 'Hello ' + model.selectedCourseId,
+                                text: 'Hello ',
                                 style: _theme.textTheme.subtitle1,
                                 children: <TextSpan>[
                               TextSpan(
