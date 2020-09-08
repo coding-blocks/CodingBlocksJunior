@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 import 'package:coding_blocks_junior/app/locator.dart';
 import 'package:coding_blocks_junior/app/router.gr.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -26,10 +25,6 @@ void main() async {
 
   runApp(MyApp());
   setupOneSignal();
-  WidgetsFlutterBinding.ensureInitialized();
-  await FlutterDownloader.initialize(
-      debug: true // optional: set false to disable printing logs to console
-  );
 }
 
 Future<bool> getSharedPrefs() async {

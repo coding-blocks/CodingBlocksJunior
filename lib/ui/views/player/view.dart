@@ -6,6 +6,7 @@ import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:coding_blocks_junior/utils/logic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:share/share.dart';
 import 'package:stacked/stacked.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:coding_blocks_junior/theme.dart';
@@ -21,23 +22,32 @@ class PlayerView extends StatelessWidget {
 
     return ViewModelBuilder<PlayerViewModel>.reactive(
       viewModelBuilder: () => PlayerViewModel(
-        contentId: contentId, 
-        courseId: courseId, 
-        content: arguments == null ? null : arguments['content']
-      ),
+          contentId: contentId,
+          courseId: courseId,
+          content: arguments == null ? null : arguments['content']),
       builder: (context, model, child) => YoutubePlayerBuilder(
         player: YoutubePlayer(controller: model.ytController, bottomActions: [
           CurrentPosition(),
-          ProgressBar(isExpanded: true,),
+          ProgressBar(
+            isExpanded: true,
+          ),
           YtPlayerIconTheme(
             child: PlaybackSpeedButton(
-                icon: Icon(Icons.settings)
-            ),
+                icon: Icon(
+              Icons.settings,
+              size: 20 * SizeConfig.imageSizeMultiplier,
+            )),
           ),
           YtPlayerIconTheme(
             child: FullScreenButton(
-              icon: Icon(Icons.fullscreen),
-              exitIcon: Icon(Icons.fullscreen),
+              icon: Icon(
+                Icons.fullscreen,
+                size: 25 * SizeConfig.imageSizeMultiplier,
+              ),
+              exitIcon: Icon(
+                Icons.fullscreen,
+                size: 25 * SizeConfig.imageSizeMultiplier,
+              ),
             ),
           ),
         ]),
@@ -57,8 +67,7 @@ class PlayerView extends StatelessWidget {
                         flex: 1,
                         child: Hero(
                           tag: "hero_tag_content_title_$contentId",
-                          child: Text(
-                              model.data.title,
+                          child: Text(model.data.title,
                               style: theme.textTheme.subtitle2),
                         ),
                       ),
@@ -67,10 +76,16 @@ class PlayerView extends StatelessWidget {
                         children: <Widget>[
                           Container(
                             margin: getInsetsLTRB(0, 0, 15, 0),
-                            child: Icon(
-                              Icons.share,
-                              size: 15.0 * SizeConfig.imageSizeMultiplier,
-                              color: getColorFromHex('#033194'),
+                            child: InkWell(
+                              onTap: () {
+                                Share.share(
+                                    'check out my website https://example.com');
+                              },
+                              child: Icon(
+                                Icons.share,
+                                size: 25.0 * SizeConfig.imageSizeMultiplier,
+                                color: getColorFromHex('#033194'),
+                              ),
                             ),
                           ),
                           InkWell(
@@ -78,8 +93,10 @@ class PlayerView extends StatelessWidget {
                               model.toggleBookmark();
                             },
                             child: Icon(
-                              model.bookmark != null ? Icons.bookmark : Icons.bookmark_border,
-                              size: 15.0 * SizeConfig.imageSizeMultiplier,
+                              model.bookmark != null
+                                  ? Icons.bookmark
+                                  : Icons.bookmark_border,
+                              size: 25.0 * SizeConfig.imageSizeMultiplier,
                               color: getColorFromHex('#033194'),
                             ),
                           ),
@@ -90,10 +107,9 @@ class PlayerView extends StatelessWidget {
                 ),
                 Expanded(
                     child: PlayerNotesView(
-                      course: model.course,
-                      content: model.content,
-                    )
-                )
+                  course: model.course,
+                  content: model.content,
+                ))
               ]
             ],
           ),

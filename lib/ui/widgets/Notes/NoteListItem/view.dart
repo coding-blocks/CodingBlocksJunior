@@ -33,6 +33,7 @@ class NoteListItem extends StatelessWidget {
                         : Column(
                             children: <Widget>[
                               Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
@@ -48,13 +49,16 @@ class NoteListItem extends StatelessWidget {
                                   ),
                                   Row(
                                     children: [
-                                      InkWell(
-                                        onTap: () => model.onClickEdit(note),
-                                        child: Icon(
-                                          Icons.edit,
-                                          size: 20 *
-                                              SizeConfig.imageSizeMultiplier,
-                                          color: getColorFromHex('#1D4479'),
+                                      Container(
+                                        margin: getInsetsLTRB(15, 0, 7, 0),
+                                        child: InkWell(
+                                          onTap: () => model.onClickEdit(note),
+                                          child: Icon(
+                                            Icons.edit,
+                                            size: 25 *
+                                                SizeConfig.imageSizeMultiplier,
+                                            color: getColorFromHex('#1D4479'),
+                                          ),
                                         ),
                                       ),
                                       InkWell(
@@ -62,7 +66,7 @@ class NoteListItem extends StatelessWidget {
                                             model.showDeleteConfirmationDialog,
                                         child: Icon(
                                           Icons.delete,
-                                          size: 20 *
+                                          size: 25 *
                                               SizeConfig.imageSizeMultiplier,
                                           color: getColorFromHex('#1D4479'),
                                         ),
