@@ -35,22 +35,20 @@ class CourseCardExpandedView extends ViewModelWidget<CourseCardViewModel> {
                 ),
                 RichText(
                     text: TextSpan(
-                        text: 'Mentor\n',
+                        text: 'Mentors\n',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 12 * SizeConfig.textMultiplier,
                         ),
                         children: <TextSpan>[
-                      ...instructors.map(
-                        (Instructor i) => TextSpan(
-                          text: i.firstname,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12 * SizeConfig.textMultiplier,
-                            fontWeight: FontWeight.bold,
-                          ),
+                      TextSpan(
+                        text: instructors.map((e) => e.firstname).join(", "),
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 12 * SizeConfig.textMultiplier,
+                          fontWeight: FontWeight.bold,
                         ),
-                      )
+                      ),
                     ])),
               ],
             ),
