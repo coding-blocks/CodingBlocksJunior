@@ -9,6 +9,7 @@ class DashboardHomeViewModel extends StreamViewModel<QuerySnapshot> {
   final NavigationService _navigationService = locator<NavigationService>();
   int limit = 20;
   List<Course> courses = [];
+  String selectedCourseId;
 
   List<Course> get otherCourses => courses.length > 1 ? courses.sublist(1): [];
 
@@ -21,9 +22,16 @@ class DashboardHomeViewModel extends StreamViewModel<QuerySnapshot> {
   @override
   void onData(QuerySnapshot data) {
     courses = data.documents.map((DocumentSnapshot snapshot) => Course.fromSnapshot(snapshot)).toList();
+    selectedCourseId = courses[0].id;
   }
 
   void goToCourse(Course course) {
-    _navigationService.navigateTo(Routes.courseView(slug: course.slug));
+    if (course.id == selectedCourseId) {
+      _navigationService.navigateTo(Routes.courseView(slug: course.slug));
+      return;
+    }
+
+    selectedCourseId = course.id;
+    notifyListeners();
   }
 }

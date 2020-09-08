@@ -8,9 +8,9 @@ import 'package:coding_blocks_junior/ui/widgets/Courses/CourseCard/CourseCardExp
 import 'package:stacked/stacked.dart';
 
 class CourseCard extends StatelessWidget {
-  Course course;
-  Function onPress;
-  bool isExpanded;
+  final Course course;
+  final Function onPress;
+  final bool isExpanded;
 
   CourseCard({this.course, this.onPress, this.isExpanded});
 
@@ -76,7 +76,7 @@ class CourseCard extends StatelessWidget {
                           ],
                         ),
                         AnimatedContainer(
-                          height: model.isExpanded ? null : 0,
+                          height: this.isExpanded ? null : 0,
                           duration: Duration(seconds: 2),
                           child: Padding(
                             padding: getInsetsOnly(top: 8),
@@ -90,6 +90,6 @@ class CourseCard extends StatelessWidget {
               ),
             ),
         viewModelBuilder: () => CourseCardViewModel(
-            course: course, onPress: onPress, isExpanded: isExpanded));
+            course: course, onPress: onPress));
   }
 }

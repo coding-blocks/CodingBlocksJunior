@@ -9,7 +9,7 @@ class DashboardHomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _theme = Theme.of(context);
-    return ViewModelBuilder<DashboardHomeViewModel>.reactive(
+    return ViewModelBuilder<DashboardHomeViewModel>.nonReactive(
         disposeViewModel: false,
         initialiseSpecialViewModelsOnce: true,
         builder: (context, model, child) => Scaffold(
@@ -23,7 +23,7 @@ class DashboardHomeView extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: RichText(
                             text: TextSpan(
-                                text: 'Hello ',
+                                text: 'Hello ' + model.selectedCourseId,
                                 style: _theme.textTheme.subtitle1,
                                 children: <TextSpan>[
                               TextSpan(
@@ -39,12 +39,7 @@ class DashboardHomeView extends StatelessWidget {
                           style: _theme.textTheme.subtitle2,
                         ),
                       ),
-                      if (model.courses.length > 0)
-                        CourseCard(
-                          course: model.courses[0],
-                          onPress: () => model.goToCourse(model.courses[0]),
-                          isExpanded: true,
-                        ),
+                      RecommendedCourseList(),
                       Container(
                         padding: getInsetsOnly(top: 10, bottom: 20.0),
                         alignment: Alignment.centerLeft,
@@ -53,17 +48,44 @@ class DashboardHomeView extends StatelessWidget {
                           style: _theme.textTheme.subtitle2,
                         ),
                       ),
-                      if (model.courses.length > 1)
-                        ...(model.courses.sublist(1).map((course) => CourseCard(
-                              course: course,
-                              onPress: () => model.goToCourse(course),
-                              isExpanded: false,
-                            )))
+                      OtherCoursesList(),
                     ],
                   ),
                 ),
               ),
             ),
         viewModelBuilder: () => DashboardHomeViewModel());
+  }
+}
+
+class RecommendedCourseList extends ViewModelWidget<DashboardHomeViewModel> {
+  @override
+  Widget build(BuildContext context, DashboardHomeViewModel viewModel) {
+    if (viewModel.courses.length > 0)
+      return CourseCard(
+        course: viewModel.courses[0],
+        onPress: () => viewModel.goToCourse(viewModel.courses[0]),
+        isExpanded: viewModel.courses[0].id == viewModel.selectedCourseId,
+      );
+    else
+      return Container();
+  }
+}
+
+class OtherCoursesList extends ViewModelWidget<DashboardHomeViewModel> {
+  @override
+  Widget build(BuildContext context, DashboardHomeViewModel viewModel) {
+    if (viewModel.courses.length > 1) 
+      return Column(
+        children: [
+          ...viewModel.courses.sublist(1).map((course) => CourseCard(
+            course: course,
+            onPress: () => viewModel.goToCourse(course),
+            isExpanded: course.id == viewModel.selectedCourseId,
+          ))
+        ],
+      );
+    else
+      return Container();
   }
 }
