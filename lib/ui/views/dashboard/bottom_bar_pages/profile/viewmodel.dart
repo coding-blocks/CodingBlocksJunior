@@ -78,7 +78,7 @@ class DashboardProfileViewModel extends FutureViewModel {
       final ref = await userProfilesCollection.add({
         "userId": user.uid
       });
-      snapshot = userProfilesCollection.document(ref.documentID);
+      snapshot = userProfilesCollection.document(ref.documentID).get();
     } else {
       snapshot = query.documents[0];
     }
