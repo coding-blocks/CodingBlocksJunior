@@ -27,7 +27,7 @@ class DashboardHomeView extends StatelessWidget {
                                 style: _theme.textTheme.subtitle1,
                                 children: <TextSpan>[
                               TextSpan(
-                                  text: '\nPulkit',
+                                  text: "\n" + model.user.displayName ?? "",
                                   style: _theme.textTheme.headline4),
                             ])),
                       ),
@@ -75,14 +75,14 @@ class RecommendedCourseList extends ViewModelWidget<DashboardHomeViewModel> {
 class OtherCoursesList extends ViewModelWidget<DashboardHomeViewModel> {
   @override
   Widget build(BuildContext context, DashboardHomeViewModel viewModel) {
-    if (viewModel.courses.length > 1) 
+    if (viewModel.courses.length > 1)
       return Column(
         children: [
           ...viewModel.courses.sublist(1).map((course) => CourseCard(
-            course: course,
-            onPress: () => viewModel.goToCourse(course),
-            isExpanded: course.id == viewModel.selectedCourseId,
-          ))
+                course: course,
+                onPress: () => viewModel.goToCourse(course),
+                isExpanded: course.id == viewModel.selectedCourseId,
+              ))
         ],
       );
     else
