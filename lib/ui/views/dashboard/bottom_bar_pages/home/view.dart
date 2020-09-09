@@ -14,7 +14,7 @@ class DashboardHomeView extends StatelessWidget {
         initialiseSpecialViewModelsOnce: true,
         builder: (context, model, child) => Scaffold(
               body: Padding(
-                padding: getInsetsLTRB(0, 56, 0, 28),
+                padding: getInsetsLTRB(0, 56, 0, 0),
                 child: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[

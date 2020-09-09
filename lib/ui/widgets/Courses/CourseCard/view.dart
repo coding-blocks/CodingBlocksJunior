@@ -21,7 +21,7 @@ class CourseCard extends StatelessWidget {
         builder: (BuildContext context, CourseCardViewModel model, w) => Container(
           padding: getInsetsOnly(left: 28, right: 28, bottom: 15),
           child: Card(
-                elevation: 3,
+                // elevation: 3,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
                 child: InkWell(
@@ -32,7 +32,7 @@ class CourseCard extends StatelessWidget {
                         boxShadow: [BoxShadow(
                             color: getColorFromHex(model.course.themeColor).withAlpha(100),
                             blurRadius: 5,
-                            spreadRadius: 0,
+                            spreadRadius: 1,
                           offset: Offset(0,5)
                         )],
                         image: DecorationImage(
