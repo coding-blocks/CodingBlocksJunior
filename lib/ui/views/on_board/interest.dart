@@ -28,7 +28,7 @@ class OnboardInterests extends ViewModelWidget<OnBoardViewModel> {
           children: [
             Expanded(
               child: Image(
-                image: AssetImage('assets/onboarding-2.png'),
+                image: AssetImage('assets/onboarding-3.png'),
               ),
               flex: 2,
             ),
@@ -52,7 +52,7 @@ class OnboardInterests extends ViewModelWidget<OnBoardViewModel> {
               margin: getInsetsLTRB(0, 50, 0, 0),
               padding: getInsetsLTRB(30, 0, 30, 0),
               child: RaisedButton(
-                padding: getInsetsLTRB(10, 3, 10, 3),
+                padding: getInsetsLTRB(10, 20, 10, 20),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(4.0)),
                 color: getColorFromHex('#2167E3'),
