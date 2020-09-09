@@ -44,7 +44,7 @@ class ContentListItemView extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      padding: getInsetsLTRB(30, 15, 30, 15),
+      padding: getInsetsLTRB(30, index == 0 ? 0 : 15, 30, 15),
       child: IntrinsicHeight(
         child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,

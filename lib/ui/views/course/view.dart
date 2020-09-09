@@ -18,7 +18,7 @@ class CourseView extends StatelessWidget {
         body: Container(
           padding: getInsetsOnly(bottom: 28),
           child: model.isBusy
-            ? CircularProgressIndicator()
+            ? Center(child: CircularProgressIndicator())
             : Column(
               children: [
                 CoursePageAppBar(model.data),
