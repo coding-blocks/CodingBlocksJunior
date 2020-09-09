@@ -13,8 +13,6 @@ class OnBoardView extends StatelessWidget {
   final PageController _pageController = PageController(
     initialPage: 0,
   );
-  final _currentPageNotifier = ValueNotifier<int>(0);
-
 
   @override
   Widget build(BuildContext context) {
