@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coding_blocks_junior/models/index.dart';
 import 'package:coding_blocks_junior/models/instructor.dart';
 import 'package:coding_blocks_junior/utils/firebase.dart';
 import 'content.dart';
 
-class Course {
+class Course extends BaseModel {
   final String title;
   final String subtitle;
   final String background;

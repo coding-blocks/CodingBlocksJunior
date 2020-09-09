@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coding_blocks_junior/models/index.dart';
 
-class Content {
+class Content extends BaseModel {
   final String id;
   final String title;
   final String type;
@@ -16,7 +17,6 @@ class Content {
   });
 
   static Content fromSnapshot(DocumentSnapshot snapshot) {
-    print(snapshot);
     return Content(
       id: snapshot.documentID,
       title: snapshot['title'],

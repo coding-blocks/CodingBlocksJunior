@@ -1,3 +1,4 @@
+import 'package:coding_blocks_junior/models/index.dart';
 import 'package:floor/floor.dart';
 
 @entity

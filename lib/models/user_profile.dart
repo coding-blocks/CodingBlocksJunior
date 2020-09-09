@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coding_blocks_junior/models/index.dart';
 
-class UserProfile {
+class UserProfile extends BaseModel{
   String id;
   String classGroup;
   DocumentSnapshot snapshot;

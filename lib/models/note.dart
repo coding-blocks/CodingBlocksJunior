@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coding_blocks_junior/models/index.dart';
 import 'package:floor/floor.dart';
 
 @entity
-class Note {
+class Note extends BaseModel {
   final String id;
   final String text;
   final Timestamp createdAt;
