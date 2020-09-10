@@ -52,8 +52,11 @@ class OnboardAgeGroupState extends State<OnboardAgeGroup> {
               ),
               flex: 1,
             ),
-            Text('Which Grade are you in?',
-                style: theme.textTheme.headline6),
+            Container(
+              margin: getInsetsOnly(bottom: 12),
+              child: Text('Which Grade are you in?',
+                  style: theme.textTheme.headline6),
+            ),
             Expanded(
               flex: 1,
               child: SingleChildScrollView(
@@ -103,7 +106,7 @@ class RadioItem extends StatelessWidget {
         color: getColorFromHex('#2167E3'),
         borderRadius: const BorderRadius.all(const Radius.circular(4.0)),
       ),
-      margin: getInsetsLTRB(0, 8, 0, 8),
+      margin: getInsetsLTRB(30, 4, 30, 4),
       padding: getInsetsAll(16),
       child: new Row(
         mainAxisSize: MainAxisSize.max,
