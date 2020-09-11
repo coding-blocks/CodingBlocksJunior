@@ -18,7 +18,8 @@ class DashboardHomeView extends StatelessWidget {
                   child: Column(
                     children: <Widget>[
                       Container(
-                        padding: getInsetsOnly(bottom: 8.0, left: 28, right: 28),
+                        padding:
+                            getInsetsOnly(bottom: 8.0, left: 28, right: 28),
                         alignment: Alignment.centerLeft,
                         child: RichText(
                             text: TextSpan(
@@ -26,12 +27,15 @@ class DashboardHomeView extends StatelessWidget {
                                 style: _theme.textTheme.subtitle1,
                                 children: <TextSpan>[
                               TextSpan(
-                                  text: model.isBusy ? "" : model.user.displayName ,
+                                  text: model.isBusy
+                                      ? ""
+                                      : model.user.displayName,
                                   style: _theme.textTheme.headline4),
                             ])),
                       ),
                       Container(
-                        padding: getInsetsOnly(bottom: 8.0, left: 28, right: 28),
+                        padding:
+                            getInsetsOnly(bottom: 8.0, left: 28, right: 28),
                         alignment: Alignment.centerLeft,
                         child: Text(
                           "Recommended Course for you!",
@@ -60,11 +64,15 @@ class DashboardHomeView extends StatelessWidget {
 class RecommendedCourseList extends ViewModelWidget<DashboardHomeViewModel> {
   @override
   Widget build(BuildContext context, DashboardHomeViewModel viewModel) {
-    if (viewModel.courses.length > 0)
-      return CourseCard(
-        course: viewModel.courses[0],
-        onPress: () => viewModel.goToCourse(viewModel.courses[0]),
-        isExpanded: viewModel.courses[0].id == viewModel.selectedCourseId,
+    if (viewModel.getRecommendedCourses().length > 0)
+      return Column(
+        children: [
+          ...viewModel.getRecommendedCourses().map((course) => CourseCard(
+            course: course,
+            onPress: () => viewModel.goToCourse(course),
+            isExpanded: course.id == viewModel.selectedCourseId,
+          ))
+        ],
       );
     else
       return Container();
@@ -74,10 +82,10 @@ class RecommendedCourseList extends ViewModelWidget<DashboardHomeViewModel> {
 class OtherCoursesList extends ViewModelWidget<DashboardHomeViewModel> {
   @override
   Widget build(BuildContext context, DashboardHomeViewModel viewModel) {
-    if (viewModel.courses.length > 1)
+    if (viewModel.getOtherCourses().length > 1)
       return Column(
         children: [
-          ...viewModel.courses.sublist(1).map((course) => CourseCard(
+          ...viewModel.getOtherCourses().map((course) => CourseCard(
                 course: course,
                 onPress: () => viewModel.goToCourse(course),
                 isExpanded: course.id == viewModel.selectedCourseId,
