@@ -11,7 +11,6 @@ import 'package:stacked/stacked.dart';
 class CourseCardExpandedView extends ViewModelWidget<CourseCardViewModel> {
   @override
   Widget build(BuildContext context, CourseCardViewModel model) {
-    final _theme = Theme.of(context);
     return Row(
       children: <Widget>[
         Expanded(

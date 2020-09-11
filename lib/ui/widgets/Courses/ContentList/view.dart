@@ -7,6 +7,7 @@ import 'package:coding_blocks_junior/utils/logic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class ContentListView extends StatelessWidget {
   final Stream<Content> contentStream;
@@ -79,7 +80,7 @@ class ContentListItemView extends StatelessWidget {
               Align(
                   alignment: Alignment.bottomRight,
                   child: Text(
-                    'Date: 18th Aug, 2020',
+                    timeago.format(content.createdate.toDate()),
                     style: TextStyle(fontSize: 11, color: Colors.black87),
                   ))
             ]),
