@@ -11,8 +11,11 @@ class Course extends BaseModel {
   final String logo;
   final String slug;
   final String id;
+  final String themeColor;
   final List<dynamic> contents;
   final List<dynamic> instructorIds;
+  final List<dynamic> audience;
+
 
   Course({
     this.id,
@@ -21,8 +24,10 @@ class Course extends BaseModel {
     this.logo,
     this.background,
     this.slug,
+    this.themeColor,
     this.contents,
-    this.instructorIds
+    this.instructorIds,
+    this.audience
   });
 
   static Course fromSnapshot(DocumentSnapshot snapshot) {
@@ -33,8 +38,10 @@ class Course extends BaseModel {
       logo: snapshot['logo']['src'],
       background: snapshot['background']['src'],
       slug: snapshot['slug'],
+      themeColor: snapshot['theme_color'],
       contents: snapshot['contents'],
-      instructorIds: snapshot['instructorIds']
+      instructorIds: snapshot['instructorIds'],
+      audience: snapshot['audience'],
     );
   }
 

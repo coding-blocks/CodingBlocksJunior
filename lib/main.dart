@@ -21,8 +21,6 @@ void main() async {
   firsRun = await getSharedPrefs();
   //Crashlytics
   FlutterError.onError = Crashlytics.instance.recordFlutterError;
-
-
   runApp(MyApp());
   setupOneSignal();
 }
