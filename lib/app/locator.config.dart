@@ -9,6 +9,7 @@ import 'package:injectable/injectable.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../services/amoeba_api.dart';
+import '../ui/views/course/view.dart';
 import '../services/external_services_module.dart';
 import '../services/session.dart';
 
@@ -27,6 +28,7 @@ GetIt $initGetIt(
 
   // Eager singletons must be registered in the right order
   gh.singleton<AmoebaApiService>(externalServicesModule.amoebaService);
+  gh.singleton<CourseView>(CourseView());
   gh.singleton<SessionService>(externalServicesModule.sessionService);
   return get;
 }

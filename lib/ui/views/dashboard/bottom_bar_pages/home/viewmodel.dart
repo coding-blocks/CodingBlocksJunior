@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coding_blocks_junior/app/locator.dart';
 import 'package:coding_blocks_junior/models/course.dart';
 import 'package:coding_blocks_junior/services/session.dart';
+import 'package:coding_blocks_junior/ui/views/course/view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
@@ -43,7 +44,8 @@ class DashboardHomeViewModel extends StreamViewModel<QuerySnapshot> {
 
   void goToCourse(Course course) {
     if (course.id == selectedCourseId) {
-      _navigationService.navigateTo(Routes.courseView(slug: course.slug));
+      _navigationService.navigateToView(CourseView(initialCourseValue: course));
+      // _navigationService.navigateTo(Routes.courseView(slug: course.slug));
       return;
     }
 

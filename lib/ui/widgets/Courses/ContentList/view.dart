@@ -17,8 +17,8 @@ class ContentListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder.reactive(
-        viewModelBuilder: () =>
-            ContentListViewModel(contentStream: contentStream),
+
+        viewModelBuilder: () => ContentListViewModel(contentStream: contentStream),
         builder: (context, model, child) => ListView.builder(
           physics: BouncingScrollPhysics(),
             itemCount: model.contents.length,

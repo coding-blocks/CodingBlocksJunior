@@ -48,12 +48,15 @@ class Course extends BaseModel {
     );
   }
 
+  FirebaseReferenceArray<Content> _contentArray;
   Stream<Content> get contentStream {
-    return FirebaseReferenceArray<Content>(
+    final contentArray = _contentArray ??= FirebaseReferenceArray<Content>(
       array: this.contents,
       collectionName: 'contents',
-      builder: (e) => Content.fromSnapshot(e)
-    ).dataStream;
+      builder: Content.fromSnapshot
+    );
+
+    return contentArray.dataStream.asBroadcastStream();
   }
 
   Stream<DocumentSnapshot> get courseStream => Firestore.instance

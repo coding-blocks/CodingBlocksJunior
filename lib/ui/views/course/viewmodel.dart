@@ -9,17 +9,19 @@ import 'package:stacked_services/stacked_services.dart';
 class CourseViewModel extends FutureViewModel<Course> {
   final NavigationService _navigationService = locator<NavigationService>();
   
-  String slug;
+  final String slug;
+  final Course initialCourseValue;
   @override
   Future<Course> futureToRun() {
     return fetchCourseBySlug(slug);
   }
 
-  CourseViewModel(slug) {
-    this.slug = slug;
-  }
+  CourseViewModel({this.slug, this.initialCourseValue});
 
   Future<Course> fetchCourseBySlug(slug) async {
+    if (initialCourseValue != null)
+      return initialCourseValue;
+
     if (slug == null)
       return null;
 
