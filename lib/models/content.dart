@@ -7,28 +7,28 @@ class Content extends BaseModel {
   final String type;
   final String url;
   final String thumbnail;
+  final Timestamp createdate;
 
-  Content({
-    this.id,
-    this.type,
-    this.url,
-    this.title,
-    this.thumbnail
-  });
+  Content(
+      {this.id,
+      this.type,
+      this.url,
+      this.title,
+      this.thumbnail,
+      this.createdate});
 
   static Content fromSnapshot(DocumentSnapshot snapshot) {
     return Content(
-      id: snapshot.documentID,
-      title: snapshot['title'],
-      type: snapshot['type'],
-      url: snapshot['url'],
-      thumbnail: snapshot['thumbnail']
-    );
+        id: snapshot.documentID,
+        title: snapshot['title'],
+        type: snapshot['type'],
+        url: snapshot['url'],
+        thumbnail: snapshot['thumbnail'],
+        createdate: snapshot['createdate']);
   }
 
   static Future<Content> fromId(String id) async {
-    return Content.fromSnapshot(await Firestore.instance
-        .collection('contents')
-        .document(id).get());
+    return Content.fromSnapshot(
+        await Firestore.instance.collection('contents').document(id).get());
   }
 }

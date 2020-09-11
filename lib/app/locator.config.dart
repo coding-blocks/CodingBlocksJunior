@@ -11,6 +11,7 @@ import 'package:stacked_services/stacked_services.dart';
 import '../services/amoeba_api.dart';
 import '../ui/views/course/view.dart';
 import '../services/external_services_module.dart';
+import '../services/local_storage_service.dart';
 import '../services/session.dart';
 
 /// adds generated dependencies
@@ -28,7 +29,7 @@ GetIt $initGetIt(
 
   // Eager singletons must be registered in the right order
   gh.singleton<AmoebaApiService>(externalServicesModule.amoebaService);
-  gh.singleton<CourseView>(CourseView());
+  gh.singleton<LocalStorageService>(externalServicesModule.localStorageService);
   gh.singleton<SessionService>(externalServicesModule.sessionService);
   return get;
 }
@@ -36,6 +37,8 @@ GetIt $initGetIt(
 class _$ExternalServicesModule extends ExternalServicesModule {
   @override
   AmoebaApiService get amoebaService => AmoebaApiService();
+  @override
+  LocalStorageService get localStorageService => LocalStorageService();
   @override
   NavigationService get navigationService => NavigationService();
   @override
