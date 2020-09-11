@@ -14,12 +14,12 @@ class DashboardHomeView extends StatelessWidget {
         initialiseSpecialViewModelsOnce: true,
         builder: (context, model, child) => Scaffold(
               body: Padding(
-                padding: getInsetsLTRB(28, 56, 28, 28),
+                padding: getInsetsLTRB(0, 56, 0, 0),
                 child: SingleChildScrollView(
                   child: Column(
                     children: <Widget>[
                       Container(
-                        padding: getInsetsOnly(bottom: 8.0),
+                        padding: getInsetsOnly(bottom: 8.0, left: 28, right: 28),
                         alignment: Alignment.centerLeft,
                         child: RichText(
                             text: TextSpan(
@@ -32,7 +32,7 @@ class DashboardHomeView extends StatelessWidget {
                             ])),
                       ),
                       Container(
-                        padding: getInsetsOnly(bottom: 8.0),
+                        padding: getInsetsOnly(bottom: 8.0, left: 28, right: 28),
                         alignment: Alignment.centerLeft,
                         child: Text(
                           "Recommended Course for you!",
@@ -41,7 +41,7 @@ class DashboardHomeView extends StatelessWidget {
                       ),
                       RecommendedCourseList(),
                       Container(
-                        padding: getInsetsOnly(top: 10, bottom: 20.0),
+                        padding: getInsetsLTRB(28, 10, 28, 20),
                         alignment: Alignment.centerLeft,
                         child: Text(
                           "Other Courses",
