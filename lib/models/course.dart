@@ -15,6 +15,7 @@ class Course extends BaseModel {
   final List<dynamic> contents;
   final List<dynamic> instructorIds;
   final List<dynamic> audience;
+  final List<dynamic> tags;
 
 
   Course({
@@ -27,7 +28,8 @@ class Course extends BaseModel {
     this.themeColor,
     this.contents,
     this.instructorIds,
-    this.audience
+    this.audience,
+    this.tags = const []
   });
 
   static Course fromSnapshot(DocumentSnapshot snapshot) {
@@ -42,6 +44,7 @@ class Course extends BaseModel {
       contents: snapshot['contents'],
       instructorIds: snapshot['instructorIds'],
       audience: snapshot['audience'],
+      tags: snapshot['tags'],
     );
   }
 

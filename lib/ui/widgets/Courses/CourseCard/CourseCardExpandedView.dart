@@ -62,11 +62,9 @@ class CourseCardExpandedView extends ViewModelWidget<CourseCardViewModel> {
             alignment: WrapAlignment.end,
             spacing: -10 * SizeConfig.widthMultiplier,
             runSpacing: 2,
-            children: <Widget>[
-              TagChip(text: 'Tag 1'),
-              TagChip(text: 'Tag 1'),
-              TagChip(text: 'Bigger tag 1'),
-            ],
+            children: List.generate(
+                model.course.tags != null ? model.course.tags.length : 0,
+                (index) => TagChip(text: model.course.tags[index])),
           ),
         ),
       ],

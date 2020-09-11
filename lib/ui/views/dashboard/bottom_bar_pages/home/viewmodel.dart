@@ -27,11 +27,11 @@ class DashboardHomeViewModel extends StreamViewModel<QuerySnapshot> {
 
   @override
   void onData(QuerySnapshot data) {
-    courses = data.documents
-        .map((DocumentSnapshot snapshot) => Course.fromSnapshot(snapshot))
-        .toList();
     getClassGroup().then((value) {
-      courses.sort((a, b) => a.audience[0].toString().compareTo(value));
+      courses = data.documents
+          .map((DocumentSnapshot snapshot) => Course.fromSnapshot(snapshot))
+          .toList()
+            ..sort((a, b) => a.audience[0].toString().compareTo(value));
       selectedCourseId = courses[0].id;
     });
   }
