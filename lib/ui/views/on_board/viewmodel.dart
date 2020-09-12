@@ -2,6 +2,7 @@ import 'package:coding_blocks_junior/app/locator.dart';
 import 'package:coding_blocks_junior/app/router.gr.dart';
 import 'package:coding_blocks_junior/models/classpill.dart';
 import 'package:coding_blocks_junior/models/radio.dart';
+import 'package:coding_blocks_junior/services/local_storage_service.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
@@ -9,6 +10,8 @@ import 'package:stacked_services/stacked_services.dart';
 
 class OnBoardViewModel extends BaseViewModel {
   final NavigationService _navigationService = locator<NavigationService>();
+  final LocalStorageService _localStorageService =
+      locator<LocalStorageService>();
 
   final _title = 'On-Boarding';
 
@@ -37,30 +40,22 @@ class OnBoardViewModel extends BaseViewModel {
     ]),
   ];
 
+  List<String> classGroupArray = [
+    "1st - 4th",
+    "5th - 8th",
+    "9th - 10th",
+    "11th - 12th"
+  ];
+
   Future saveClass(int classGroup) async {
     sampleData.forEach((element) => element.isSelected = false);
     sampleData[classGroup].isSelected = true;
-
     notifyListeners();
-
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String classString = "";
-    switch(classGroup) {
-      case 0: { classString = "1st - 4th";}
-      break;
-      case 1: {classString = "5th - 8th";}
-      break;
-      case 2: {classString = "9th - 10th";}
-      break;
-      case 3: {classString = "11th - 12th";}
-      break;
-    }
-    await prefs.setString('classGroup', classString);
+    _localStorageService.preferences.setString('classGroup', classGroupArray[classGroup]);
   }
 
   Future goToHome(List<String> selectedReportList) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    await prefs.setBool('firstRun', false);
-    await _navigationService.navigateTo(Routes.dashboardView);
+    _localStorageService.preferences.setBool('firstRun', false);
+    await _navigationService.clearStackAndShow(Routes.dashboardView);
   }
 }

@@ -24,10 +24,6 @@ class CourseCardExpandedView extends ViewModelWidget<CourseCardViewModel> {
                   height: 35 * SizeConfig.imageSizeMultiplier,
                   width: 35 * SizeConfig.imageSizeMultiplier,
                   margin: getInsetsLTRB(0, 0, 10, 0),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white),
-                  ),
                   child: ClipOval(
                     child: Image.network(instructors[0].photo.src),
                   ),
