@@ -8,13 +8,18 @@ import 'package:flutter/material.dart';
 import 'package:coding_blocks_junior/ui/widgets/Courses/CourseCard/CourseCardExpandedView.dart';
 import 'package:stacked/stacked.dart';
 
-class CourseCard extends StatelessWidget {
+class CourseCard extends StatefulWidget{
   final Course course;
   final Function onPress;
   final bool isExpanded;
 
   CourseCard({this.course, this.onPress, this.isExpanded});
 
+  @override
+  _CourseCardState createState() => _CourseCardState();
+}
+
+class _CourseCardState extends State<CourseCard> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<CourseCardViewModel>.nonReactive(
@@ -84,12 +89,18 @@ class CourseCard extends StatelessWidget {
                               ),
                             ],
                           ),
-                        AnimatedContainer(
-                          height: this.isExpanded ? null : 0,
-                          duration: Duration(seconds: 2),
-                          child: Padding(
-                            padding: getInsetsOnly(top: 8),
-                            child: CourseCardExpandedView(),
+                        AnimatedSize(
+                          vsync: this,
+                          curve: Curves.ease,
+                          duration: Duration(milliseconds: 200),
+                          child: Visibility(
+                            maintainAnimation: true,
+                            maintainState: true,
+                            visible: this.widget.isExpanded,
+                            child: Padding(
+                              padding: getInsetsOnly(top: 8),
+                              child: CourseCardExpandedView(),
+                            ),
                           ),
                         ),
                       ]),
@@ -99,6 +110,6 @@ class CourseCard extends StatelessWidget {
               ),
         ),
         viewModelBuilder: () => CourseCardViewModel(
-            course: course, onPress: onPress));
+            course: widget.course, onPress: widget.onPress));
   }
 }

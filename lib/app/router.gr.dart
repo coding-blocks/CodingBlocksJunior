@@ -8,6 +8,7 @@
 
 import 'package:auto_route/auto_route.dart';
 
+import '../models/course.dart';
 import '../ui/views/course/view.dart';
 import '../ui/views/dashboard/view.dart';
 import '../ui/views/on_board/view.dart';
@@ -49,9 +50,14 @@ class Router extends RouterBase {
       );
     },
     CourseView: (data) {
+      final args = data.getArgs<CourseViewArguments>(
+        orElse: () => CourseViewArguments(),
+      );
       return buildAdaptivePageRoute<dynamic>(
-        builder: (context) => CourseView(),
+        builder: (context) =>
+            CourseView(initialCourseValue: args.initialCourseValue),
         settings: data,
+        maintainState: true,
       );
     },
     DashboardView: (data) {
@@ -67,4 +73,14 @@ class Router extends RouterBase {
       );
     },
   };
+}
+
+/// ************************************************************************
+/// Arguments holder classes
+/// *************************************************************************
+
+/// CourseView arguments holder class
+class CourseViewArguments {
+  final Course initialCourseValue;
+  CourseViewArguments({this.initialCourseValue});
 }

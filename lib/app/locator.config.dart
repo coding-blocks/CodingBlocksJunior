@@ -9,7 +9,7 @@ import 'package:injectable/injectable.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import '../services/amoeba_api.dart';
-import '../ui/views/course/view.dart';
+import '../ui/views/dashboard/bottom_bar_pages/home/viewmodel.dart';
 import '../services/external_services_module.dart';
 import '../services/local_storage_service.dart';
 import '../services/session.dart';
@@ -29,8 +29,9 @@ GetIt $initGetIt(
 
   // Eager singletons must be registered in the right order
   gh.singleton<AmoebaApiService>(externalServicesModule.amoebaService);
-  gh.singleton<LocalStorageService>(externalServicesModule.localStorageService);
   gh.singleton<SessionService>(externalServicesModule.sessionService);
+  gh.singleton<LocalStorageService>(externalServicesModule.localStorageService);
+  gh.singleton<DashboardHomeViewModel>(DashboardHomeViewModel());
   return get;
 }
 

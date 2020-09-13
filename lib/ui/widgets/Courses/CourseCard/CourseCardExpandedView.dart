@@ -16,8 +16,8 @@ class CourseCardExpandedView extends ViewModelWidget<CourseCardViewModel> {
         Expanded(
           flex: 1,
           child: EnhancedFutureBuilder(
-            rememberFutureResult: false,
-            future: model.course.instructorsFuture,
+            rememberFutureResult: true,
+            future: model.course.instructorStream.toList(),
             whenDone: (List<Instructor> instructors) => Row(
               children: <Widget>[
                 Container(

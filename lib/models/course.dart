@@ -65,6 +65,18 @@ class Course extends BaseModel {
       .snapshots();
 
 
+  FirebaseReferenceArray<Instructor> _instructorsArray;
+  Stream<Instructor> get instructorStream {
+      final instructorArray = _instructorsArray ??= FirebaseReferenceArray<Instructor> (
+        array: this.instructorIds,
+        collectionName: 'Instructors',
+        builder: Instructor.fromSnapshot
+      );
+
+      return instructorArray.dataStream;
+  }
+
+
   Future<List<Instructor>> get instructorsFuture async => (await Firestore
       .instance
       .collection('Instructors')

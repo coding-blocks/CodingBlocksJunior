@@ -5,11 +5,11 @@ import 'package:coding_blocks_junior/services/local_storage_service.dart';
 import 'package:coding_blocks_junior/services/session.dart';
 import 'package:coding_blocks_junior/ui/views/course/view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:injectable/injectable.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:coding_blocks_junior/app/router.gr.dart';
 
+@singleton
 class DashboardHomeViewModel extends StreamViewModel<QuerySnapshot> {
   final NavigationService _navigationService = locator<NavigationService>();
   SessionService sessionService = locator<SessionService>();
@@ -32,6 +32,8 @@ class DashboardHomeViewModel extends StreamViewModel<QuerySnapshot> {
     _courses = data.documents
         .map((DocumentSnapshot snapshot) => Course.fromSnapshot(snapshot))
         .toList();
+
+    _courses.map((e) => e.instructorStream); // trigger a fetch; this code smells
     selectedCourseId = _courses[0].id;
   }
 

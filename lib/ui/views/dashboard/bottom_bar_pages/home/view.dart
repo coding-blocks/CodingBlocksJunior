@@ -1,3 +1,4 @@
+import 'package:coding_blocks_junior/app/locator.dart';
 import 'package:coding_blocks_junior/ui/views/dashboard/bottom_bar_pages/home/viewmodel.dart';
 import 'package:coding_blocks_junior/ui/widgets/Courses/CourseCard/view.dart';
 import 'package:coding_blocks_junior/utils/logic.dart';
@@ -57,7 +58,7 @@ class DashboardHomeView extends StatelessWidget {
                 ),
               ),
             ),
-        viewModelBuilder: () => DashboardHomeViewModel());
+        viewModelBuilder: () => locator<DashboardHomeViewModel>());
   }
 }
 
