@@ -21,7 +21,8 @@ class ContentListView extends StatelessWidget {
 
         viewModelBuilder: () => ContentListViewModel(contentStream: contentStream),
         builder: (context, model, child) => ListView.builder(
-          physics: BouncingScrollPhysics(),
+          physics: ClampingScrollPhysics(),
+            shrinkWrap: true,
             itemCount: model.contents.length,
             itemBuilder: (context, index) {
               return InkWell(

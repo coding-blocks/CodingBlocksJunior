@@ -20,22 +20,33 @@ class CourseView extends StatelessWidget {
 
     return ViewModelBuilder<CourseViewModel>.reactive(
       builder: (context, model, child) => Scaffold(
-        body: Container(
-          padding: getInsetsOnly(bottom: 28),
-          child: model.isBusy
-            ? Center(child: CircularProgressIndicator())
-            : Column(
-              children: [
-                CoursePageAppBar(model.data),
-                Expanded(
-                  child: ContentListView(
-                    contentStream: model.data.contentStream,
-                    onTap: model.goToContent
-                  ),
+        body: model.isBusy
+          ? Center(child: CircularProgressIndicator())
+          : CustomScrollView(
+            slivers: [
+              SliverPersistentHeader(
+                pinned: true,
+                floating: false,
+                delegate: CoursePageHeader(model.data,
+                  maxExtent: 170,
+                  minExtent: 100
                 ),
-              ],
-            ),
-        )
+              ),
+              SliverList(
+                delegate: SliverChildListDelegate([
+                  // Container(
+                  //   height: 500,
+                  //   child: Center(child: Text("Latest")),
+                  //   color: Colors.black26
+                  // ),
+                  ContentListView(
+                      contentStream: model.data.contentStream,
+                      onTap: model.goToContent
+                  )
+                ]),
+              )
+            ],
+          )
       ),
       viewModelBuilder: () => CourseViewModel(slug: slug, initialCourseValue: initialCourseValue)
     );
