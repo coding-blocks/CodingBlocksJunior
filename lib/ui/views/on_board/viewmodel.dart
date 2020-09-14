@@ -4,6 +4,7 @@ import 'package:coding_blocks_junior/models/classpill.dart';
 import 'package:coding_blocks_junior/models/radio.dart';
 import 'package:coding_blocks_junior/services/local_storage_service.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -52,6 +53,7 @@ class OnBoardViewModel extends BaseViewModel {
     sampleData[classGroup].isSelected = true;
     notifyListeners();
     _localStorageService.preferences.setString('classGroup', classGroupArray[classGroup]);
+    await OneSignal.shared.sendTags({"classGroup" : classGroupArray[classGroup]});
   }
 
   Future goToHome(List<String> selectedReportList) async {

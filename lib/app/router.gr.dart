@@ -11,6 +11,7 @@ import 'package:auto_route/auto_route.dart';
 import '../models/course.dart';
 import '../ui/views/course/view.dart';
 import '../ui/views/dashboard/view.dart';
+import '../ui/views/notifications/view.dart';
 import '../ui/views/on_board/view.dart';
 import '../ui/views/player/view.dart';
 
@@ -18,6 +19,7 @@ class Routes {
   static const String onBoardView = '/on-board-view';
   static const String _courseView = '/courses/:slug';
   static String courseView({@required dynamic slug}) => '/courses/$slug';
+  static const String notificationView = '/notification-view';
   static const String dashboardView = '/';
   static const String _playerView = '/courses/:courseId/contents/:contentId';
   static String playerView(
@@ -26,6 +28,7 @@ class Routes {
   static const all = <String>{
     onBoardView,
     _courseView,
+    notificationView,
     dashboardView,
     _playerView,
   };
@@ -37,6 +40,7 @@ class Router extends RouterBase {
   final _routes = <RouteDef>[
     RouteDef(Routes.onBoardView, page: OnBoardView),
     RouteDef(Routes._courseView, page: CourseView),
+    RouteDef(Routes.notificationView, page: NotificationView),
     RouteDef(Routes.dashboardView, page: DashboardView),
     RouteDef(Routes._playerView, page: PlayerView),
   ];
@@ -58,6 +62,12 @@ class Router extends RouterBase {
             CourseView(initialCourseValue: args.initialCourseValue),
         settings: data,
         maintainState: true,
+      );
+    },
+    NotificationView: (data) {
+      return buildAdaptivePageRoute<dynamic>(
+        builder: (context) => NotificationView(),
+        settings: data,
       );
     },
     DashboardView: (data) {

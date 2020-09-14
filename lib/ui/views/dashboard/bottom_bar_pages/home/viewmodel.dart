@@ -4,6 +4,8 @@ import 'package:coding_blocks_junior/models/course.dart';
 import 'package:coding_blocks_junior/services/local_storage_service.dart';
 import 'package:coding_blocks_junior/services/session.dart';
 import 'package:coding_blocks_junior/ui/views/course/view.dart';
+import 'package:coding_blocks_junior/ui/views/notifications/view.dart';
+import 'package:coding_blocks_junior/ui/views/on_board/view.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:injectable/injectable.dart';
 import 'package:stacked/stacked.dart';
@@ -55,4 +57,9 @@ class DashboardHomeViewModel extends StreamViewModel<QuerySnapshot> {
     selectedCourseId = course.id;
     notifyListeners();
   }
+
+  goToNotifications() {
+    _navigationService.navigateToView(NotificationView());
+  }
+
 }
