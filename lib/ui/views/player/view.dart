@@ -55,7 +55,7 @@ class PlayerView extends StatelessWidget {
           body: Column(
             children: <Widget>[
               if (model.isBusy || model.ytController == null)
-                Center(child: CircularProgressIndicator())
+                Expanded(child: Center(child: CircularProgressIndicator()))
               else ...[
                 Expanded(child: player),
                 Padding(

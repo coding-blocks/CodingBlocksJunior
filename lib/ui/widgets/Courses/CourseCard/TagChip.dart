@@ -15,12 +15,9 @@ class TagChip extends StatelessWidget {
       child: Transform(
         transform: new Matrix4.identity()..scale(0.8),
         child: Chip(
-          backgroundColor: Colors.transparent,
+          backgroundColor: Color.fromRGBO(126, 148, 192, 0.35),
           materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
           labelPadding: getInsetsLTRB(20, 0, 20, 0),
-          shape: StadiumBorder(
-            side: BorderSide(color: getColorFromHex('#83D3C5')),
-          ),
           label: Text(
             text,
             style: TextStyle(

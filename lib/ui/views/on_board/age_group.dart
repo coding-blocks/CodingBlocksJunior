@@ -1,44 +1,18 @@
+import 'package:coding_blocks_junior/models/radio.dart';
+import 'package:coding_blocks_junior/ui/views/on_board/viewmodel.dart';
+import 'package:coding_blocks_junior/ui/widgets/Base/ClassPill.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:coding_blocks_junior/utils/logic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:stacked/stacked.dart';
 
-class OnboardAgeGroup extends StatefulWidget {
-
-  @override
-  createState() {
-    return new OnboardAgeGroupState();
-  }
-}
-
-class OnboardAgeGroupState extends State<OnboardAgeGroup> {
-  List<RadioModel> sampleData = [
-    RadioModel(false, "Foundation", [
-      ClassPillModel(text: "1", color: getColorFromHex("#F5C792")),
-      ClassPillModel(text: "2", color: getColorFromHex("#85CEF2")),
-      ClassPillModel(text: "3", color: getColorFromHex("#E99C9F"))
-    ]),
-    RadioModel(false, "Junior", [
-      ClassPillModel(text: "4", color: getColorFromHex("#F5C792")),
-      ClassPillModel(text: "5", color: getColorFromHex("#85CEF2")),
-      ClassPillModel(text: "6", color: getColorFromHex("#E99C9F"))
-    ]),
-    RadioModel(false, "Middle", [
-      ClassPillModel(text: "7", color: getColorFromHex("#F5C792")),
-      ClassPillModel(text: "8", color: getColorFromHex("#85CEF2")),
-      ClassPillModel(text: "9", color: getColorFromHex("#E99C9F"))
-    ]),
-    RadioModel(false, "Senior", [
-      ClassPillModel(text: "10", color: getColorFromHex("#F5C792")),
-      ClassPillModel(text: "11", color: getColorFromHex("#85CEF2")),
-      ClassPillModel(text: "12", color: getColorFromHex("#E99C9F"))
-    ]),
-  ];
+class OnboardAgeGroup extends ViewModelWidget<OnBoardViewModel> {
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, OnBoardViewModel model) {
     final theme = Theme.of(context);
     return new Scaffold(
       body: Container(
@@ -52,8 +26,11 @@ class OnboardAgeGroupState extends State<OnboardAgeGroup> {
               ),
               flex: 1,
             ),
-            Text('Which Grade are you in?',
-                style: theme.textTheme.headline6),
+            Container(
+              margin: getInsetsOnly(bottom: 12),
+              child: Text('Which Grade are you in?',
+                  style: theme.textTheme.headline6),
+            ),
             Expanded(
               flex: 1,
               child: SingleChildScrollView(
@@ -62,22 +39,19 @@ class OnboardAgeGroupState extends State<OnboardAgeGroup> {
                   runSpacing: 10.0,
                   alignment: WrapAlignment.spaceEvenly,
                   direction: Axis.horizontal,
-                  children: List.generate(sampleData.length, (index) {
+                  children: List.generate(model.sampleData.length, (index) {
                     return new InkWell(
                       //highlightColor: Colors.red,
                       splashColor: Colors.white,
                       onTap: () {
-                        setState(() {
-                          sampleData
-                              .forEach((element) => element.isSelected = false);
-                          sampleData[index].isSelected = true;
-
-                        });
+                        model.saveClass(index);
                       },
                       child: ConstrainedBox(
-                          constraints: SizeConfig.isPortrait ? BoxConstraints(maxWidth: 900) : BoxConstraints(maxWidth: 300 * SizeConfig.widthMultiplier),
-                          child: new RadioItem(sampleData[index])
-                      ),
+                          constraints: SizeConfig.isPortrait
+                              ? BoxConstraints(maxWidth: 900)
+                              : BoxConstraints(
+                                  maxWidth: 300 * SizeConfig.widthMultiplier),
+                          child: new RadioItem(model.sampleData[index])),
                     );
                   }),
                 ),
@@ -103,7 +77,7 @@ class RadioItem extends StatelessWidget {
         color: getColorFromHex('#2167E3'),
         borderRadius: const BorderRadius.all(const Radius.circular(4.0)),
       ),
-      margin: getInsetsLTRB(0, 8, 0, 8),
+      margin: getInsetsLTRB(30, 4, 30, 4),
       padding: getInsetsAll(16),
       child: new Row(
         mainAxisSize: MainAxisSize.max,
@@ -111,8 +85,8 @@ class RadioItem extends StatelessWidget {
           new Container(
             child: new Center(
               child: new Text(_item.text,
-                  style: theme.textTheme.bodyText1.copyWith(
-                      color: Colors.white)),
+                  style:
+                      theme.textTheme.bodyText1.copyWith(color: Colors.white)),
             ),
           ),
           Expanded(
@@ -120,15 +94,15 @@ class RadioItem extends StatelessWidget {
             child: Container(
               padding: getInsetsLTRB(15, 0, 15, 0),
               child: Row(
-                children: _item.classes.map((classPill) => 
-                  Container(
-                    margin: getInsetsLTRB(0, 0, 5, 0),
-                    child: ClassPill(
-                      klass: classPill.text,
-                      color: classPill.color,
-                    ),
-                  )
-                ).toList(),
+                children: _item.classes
+                    .map((classPill) => Container(
+                          margin: getInsetsLTRB(0, 0, 5, 0),
+                          child: ClassPill(
+                            klass: classPill.text,
+                            color: classPill.color,
+                          ),
+                        ))
+                    .toList(),
               ),
             ),
           ),
@@ -146,44 +120,4 @@ class RadioItem extends StatelessWidget {
       ),
     );
   }
-}
-
-class ClassPill extends StatelessWidget {
-  final String klass;
-  final Color color;
-
-  ClassPill({ 
-    @required this.klass,
-    this.color
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(5),
-        color: color,
-      ),
-      padding: getInsetsLTRB(8, 4, 8, 4),
-      child: Text(klass),
-    );
-  }
-}
-
-class RadioModel {
-  bool isSelected;
-  final String text;
-  final List<ClassPillModel> classes;
-
-  RadioModel(this.isSelected, this.text, this.classes);
-}
-
-class ClassPillModel {
-  final String text;
-  final Color color;
-
-  ClassPillModel({
-    @required this.text,
-    this.color
-  });
 }

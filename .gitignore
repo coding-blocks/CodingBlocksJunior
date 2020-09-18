@@ -47,4 +47,6 @@ node_modules/
 
 # exclude this for now cuz i have way more resources than macbooks :/
 android/gradle.properties
+
 android/app/google-services.json
+android/key.properties

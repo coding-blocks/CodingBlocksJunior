@@ -14,6 +14,11 @@ class Course extends BaseModel {
   final String themeColor;
   final List<dynamic> contents;
   final List<dynamic> instructorIds;
+  final List<dynamic> audience;
+  final List<dynamic> tags;
+  final int minClass;
+  final int maxClass;
+
 
   Course({
     this.id,
@@ -24,7 +29,11 @@ class Course extends BaseModel {
     this.slug,
     this.themeColor,
     this.contents,
-    this.instructorIds
+    this.instructorIds,
+    this.audience,
+    this.tags = const [],
+    this.minClass,
+    this.maxClass
   });
 
   static Course fromSnapshot(DocumentSnapshot snapshot) {
@@ -38,21 +47,40 @@ class Course extends BaseModel {
       themeColor: snapshot['theme_color'],
       contents: snapshot['contents'],
       instructorIds: snapshot['instructorIds'],
+      audience: snapshot['audience'],
+      tags: snapshot['tags'],
+      maxClass: snapshot['max_class'],
+      minClass: snapshot['min_class'],
     );
   }
 
+  FirebaseReferenceArray<Content> _contentArray;
   Stream<Content> get contentStream {
-    return FirebaseReferenceArray<Content>(
+    final contentArray = _contentArray ??= FirebaseReferenceArray<Content>(
       array: this.contents,
       collectionName: 'contents',
-      builder: (e) => Content.fromSnapshot(e)
-    ).dataStream;
+      builder: Content.fromSnapshot
+    );
+
+    return contentArray.dataStream.asBroadcastStream();
   }
 
   Stream<DocumentSnapshot> get courseStream => Firestore.instance
       .collection('courses')
       .document(id)
       .snapshots();
+
+
+  FirebaseReferenceArray<Instructor> _instructorsArray;
+  Stream<Instructor> get instructorStream {
+      final instructorArray = _instructorsArray ??= FirebaseReferenceArray<Instructor> (
+        array: this.instructorIds,
+        collectionName: 'Instructors',
+        builder: Instructor.fromSnapshot
+      );
+
+      return instructorArray.dataStream;
+  }
 
 
   Future<List<Instructor>> get instructorsFuture async => (await Firestore

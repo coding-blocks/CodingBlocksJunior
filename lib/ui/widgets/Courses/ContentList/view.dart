@@ -6,7 +6,9 @@ import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:coding_blocks_junior/utils/logic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class ContentListView extends StatelessWidget {
   final Stream<Content> contentStream;
@@ -20,7 +22,7 @@ class ContentListView extends StatelessWidget {
         viewModelBuilder: () =>
             ContentListViewModel(contentStream: contentStream),
         builder: (context, model, child) => ListView.builder(
-          physics: BouncingScrollPhysics(),
+            physics: BouncingScrollPhysics(),
             itemCount: model.contents.length,
             itemBuilder: (context, index) {
               return InkWell(
@@ -44,7 +46,7 @@ class ContentListItemView extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      padding: getInsetsLTRB(30, index == 0 ? 0 : 15, 30, 15),
+      padding: getInsetsLTRB(30, index == 0 ? 0 : 8, 30, 8),
       child: IntrinsicHeight(
         child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -59,29 +61,29 @@ class ContentListItemView extends StatelessWidget {
                 ),
               ),
               Expanded(
-                flex: 1,
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        'Lecture ' + (index + 1).toString(),
-                        style: theme.textTheme.bodyText2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Lecture ' + (index + 1).toString(),
+                      style: theme.textTheme.bodyText2,
+                    ),
+                    Text(content.title,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                        style: theme.textTheme.subtitle1
+                            .copyWith(fontWeight: FontWeight.bold)),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Text(
+                        DateFormat.yMMMMd('en_US').format(content.publishedAt.toDate()),
+                        style: TextStyle(fontSize: 11, color: Colors.black87),
                       ),
-                      Text(content.title,
-                          style: theme.textTheme.subtitle1
-                              .copyWith(fontWeight: FontWeight.bold))
-                    ],
-                  ),
+                    )
+                  ],
                 ),
               ),
-              Align(
-                  alignment: Alignment.bottomRight,
-                  child: Text(
-                    'Date: 18th Aug, 2020',
-                    style: TextStyle(fontSize: 11, color: Colors.black87),
-                  ))
             ]),
       ),
     );

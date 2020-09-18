@@ -26,7 +26,7 @@ class PlayerViewModel extends FutureViewModel<Content> {
   @override
   Future<Content> futureToRun() async {
     content = await fetchContent();
-    setupYoutubePlayer(content.url);
+    setupYoutubePlayer(content.url,content.isLive);
     course = await fetchCourse();
     bookmark = await fetchBookmark();
 
@@ -107,11 +107,12 @@ class PlayerViewModel extends FutureViewModel<Content> {
     notifyListeners();
   }
 
-  setupYoutubePlayer(url) {
+  setupYoutubePlayer(url, isLive) {
     this.ytController = YoutubePlayerController(
       initialVideoId: YoutubePlayer.convertUrlToId(url),
       flags: YoutubePlayerFlags(
         autoPlay: true,
+        isLive: isLive
         // hideThumbnail: true
       ),
     );

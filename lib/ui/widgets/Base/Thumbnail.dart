@@ -11,7 +11,7 @@ class Thumbnail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var videoId = videoIdFromUrl(url);
-    final imgUrl = "https://img.youtube.com/vi/$videoId/hqdefault.jpg";
-    return Image.network(imgUrl, fit: BoxFit.scaleDown,);
+    final imgUrl = "https://img.youtube.com/vi/$videoId/mqdefault.jpg";
+    return Image.network(imgUrl, fit: BoxFit.fitWidth);
   }
 }

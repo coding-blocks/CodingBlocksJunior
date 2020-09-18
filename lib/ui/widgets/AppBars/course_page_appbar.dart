@@ -60,18 +60,18 @@ class CoursePageAppBar extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   new LinearPercentIndicator(
-                    width: 150.0 * SizeConfig.imageSizeMultiplier,
-                    lineHeight: 5.0 * SizeConfig.heightMultiplier,
-                    percent: 0.0,
+                    width: 200.0 * SizeConfig.imageSizeMultiplier,
+                    lineHeight: 7.0 * SizeConfig.heightMultiplier,
+                    percent: model.isBusy ? 0 : model.data.toDouble()/100,
                     progressColor: Colors.white,
                     backgroundColor: Color.fromRGBO(255, 255, 255, 0.1),
                   ),
                   Text(
-                    "${model.data}% Completed",
+                    "${model.isBusy ? 0 : model.data}% Completed",
                     style: TextStyle(
                         color: Colors.white,
                         fontWeight: FontWeight.bold,
-                        fontSize: 10 * SizeConfig.textMultiplier),
+                        fontSize: 14 * SizeConfig.textMultiplier),
                   )
                 ],
               ),

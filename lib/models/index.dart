@@ -1,3 +1,5 @@
 abstract class BaseModel {
-  String id;
+  final String id;
+
+  const BaseModel({this.id});
 }
