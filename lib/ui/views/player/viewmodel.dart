@@ -26,7 +26,7 @@ class PlayerViewModel extends FutureViewModel<Content> {
   @override
   Future<Content> futureToRun() async {
     content = await fetchContent();
-    setupYoutubePlayer(content.url,content.isLive);
+    setupYoutubePlayer(content.url,content.isLive??false);
     course = await fetchCourse();
     bookmark = await fetchBookmark();
 
