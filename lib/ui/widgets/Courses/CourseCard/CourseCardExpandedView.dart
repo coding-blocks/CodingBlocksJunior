@@ -28,7 +28,8 @@ class CourseCardExpandedView extends ViewModelWidget<CourseCardViewModel> {
                     child: Image.network(instructors[0].photo.src),
                   ),
                 ),
-                RichText(
+                Expanded(
+                  child: RichText(
                     text: TextSpan(
                         text: 'Mentors\n',
                         style: TextStyle(
@@ -36,15 +37,19 @@ class CourseCardExpandedView extends ViewModelWidget<CourseCardViewModel> {
                           fontSize: 12 * SizeConfig.textMultiplier,
                         ),
                         children: <TextSpan>[
-                      TextSpan(
-                        text: instructors.map((e) => e.firstname).join(", "),
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12 * SizeConfig.textMultiplier,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ])),
+                          TextSpan(
+                            text: instructors.map((e) => e.firstname).join(", "),
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12 * SizeConfig.textMultiplier,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ]),
+                    softWrap: true,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
               ],
             ),
             whenWaiting: Container(),

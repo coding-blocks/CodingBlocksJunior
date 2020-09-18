@@ -6,6 +6,7 @@ import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:coding_blocks_junior/utils/logic.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:stacked/stacked.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -76,7 +77,7 @@ class ContentListItemView extends StatelessWidget {
                     Align(
                       alignment: Alignment.topRight,
                       child: Text(
-                        timeago.format(content.publishedAt.toDate()),
+                        DateFormat.yMMMMd('en_US').format(content.publishedAt.toDate()),
                         style: TextStyle(fontSize: 11, color: Colors.black87),
                       ),
                     )

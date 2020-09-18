@@ -56,8 +56,6 @@ class BookmarkListItemViewModel extends FutureViewModel<void> {
           .delete();
     }
 
-    ;
-
     showDialog(
         context: this.context,
         child: confirmDialog(
