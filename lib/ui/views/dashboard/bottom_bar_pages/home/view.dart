@@ -29,8 +29,7 @@ class DashboardHomeView extends StatelessWidget {
                                 children: <TextSpan>[
                               TextSpan(
                                   text: model.isBusy
-                                      ? ""
-                                      : model.user.displayName,
+                                      ? "" : "\n" + model.name,
                                   style: _theme.textTheme.headline4),
                             ])),
                       ),

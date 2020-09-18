@@ -18,10 +18,10 @@ class ContentListView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder.reactive(
-
-        viewModelBuilder: () => ContentListViewModel(contentStream: contentStream),
+        viewModelBuilder: () =>
+            ContentListViewModel(contentStream: contentStream),
         builder: (context, model, child) => ListView.builder(
-          physics: BouncingScrollPhysics(),
+            physics: BouncingScrollPhysics(),
             itemCount: model.contents.length,
             itemBuilder: (context, index) {
               return InkWell(
@@ -45,7 +45,7 @@ class ContentListItemView extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return Container(
-      padding: getInsetsLTRB(30, index == 0 ? 0 : 15, 30, 15),
+      padding: getInsetsLTRB(30, index == 0 ? 0 : 8, 30, 8),
       child: IntrinsicHeight(
         child: Row(
             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -60,29 +60,29 @@ class ContentListItemView extends StatelessWidget {
                 ),
               ),
               Expanded(
-                flex: 1,
-                child: Container(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Text(
-                        'Lecture ' + (index + 1).toString(),
-                        style: theme.textTheme.bodyText2,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Lecture ' + (index + 1).toString(),
+                      style: theme.textTheme.bodyText2,
+                    ),
+                    Text(content.title,
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                        style: theme.textTheme.subtitle1
+                            .copyWith(fontWeight: FontWeight.bold)),
+                    Align(
+                      alignment: Alignment.topRight,
+                      child: Text(
+                        timeago.format(content.publishedAt.toDate()),
+                        style: TextStyle(fontSize: 11, color: Colors.black87),
                       ),
-                      Text(content.title,
-                          style: theme.textTheme.subtitle1
-                              .copyWith(fontWeight: FontWeight.bold))
-                    ],
-                  ),
+                    )
+                  ],
                 ),
               ),
-              Align(
-                  alignment: Alignment.bottomRight,
-                  child: Text(
-                    timeago.format(content.createdate.toDate()),
-                    style: TextStyle(fontSize: 11, color: Colors.black87),
-                  ))
             ]),
       ),
     );

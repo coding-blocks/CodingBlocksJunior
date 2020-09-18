@@ -40,18 +40,18 @@ class OnBoardViewModel extends BaseViewModel {
     ]),
   ];
 
-  List<String> classGroupArray = [
-    "1st - 4th",
-    "5th - 8th",
-    "9th - 10th",
-    "11th - 12th"
+  List<List<String>> classGroupArray = [
+    ["1","4"],
+    ["5","8"],
+    ["9","10"],
+    ["11","12"]
   ];
 
   Future saveClass(int classGroup) async {
     sampleData.forEach((element) => element.isSelected = false);
     sampleData[classGroup].isSelected = true;
     notifyListeners();
-    _localStorageService.preferences.setString('classGroup', classGroupArray[classGroup]);
+    _localStorageService.preferences.setStringList('classGroup', classGroupArray[classGroup]);
   }
 
   Future goToHome(List<String> selectedReportList) async {

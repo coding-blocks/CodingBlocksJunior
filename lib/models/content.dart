@@ -8,6 +8,8 @@ class Content extends BaseModel {
   final String url;
   final String thumbnail;
   final Timestamp createdate;
+  final bool isLive;
+  final Timestamp publishedAt;
 
   Content(
       {this.id,
@@ -15,16 +17,21 @@ class Content extends BaseModel {
       this.url,
       this.title,
       this.thumbnail,
-      this.createdate});
+      this.createdate,
+      this.isLive,
+      this.publishedAt});
 
   static Content fromSnapshot(DocumentSnapshot snapshot) {
     return Content(
-        id: snapshot.documentID,
-        title: snapshot['title'],
-        type: snapshot['type'],
-        url: snapshot['url'],
-        thumbnail: snapshot['thumbnail'],
-        createdate: snapshot['createdate']);
+      id: snapshot.documentID,
+      title: snapshot['title'],
+      type: snapshot['type'],
+      url: snapshot['url'],
+      thumbnail: snapshot['thumbnail'],
+      createdate: snapshot['createdate'],
+      isLive: snapshot['isLive'],
+      publishedAt: snapshot['published_at'],
+    );
   }
 
   static Future<Content> fromId(String id) async {

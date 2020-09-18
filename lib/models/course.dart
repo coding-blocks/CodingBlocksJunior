@@ -16,6 +16,8 @@ class Course extends BaseModel {
   final List<dynamic> instructorIds;
   final List<dynamic> audience;
   final List<dynamic> tags;
+  final int minClass;
+  final int maxClass;
 
 
   Course({
@@ -29,7 +31,9 @@ class Course extends BaseModel {
     this.contents,
     this.instructorIds,
     this.audience,
-    this.tags = const []
+    this.tags = const [],
+    this.minClass,
+    this.maxClass
   });
 
   static Course fromSnapshot(DocumentSnapshot snapshot) {
@@ -45,6 +49,8 @@ class Course extends BaseModel {
       instructorIds: snapshot['instructorIds'],
       audience: snapshot['audience'],
       tags: snapshot['tags'],
+      maxClass: snapshot['max_class'],
+      minClass: snapshot['min_class'],
     );
   }
 

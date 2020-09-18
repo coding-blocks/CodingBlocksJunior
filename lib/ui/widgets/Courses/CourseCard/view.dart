@@ -79,7 +79,7 @@ class _CourseCardState extends State<CourseCard> with SingleTickerProviderStateM
                                         fontSize: 10 * SizeConfig.textMultiplier),
                                   ),
                                   Text(
-                                    model.course.audience[0],
+                                    "${model.course.minClass} - ${model.course.maxClass}",
                                     style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,

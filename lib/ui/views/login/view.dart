@@ -13,9 +13,7 @@ import 'package:rounded_loading_button/rounded_loading_button.dart';
 class LoginView extends StatelessWidget {
   final Function onClose;
 
-  LoginView({
-    this.onClose
-  });
+  LoginView({this.onClose});
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +25,12 @@ class LoginView extends StatelessWidget {
         decoration: new BoxDecoration(
             color: Colors.white,
             borderRadius: new BorderRadius.only(
-                topLeft:  Radius.circular(30.0 * SizeConfig.imageSizeMultiplier),
-                topRight: Radius.circular(30.0 * SizeConfig.imageSizeMultiplier))),
+                topLeft: Radius.circular(30.0 * SizeConfig.imageSizeMultiplier),
+                topRight:
+                    Radius.circular(30.0 * SizeConfig.imageSizeMultiplier))),
         height: (MediaQuery.of(context).size.height / 2.5 +
-            MediaQuery.of(context).viewInsets.bottom) + (SizeConfig.isPortrait ? 0 : 20),
+                MediaQuery.of(context).viewInsets.bottom) +
+            (SizeConfig.isPortrait ? 0 : 20),
         child: PageView(
           controller: model.pageController,
           physics: NeverScrollableScrollPhysics(),
@@ -48,42 +48,44 @@ class MobileInputView extends ViewModelWidget<LoginViewModel> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        Text(
-          "Let's get you onboard",
-          style: theme.textTheme.subtitle1),
+        Text("Let's get you onboard",
+            style: theme.textTheme.subtitle1
+                .copyWith(fontWeight: FontWeight.w600)),
         Text(
           "Enter your Phone number to get started!",
           style: theme.textTheme.caption,
         ),
-        if (SizeConfig.isPortrait) ...[PhoneInputBox(), SendOtpButton()]
-        else Row(
-          children: [Expanded(child: PhoneInputBox()), SendOtpButton()],
-        )
+        if (SizeConfig.isPortrait) ...[PhoneInputBox(), SendOtpButton()] else
+          Row(
+            children: [Expanded(child: PhoneInputBox()), SendOtpButton()],
+          )
       ],
     );
   }
 }
 
-class PhoneInputBox extends  ViewModelWidget<LoginViewModel> {
+class PhoneInputBox extends ViewModelWidget<LoginViewModel> {
   @override
   Widget build(BuildContext context, LoginViewModel model) {
     return Container(
         margin: getInsetsLTRB(0, 50, 0, 0),
         child: InternationalPhoneNumberInput(
+          autoValidate: true,
+          onInputChanged: model.enableOtpButton,
           initialValue: PhoneNumber(isoCode: 'IN'),
           textFieldController: model.mobileInputController,
           countries: ['IN'],
-        )
-    );
+        ));
   }
-
 }
-class SendOtpButton extends  ViewModelWidget<LoginViewModel> {
+
+class SendOtpButton extends ViewModelWidget<LoginViewModel> {
   @override
   Widget build(BuildContext context, LoginViewModel model) {
     return Container(
-      margin: getInsetsLTRB(10, 50, 0, 0),
+      margin: getInsetsLTRB(10, 30, 0, 0),
       child: RoundedLoadingButton(
+        color: getColorFromHex("#194A88"),
         width: 200,
         child: Text(
           'Send Otp',
@@ -92,13 +94,11 @@ class SendOtpButton extends  ViewModelWidget<LoginViewModel> {
               fontSize: 14 * SizeConfig.textMultiplier,
               fontWeight: FontWeight.bold),
         ),
-        onPressed: model.sendOtp,
+        onPressed: model.isEnabled ? model.sendOtp : null,
       ),
     );
   }
-
 }
-
 
 class OtpInputView extends ViewModelWidget<LoginViewModel> {
   @override
@@ -112,13 +112,18 @@ class OtpInputView extends ViewModelWidget<LoginViewModel> {
         ),
         Padding(
             padding: getInsetsLTRB(0, 5, 0, 0),
-            child: Text("Enter the OTP sent to +91-${model.mobile}", style: theme.textTheme.caption,)),
+            child: Text(
+              "Enter the OTP sent to +91-${model.mobile}",
+              style: theme.textTheme.caption,
+            )),
         Center(
           child: Text(model.errorText, style: TextStyle(color: Colors.red)),
         ),
         if (!model.isVerifying)
           Padding(
-            padding: SizeConfig.isPortrait ? getInsetsLTRB(10, 0, 10, 0) : getInsetsLTRB(100, 0, 100, 0),
+            padding: SizeConfig.isPortrait
+                ? getInsetsLTRB(10, 0, 10, 0)
+                : getInsetsLTRB(100, 0, 100, 0),
             child: PinCodeTextField(
               appContext: context,
               controller: model.otpInputController,

@@ -33,18 +33,34 @@ class DashboardHomeViewModel extends StreamViewModel<QuerySnapshot> {
         .map((DocumentSnapshot snapshot) => Course.fromSnapshot(snapshot))
         .toList();
 
-    _courses.map((e) => e.instructorStream); // trigger a fetch; this code smells
+    _courses
+        .map((e) => e.instructorStream); // trigger a fetch; this code smells
     selectedCourseId = _courses[0].id;
   }
 
-  List<Course> getRecommendedCourses(){
-    return _courses.where((course) => course.audience[0] == localStorageService.preferences.getString("classGroup")).toList();
+  List<Course> getRecommendedCourses() {
+    return _courses
+        .where((course) =>
+            course.minClass >=
+                int.parse(localStorageService.preferences
+                    .getStringList("classGroup")[0]) &&
+            course.maxClass <=
+                int.parse(localStorageService.preferences
+                    .getStringList("classGroup")[1]))
+        .toList();
   }
 
-  List<Course> getOtherCourses(){
-    return _courses.where((course) => course.audience[0] != localStorageService.preferences.getString("classGroup")).toList();
+  List<Course> getOtherCourses() {
+    return _courses
+        .where((course) =>
+            course.minClass <
+                int.parse(localStorageService.preferences
+                    .getStringList("classGroup")[0]) ||
+            course.maxClass >
+                int.parse(localStorageService.preferences
+                    .getStringList("classGroup")[1]))
+        .toList();
   }
-
 
   void goToCourse(Course course) {
     if (course.id == selectedCourseId) {
