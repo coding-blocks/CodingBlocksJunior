@@ -45,14 +45,14 @@ class DashboardNavigationBar extends ViewModelWidget<DashboardViewModel> {
           },
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: BottomBarNavIcon('assets/bookmark-white.png'),
-              activeIcon: BottomBarNavIcon('assets/bookmark-blue.png'),
-              title: NavLabelText('Bookmarks')
-            ),
-            BottomNavigationBarItem(
               icon: BottomBarNavIcon('assets/home-white.png'),
               activeIcon: BottomBarNavIcon('assets/home-blue.png'),
               title: NavLabelText('Home')
+            ),
+            BottomNavigationBarItem(
+                icon: BottomBarNavIcon('assets/bookmark-white.png'),
+                activeIcon: BottomBarNavIcon('assets/bookmark-blue.png'),
+                title: NavLabelText('Bookmarks')
             ),
             BottomNavigationBarItem(
               icon: BottomBarNavIcon('assets/notes-white.png'),

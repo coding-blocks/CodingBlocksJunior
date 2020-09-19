@@ -43,10 +43,10 @@ class DashboardHomeViewModel extends StreamViewModel<QuerySnapshot> {
         .where((course) =>
             course.minClass >=
                 int.parse(localStorageService.preferences
-                    .getStringList("classGroup")[0]) &&
+                    .getStringList("classGroup")[0]?? "1") &&
             course.maxClass <=
                 int.parse(localStorageService.preferences
-                    .getStringList("classGroup")[1]))
+                    .getStringList("classGroup")[1])?? "4")
         .toList();
   }
 
@@ -55,10 +55,10 @@ class DashboardHomeViewModel extends StreamViewModel<QuerySnapshot> {
         .where((course) =>
             course.minClass <
                 int.parse(localStorageService.preferences
-                    .getStringList("classGroup")[0]) ||
+                    .getStringList("classGroup")[0]?? "1") ||
             course.maxClass >
                 int.parse(localStorageService.preferences
-                    .getStringList("classGroup")[1]))
+                    .getStringList("classGroup")[1]?? "4"))
         .toList();
   }
 

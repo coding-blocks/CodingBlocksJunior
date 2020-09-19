@@ -9,6 +9,7 @@ class RaisedGradientButton extends StatelessWidget {
   final Function onPressed;
   final double width;
   final double height;
+  final double cornerRadius;
   Gradient gradient = LinearGradient(
     colors: <Color>[
       getColorFromHex('#0575E6'),
@@ -36,6 +37,7 @@ class RaisedGradientButton extends StatelessWidget {
     this.width = double.infinity,
     this.height = 35.0,
     this.onPressed,
+    this.cornerRadius = 40
   }) : super(key: key);
 
   @override
@@ -50,7 +52,7 @@ class RaisedGradientButton extends StatelessWidget {
           blurRadius: 1.5,
         ),
       ],
-          borderRadius: new BorderRadius.circular(40)
+          borderRadius: new BorderRadius.circular(cornerRadius)
       ),
       child: Material(
         color: Colors.transparent,
