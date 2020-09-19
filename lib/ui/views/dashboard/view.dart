@@ -14,13 +14,13 @@ class DashboardView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<DashboardViewModel>.nonReactive(
       builder: (context, model, child) => DefaultTabController(
-        initialIndex: 1,
+        initialIndex: 0,
         length: 4,
         child: Scaffold(
           body: TabBarView(
             children: [
-              (DashboardBookmarksView()),
               (DashboardHomeView()),
+              (DashboardBookmarksView()),
               (DashboardNotesView()),
               (DashboardProfileView()),
             ],

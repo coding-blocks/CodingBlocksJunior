@@ -7,49 +7,35 @@ class OnboardIntro extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     return new Scaffold(
+      backgroundColor: Colors.transparent,
       body: Container(
-        margin: getInsetsAll(5),
+        margin: getInsetsOnly(top: 60),
         alignment: Alignment.center,
         child: Column(
           children: [
             Expanded(
               child: Image(
                 image: AssetImage('assets/onboarding-1.png'),
+                width: 220 * SizeConfig.imageSizeMultiplier,
+                height: 205 * SizeConfig.imageSizeMultiplier,
               ),
-              flex: 3,
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: new Text('HEY, WELCOME TO',
+              padding: getInsetsOnly(top: 20),
+              child: Text('Free coding classes',
                   style: theme.textTheme.bodyText1.copyWith(
-                    fontSize: 18,
-                    letterSpacing: 2.5,
+                    color: Colors.white,
+                    fontSize: 24 * SizeConfig.textMultiplier,
                   )),
             ),
             Padding(
-              padding: const EdgeInsets.only(top: 10),
-              child: Text('CODING BLOCKS \nJUNIOR',
+              padding: getInsetsOnly(top: 10, bottom: 40),
+              child: Text(
+                  'All our courses are FREE for everyone and we\nwant all school students to benefit from it.',
                   textAlign: TextAlign.center,
                   style: new TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 31 * SizeConfig.textMultiplier)),
-            ),
-            Spacer(),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Icon(
-                  Icons.keyboard_backspace,
-                  color: Colors.black,
-                ),
-                Text('Swipe',
-                    textAlign: TextAlign.right,
-                    style: new TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.w500,
-                    )),
-              ],
+                      color: Colors.white,
+                      fontSize: 14 * SizeConfig.textMultiplier)),
             ),
           ],
         ),
