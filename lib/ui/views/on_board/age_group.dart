@@ -10,14 +10,13 @@ import 'package:flutter/rendering.dart';
 import 'package:stacked/stacked.dart';
 
 class OnboardAgeGroup extends ViewModelWidget<OnBoardViewModel> {
-
   @override
   Widget build(BuildContext context, OnBoardViewModel model) {
     final theme = Theme.of(context);
     return new Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
-        margin: getInsetsOnly(top: 60),
+        margin: getInsetsOnly(top: SizeConfig.isPortrait ? 60 : 20),
         alignment: Alignment.center,
         child: Column(
           children: [
@@ -33,7 +32,9 @@ class OnboardAgeGroup extends ViewModelWidget<OnBoardViewModel> {
               child: Text('Top mentors & pedagogy',
                   style: theme.textTheme.bodyText1.copyWith(
                     color: Colors.white,
-                    fontSize: 24 * SizeConfig.textMultiplier,
+                    fontSize: SizeConfig.isPortrait
+                        ? 24 * SizeConfig.textMultiplier
+                        : 20 * SizeConfig.textMultiplier,
                   )),
             ),
             Padding(
@@ -51,4 +52,3 @@ class OnboardAgeGroup extends ViewModelWidget<OnBoardViewModel> {
     );
   }
 }
-

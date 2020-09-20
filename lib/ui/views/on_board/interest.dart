@@ -13,7 +13,7 @@ class OnboardInterests extends StatelessWidget {
     return new Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
-        margin: getInsetsOnly(top: 60),
+        margin: getInsetsOnly(top: SizeConfig.isPortrait ? 60 : 20),
         alignment: Alignment.center,
         child: Column(
           children: [
@@ -29,8 +29,9 @@ class OnboardInterests extends StatelessWidget {
               child: Text('Courses for Class II - XII',
                   style: theme.textTheme.bodyText1.copyWith(
                     color: Colors.white,
-                    fontSize: 24 * SizeConfig.textMultiplier,
-                  )),
+                    fontSize: SizeConfig.isPortrait
+                        ? 24 * SizeConfig.textMultiplier
+                        : 20 * SizeConfig.textMultiplier,                  )),
             ),
             Padding(
               padding: getInsetsOnly(top: 10, bottom: 40),
