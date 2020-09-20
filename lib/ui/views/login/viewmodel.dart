@@ -150,6 +150,6 @@ class LoginViewModel extends BaseViewModel {
 
   void close() {
     this.onClose(); // notify parent of close; to update ui with populated user
-    Navigator.pop(context);
+    Navigator.of(context).maybePop();
   }
 }

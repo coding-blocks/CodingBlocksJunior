@@ -79,7 +79,7 @@ class PlayerView extends StatelessWidget {
                             child: InkWell(
                               onTap: () {
                                 Share.share(
-                                    'check out my website https://example.com');
+                                    'Free Coding classes for School students, check us on https://jr.codingblocks.com');
                               },
                               child: Icon(
                                 Icons.share,
