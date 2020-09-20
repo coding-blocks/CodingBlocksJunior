@@ -132,7 +132,5 @@ class LoginViewModel extends BaseViewModel {
 
   void close() {
     this.onClose(); // notify parent of close; to update ui with populated user
-//    notifyListeners();
-    Navigator.pop(context); // close the bottom sheet modal
   }
 }

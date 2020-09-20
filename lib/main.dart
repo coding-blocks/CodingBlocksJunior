@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String view;
-    if(true){
+    if(firsRun){
       view = Routes.onBoardView;
     }else{
       view = Routes.dashboardView;

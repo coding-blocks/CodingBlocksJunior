@@ -39,27 +39,11 @@ class DashboardHomeViewModel extends StreamViewModel<QuerySnapshot> {
   }
 
   List<Course> getRecommendedCourses() {
-    return _courses
-        .where((course) =>
-            course.minClass >=
-                int.parse(localStorageService.preferences
-                    .getStringList("classGroup")[0]?? "1") &&
-            course.maxClass <=
-                int.parse(localStorageService.preferences
-                    .getStringList("classGroup")[1])?? "4")
-        .toList();
+    return [_courses[0]];
   }
 
   List<Course> getOtherCourses() {
-    return _courses
-        .where((course) =>
-            course.minClass <
-                int.parse(localStorageService.preferences
-                    .getStringList("classGroup")[0]?? "1") ||
-            course.maxClass >
-                int.parse(localStorageService.preferences
-                    .getStringList("classGroup")[1]?? "4"))
-        .toList();
+    return _courses.sublist(1);
   }
 
   void goToCourse(Course course) {

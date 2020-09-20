@@ -8,7 +8,7 @@ import 'package:coding_blocks_junior/ui/views/player/view.dart';
   routes: <AutoRoute>[
     AdaptiveRoute (page: OnBoardView),
     AdaptiveRoute (page: CourseView, path: '/courses/:slug', maintainState: true),
-    AdaptiveRoute (page: DashboardView, initial: true),
+    AdaptiveRoute (page: DashboardView),
     AdaptiveRoute(page: PlayerView, path: '/courses/:courseId/contents/:contentId'),
   ]
 )

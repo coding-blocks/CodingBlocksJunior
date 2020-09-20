@@ -18,7 +18,7 @@ class Routes {
   static const String onBoardView = '/on-board-view';
   static const String _courseView = '/courses/:slug';
   static String courseView({@required dynamic slug}) => '/courses/$slug';
-  static const String dashboardView = '/';
+  static const String dashboardView = '/dashboard-view';
   static const String _playerView = '/courses/:courseId/contents/:contentId';
   static String playerView(
           {@required dynamic courseId, @required dynamic contentId}) =>
