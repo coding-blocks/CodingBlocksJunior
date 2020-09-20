@@ -125,24 +125,22 @@ class OtpInputView extends ViewModelWidget<LoginViewModel> {
                 ? getInsetsLTRB(10, 0, 10, 0)
                 : getInsetsLTRB(100, 0, 100, 0),
             child: PinCodeTextField(
+              keyboardType: TextInputType.number,
               appContext: context,
-              controller: model.otpInputController,
               onCompleted: model.verifyOtp,
-              errorAnimationController: model.otpErrorController,
               enabled: !model.isVerifying,
               length: 6,
-              obsecureText: false,
               animationType: AnimationType.fade,
               textStyle: theme.textTheme.subtitle1,
               animationDuration: Duration(milliseconds: 300),
+              autoFocus: true,
               pinTheme: PinTheme(
                 inactiveColor: Colors.blue,
                 shape: PinCodeFieldShape.underline,
                 fieldHeight: 50,
                 fieldWidth: 40,
-
-                // activeFillColor: Colors.white,
               ),
+              onChanged: (String value) {},
             ),
           )
         else

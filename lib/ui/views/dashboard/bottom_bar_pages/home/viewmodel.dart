@@ -16,7 +16,7 @@ class DashboardHomeViewModel extends StreamViewModel<QuerySnapshot> {
   LocalStorageService localStorageService = locator<LocalStorageService>();
 
   int limit = 20;
-  List<Course> _courses = [];
+  List<Course> courses = [];
   String selectedCourseId;
 
   Stream<QuerySnapshot> get stream =>
@@ -29,21 +29,21 @@ class DashboardHomeViewModel extends StreamViewModel<QuerySnapshot> {
 
   @override
   void onData(QuerySnapshot data) {
-    _courses = data.documents
+    courses = data.documents
         .map((DocumentSnapshot snapshot) => Course.fromSnapshot(snapshot))
         .toList();
 
-    _courses
+    courses
         .map((e) => e.instructorStream); // trigger a fetch; this code smells
-    selectedCourseId = _courses[0].id;
+    selectedCourseId = courses[0].id;
   }
 
   List<Course> getRecommendedCourses() {
-    return [_courses[0]];
+    return [courses[0]];
   }
 
   List<Course> getOtherCourses() {
-    return _courses.sublist(1);
+    return courses.sublist(1);
   }
 
   void goToCourse(Course course) {

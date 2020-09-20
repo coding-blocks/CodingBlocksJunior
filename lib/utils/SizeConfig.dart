@@ -13,7 +13,7 @@ class SizeConfig {
   static double widthMultiplier;
   static bool isPortrait = true;
   static bool isMobilePortrait = false;
-  static double aspectRatio = 16/9;
+  static double aspectRatio = 16 / 9;
 
   void init(BoxConstraints constraints, Orientation orientation) {
     if (orientation == Orientation.portrait) {
