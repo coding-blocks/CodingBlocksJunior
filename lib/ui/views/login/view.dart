@@ -3,6 +3,7 @@ import 'package:coding_blocks_junior/ui/widgets/Base/RaisedGradientButton.dart';
 import 'package:coding_blocks_junior/utils/HexToColor.dart';
 import 'package:coding_blocks_junior/utils/SizeConfig.dart';
 import 'package:coding_blocks_junior/utils/logic.dart';
+import 'package:coding_blocks_junior/utils/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
@@ -181,11 +182,20 @@ class SignupView extends ViewModelWidget<LoginViewModel> {
                   FormBuilderValidators.max(150),
                   FormBuilderValidators.required()
                 ]),
-            Center(
-              child: RaisedButton(
-                onPressed: model.signUp,
-                child: Text('Sign Up!'),
+            Padding(
+              padding: getInsetsOnly(top: 20),
+              child: AsyncButton(
+                  child: Text('Sign up',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 14 * SizeConfig.textMultiplier,
+                      fontWeight: FontWeight.bold),
+                ),
+                onTap: model.signUp
               ),
+            ),
+            Center(
+              child: Text(model.errorText, style: TextStyle(color: Colors.red)),
             )
           ]),
         ),

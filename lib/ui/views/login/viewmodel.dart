@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:coding_blocks_junior/app/locator.dart';
 import 'package:coding_blocks_junior/services/amoeba_api.dart';
@@ -111,19 +112,36 @@ class LoginViewModel extends BaseViewModel {
   Future signUp() async {
     final state = signupFormKey.currentState;
     if (state.saveAndValidate()) {
-      final response = await amoebaApiService.dio.post('/junior/users', data: {
-        'username': 'junior' + mobile,
-        'mobile': "+91-$mobile",
-        'firstname': state.value['firstname'],
-        'lastname': state.value['lastname'],
-        'email': state.value['email'],
-        'password': generateRandomString(16),
-        'claimId': otpClaimId,
-        'client': 'junior_app',
-        if (user.isAnonymous) "uid": user.uid
-      });
-      await sessionService.login(response.data);
-      this.close();
+      try {
+        final response = await amoebaApiService.dio.post(
+            '/junior/users', data: {
+          'username': 'junior' + mobile,
+          'mobile': "+91-$mobile",
+          'firstname': state.value['firstname'].trim(),
+          'lastname': state.value['lastname'].trim(),
+          'email': state.value['email'].trim(),
+          'password': generateRandomString(16),
+          'claimId': otpClaimId,
+          'client': 'junior_app',
+          if (user.isAnonymous) "uid": user.uid
+        });
+        await sessionService.login(response.data);
+        this.close();
+      } on DioError catch (e) {
+        if (e.response != null) {
+          final data = e.response.data['message'];
+          if (data.indexOf("EMAIL_ALREADY_EXISTS") != -1) {
+            this.errorText = 'Email Already Exists';
+          } else {
+            this.errorText = "Cannot create user.";
+          }
+        }
+        notifyListeners();
+      }
+
+    }
+    else {
+      throw Error();
     }
   }
 
@@ -132,5 +150,6 @@ class LoginViewModel extends BaseViewModel {
 
   void close() {
     this.onClose(); // notify parent of close; to update ui with populated user
+    Navigator.pop(context);
   }
 }
