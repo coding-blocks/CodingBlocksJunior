@@ -9,7 +9,7 @@ class OnboardIntro extends StatelessWidget {
     return new Scaffold(
       backgroundColor: Colors.transparent,
       body: Container(
-        margin: getInsetsOnly(top: 60),
+        margin: getInsetsOnly(top: 20),
         alignment: Alignment.center,
         child: Column(
           children: [
@@ -25,11 +25,11 @@ class OnboardIntro extends StatelessWidget {
               child: Text('Free coding classes',
                   style: theme.textTheme.bodyText1.copyWith(
                     color: Colors.white,
-                    fontSize: 24 * SizeConfig.textMultiplier,
+                    fontSize: 20 * SizeConfig.textMultiplier,
                   )),
             ),
             Padding(
-              padding: getInsetsOnly(top: 10, bottom: 40),
+              padding: getInsetsOnly(top: 10, bottom: 20),
               child: Text(
                   'All our courses are FREE for everyone and we\nwant all school students to benefit from it.',
                   textAlign: TextAlign.center,

@@ -22,7 +22,9 @@ class OnBoardView extends StatelessWidget {
       builder: (context, model, child) => Container(
         decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("assets/onboard_background.webp"),
+                image: SizeConfig.isPortrait
+                    ? AssetImage("assets/onboard_background.webp")
+                    : AssetImage("assets/onboard_background_land.webp"),
                 fit: BoxFit.cover)),
         child: Scaffold(
           backgroundColor: Colors.transparent,
@@ -59,7 +61,7 @@ class OnBoardView extends StatelessWidget {
                           topRight: const Radius.circular(12.0),
                         )),
                     child: Padding(
-                      padding: getInsetsAll(40),
+                      padding: getInsetsAll(SizeConfig.isPortrait ? 40 : 20),
                       child: Column(
                         children: [
                           Text('Let’s get you onboard  🙌',
@@ -68,7 +70,7 @@ class OnBoardView extends StatelessWidget {
                             padding: getInsetsOnly(top: 16),
                             child: RaisedGradientButton(
                               cornerRadius: 5,
-                              height: 50 * SizeConfig.heightMultiplier,
+                              height: 30 * SizeConfig.heightMultiplier,
                               child: Text('Continue with phone number',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w700,

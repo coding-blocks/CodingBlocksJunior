@@ -77,8 +77,9 @@ class ContentListItemView extends StatelessWidget {
                     Align(
                       alignment: Alignment.topRight,
                       child: Text(
-                        DateFormat.yMMMMd('en_US').format(content.publishedAt.toDate()),
-                        style: TextStyle(fontSize: 11, color: Colors.black87),
+                        DateFormat.yMMMMd('en_US')
+                            .format(content.publishedAt.toDate()),
+                        style: TextStyle(fontSize: 11 * SizeConfig.textMultiplier, color: Colors.black87),
                       ),
                     )
                   ],
