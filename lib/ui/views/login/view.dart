@@ -159,7 +159,7 @@ class SignupView extends ViewModelWidget<LoginViewModel> {
         key: model.signupFormKey,
         child: SingleChildScrollView(
           child: Column(children: [
-            Text('Singup'),
+            Text('Sign-Up'),
             FormBuilderTextField(
                 attribute: "email",
                 decoration: InputDecoration(labelText: "Email Address"),

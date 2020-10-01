@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:coding_blocks_junior/ui/widgets/Courses/CourseCard/CourseCardExpandedView.dart';
 import 'package:stacked/stacked.dart';
 
-class CourseCard extends StatefulWidget{
+class CourseCard extends StatefulWidget {
   final Course course;
   final Function onPress;
   final bool isExpanded;
@@ -19,13 +19,15 @@ class CourseCard extends StatefulWidget{
   _CourseCardState createState() => _CourseCardState();
 }
 
-class _CourseCardState extends State<CourseCard> with SingleTickerProviderStateMixin {
+class _CourseCardState extends State<CourseCard>
+    with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<CourseCardViewModel>.nonReactive(
-        builder: (BuildContext context, CourseCardViewModel model, w) => Container(
-          padding: getInsetsOnly(left: 28, right: 28, bottom: 15),
-          child: Card(
+        builder: (BuildContext context, CourseCardViewModel model, w) =>
+            Container(
+              padding: getInsetsOnly(left: 28, right: 28, bottom: 15),
+              child: Card(
                 // elevation: 3,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8)),
@@ -34,12 +36,14 @@ class _CourseCardState extends State<CourseCard> with SingleTickerProviderStateM
                   child: Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8),
-                        boxShadow: [BoxShadow(
-                            color: getColorFromHex(model.course.themeColor).withAlpha(100),
-                            blurRadius: 5,
-                            spreadRadius: 1,
-                          offset: Offset(0,5)
-                        )],
+                        boxShadow: [
+                          BoxShadow(
+                              color: getColorFromHex(model.course.themeColor)
+                                  .withAlpha(100),
+                              blurRadius: 5,
+                              spreadRadius: 1,
+                              offset: Offset(0, 5))
+                        ],
                         image: DecorationImage(
                             image: NetworkImage(model.course.background),
                             fit: BoxFit.cover)),
@@ -47,12 +51,12 @@ class _CourseCardState extends State<CourseCard> with SingleTickerProviderStateM
                       margin: SizeConfig.isPortrait
                           ? getInsetsAll(22)
                           : getInsetsAll(14),
-                      child: Column(
-                        children: <Widget>[
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Row(
+                      child: Column(children: <Widget>[
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Flexible(
+                              child: Row(
                                 children: <Widget>[
                                   Container(
                                     height: 30 * SizeConfig.imageSizeMultiplier,
@@ -60,35 +64,41 @@ class _CourseCardState extends State<CourseCard> with SingleTickerProviderStateM
                                     margin: getInsetsOnly(right: 10),
                                     child: Image.network(model.course.logo),
                                   ),
-                                  Text(
-                                    model.course.title,
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16 * SizeConfig.textMultiplier),
+                                  Expanded(
+                                    child: Text(
+                                      model.course.title,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      softWrap: false,
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 16 * SizeConfig.textMultiplier),
+                                    ),
                                   ),
                                 ],
                               ),
-                              Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  Text(
-                                    'For Classes',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 10 * SizeConfig.textMultiplier),
-                                  ),
-                                  Text(
-                                    "${model.course.minClass} - ${model.course.maxClass}",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 10 * SizeConfig.textMultiplier),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: <Widget>[
+                                Text(
+                                  'For Classes',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 10 * SizeConfig.textMultiplier),
+                                ),
+                                Text(
+                                  "${model.course.minClass} - ${model.course.maxClass}",
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 10 * SizeConfig.textMultiplier),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                         AnimatedSize(
                           vsync: this,
                           curve: Curves.ease,
@@ -108,7 +118,7 @@ class _CourseCardState extends State<CourseCard> with SingleTickerProviderStateM
                   ),
                 ),
               ),
-        ),
+            ),
         viewModelBuilder: () => CourseCardViewModel(
             course: widget.course, onPress: widget.onPress));
   }
